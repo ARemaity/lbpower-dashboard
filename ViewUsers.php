@@ -25,11 +25,11 @@ include("DBConnect.php");
 		echo "<td width='100'>".$row['phone']."</td>";
 	    echo "<td width='100'>".$row['phone']."</td>";
 		if($_SESSION['isAdmin']==1){
-		$query="removeBook.php?bookId=".$row['bid'];
-			echo "<td width='100'><a href=".$query.">Remove</a></td>";
-			
-			$query="editClient.php?=".$row['bid'];
-			echo "<td width='100'><a href=".$query.">Edit this book</a></td>";
+	//	$query="removeBook.php?bookId=".$row['bid'];
+		//	echo "<td width='100'><a href=".$query.">Remove</a></td>";
+	//		
+	//	//	$query="editClient.php?=".$row['bid'];
+			//echo "<td width='100'><a href=".$query.">Edit this book</a></td>";
 		}
 		echo "</tr>";
 	}
