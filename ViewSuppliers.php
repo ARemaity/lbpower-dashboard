@@ -1,11 +1,9 @@
-  <html>
+ <html>
  <body>
- 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
- 
- <?php
+<?php
 include("DBConnect.php");
 ?>
 
@@ -13,15 +11,15 @@ include("DBConnect.php");
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="navbar">
   <a href="#"><i class="fa fa-dashboard"></i> DashBoard</a>
-  <a href="ViewSuppliers.php"><i class="fa fa-bolt"></i> View Suppliers</a> 
-  <a class="active" href="ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
+  <a class="active" href="ViewSuppliers.php"><i class="fa fa-bolt"></i> View Suppliers</a> 
+  <a href="ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
   <a style=float:right href="#"><i class="fa fa-sign-out"></i> Sign Out</a>
   <a style=float:right href="#"><i class="fa fa-address-card-o"></i> View Profile</a>
 </div>
 
 <link rel="stylesheet" type="text/css" href="css/Style.css">
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for user..">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for supplier..">
 
 <table id='users'>
     <thead>
@@ -33,16 +31,18 @@ include("DBConnect.php");
 		    <th>Street</th>
 		    <th>Phone</th>
 		    <th>Email</th>
-		    <th>Amper Capacity</th>
+		    <th>Company Name</th>
+		    <th>Cost Per KW</th>
+		    <th>User Capacity</th>
         </tr>
     </thead>
     <tbody>
 	
     <?php
 	//	Write and execute an SQL query
-	$sql = "SELECT * 
-	        FROM person, client 
-	        WHERE person.PID=client.PID and role=00";
+	$sql = "SELECT *
+	        FROM person, supplier
+			where person.PID=supplier.PID and role=01";
 	$result = mysqli_query($connect,$sql);
 	?>
 	
@@ -59,7 +59,9 @@ include("DBConnect.php");
 			<td><?php echo $row['street']; ?></td>
 			<td><?php echo $row['phone']; ?></td>
 			<td><?php echo $row['email']; ?></td>
-			<td><?php echo $row['amper_capacity']; ?></td>
+			<td><?php echo $row['comapany_name']; ?></td>
+			<td><?php echo $row['cost_1kw']; ?></td>
+			<td><?php echo $row['user_capacity']; ?></td>
         </tr>
 		<?php } ?>
     </tbody>
