@@ -1,5 +1,5 @@
 var config = {
-    apiKey: "AIzaSyDlGs_wsl8JiMzUlpLBkiz1SUiWhxuAddM",
+   
     authDomain: "electrofe-7d33b.firebaseapp.com",
     databaseURL: "https://electrofe-7d33b.firebaseio.com",
     projectId: "electrofe-7d33b",
