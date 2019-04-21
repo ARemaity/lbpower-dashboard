@@ -1,3 +1,4 @@
+<?php session_start(); ?>
  <html>
  <body>
 <head>
@@ -13,7 +14,7 @@ include("DBConnect.php");
   <a href="#"><i class="fa fa-dashboard"></i> DashBoard</a>
   <a class="active" href="ViewSuppliers.php"><i class="fa fa-bolt"></i> View Suppliers</a> 
   <a href="ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
-  <a style=float:right href="#"><i class="fa fa-sign-out"></i> Sign Out</a>
+  <a style=float:right href="logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
   <a style=float:right href="#"><i class="fa fa-address-card-o"></i> View Profile</a>
 </div>
 

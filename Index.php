@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <html>
  <body>
  
@@ -15,40 +16,12 @@ include("DBConnect.php");
 <div class="navbar">
   <a class="active" href="index.php"><i class="fa fa-home"></i> Home Page</a>
   <a onclick="document.getElementById('id02').style.display='block'" style=float:right href="#"><i class="fa fa-id-card-o"></i> Register</a>
-  <a onclick="document.getElementById('id01').style.display='block'" style=float:right href="#"><i class="fa fa-sign-in"></i> Sign In</a>
-  <a style=float:right href="#"><i class="fa fa-envelope"></i> Contact Us</a>
+  <a style=float:right href="login.php"><i class="fa fa-sign-in"></i> Sign In</a>
+  <a style=float:right href="ContactUs.php"><i class="fa fa-envelope"></i> Contact Us</a>
   <a style=float:right href="#"><i class="fa fa-info"></i> About Us</a>
 </div>
 
 <link rel="stylesheet" type="text/css" href="css/Style.css">
-
-<div id="id01" class="modal">
-  
-  <form class="modal-content animate" action="/action_page.php">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="css/img_avatar2.png" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
-</div>
 
 <script>
 // Get the modal
@@ -61,6 +34,9 @@ window.onclick = function(event) {
     }
 }
 </script>
+
+
+
 
 
 <div id="id02" class="modal">
@@ -104,6 +80,6 @@ window.onclick = function(event) {
   }
 }
 </script>
-
+<h1>Welcome to LBPower HomePage</h1>
  </body>
 </html>
