@@ -18,7 +18,7 @@ if ( isset($_GET['fk_client'])&&isset($_GET['id'])) {
     $fk_client=$_GET['fk_client'];
    $id=$_GET['id'];
 
-$query = "SELECT  `balance`, `payment_st`, `issued_date`, `payment_date` FROM `payment` WHERE  fk_client=". $fk_client." AND  id=".$id;
+$query = "SELECT  `consumption` ,`costof1`,`Total`,`payment_st`, `issued_date`, `payment_date` FROM `payment` WHERE  fk_client=". $fk_client." AND  id=".$id;
 
 $result= mysqli_query($conn,$query);
 $dbdata = array();
@@ -26,7 +26,9 @@ $dbdata["data"]=array();
 
 while ($row= mysqli_fetch_assoc($result))  {
     $data = array();
-    $data["balance"] = $row["balance"];
+    $data["consumption"] = $row["consumption"];
+    $data["costof1"] = $row["costof1"];
+    $data["Total"] = $row["Total"];
     $data["payment_st"] = $row["payment_st"];
     $data["issued_date"] = $row["issued_date"];
     if($row["payment_st"]=="0"){
