@@ -13,11 +13,12 @@ if ($conn->connect_error) {
 mysqli_set_charset($conn,"utf8");
 
 
-if ( isset($_GET['fk_client'])) {
+if ( isset($_GET['fk_client'])&&isset($_GET['id'])) {
  
     $fk_client=$_GET['fk_client'];
-   
-$query = "SELECT `id`, `payment_st`, `issued_date`, `payment_date` FROM `payment` WHERE  fk_client=". $fk_client;
+   $id=$_GET['id'];
+
+$query = "SELECT  `balance`, `payment_st`, `issued_date`, `payment_date` FROM `payment` WHERE  fk_client=". $fk_client." AND  id=".$id;
 
 $result= mysqli_query($conn,$query);
 $dbdata = array();
@@ -25,7 +26,7 @@ $dbdata["data"]=array();
 
 while ($row= mysqli_fetch_assoc($result))  {
     $data = array();
-    $data["id"] = $row["id"];
+    $data["balance"] = $row["balance"];
     $data["payment_st"] = $row["payment_st"];
     $data["issued_date"] = $row["issued_date"];
     if($row["payment_st"]=="0"){
