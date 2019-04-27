@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 20, 2019 at 10:28 PM
+-- Generation Time: Apr 27, 2019 at 05:28 AM
 -- Server version: 10.3.14-MariaDB
 -- PHP Version: 7.3.2
 
@@ -41,17 +41,18 @@ CREATE TABLE `admin` (
 --
 
 CREATE TABLE `client` (
-  `id` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `PID` int(11) NOT NULL,
-  `fk_supplier` int(11) DEFAULT NULL
+  `id` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `PID` int(20) NOT NULL,
+  `fkSupplier` int(11) DEFAULT NULL,
+  `Supplier_Company` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`id`, `PID`, `fk_supplier`) VALUES
-('1', 1, 1);
+INSERT INTO `client` (`id`, `PID`, `fkSupplier`, `Supplier_Company`) VALUES
+('1', 3, 2, 'LBpower');
 
 -- --------------------------------------------------------
 
@@ -64,8 +65,15 @@ CREATE TABLE `complaint` (
   `complaint_type` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `detials` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sender_type` int(11) DEFAULT NULL,
-  `fk_sender` int(11) DEFAULT NULL
+  `fk_sender` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `complaint`
+--
+
+INSERT INTO `complaint` (`id`, `complaint_type`, `detials`, `sender_type`, `fk_sender`) VALUES
+(0, 'Software', 'my login isnt working', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -75,7 +83,7 @@ CREATE TABLE `complaint` (
 
 CREATE TABLE `credit_card` (
   `id_cc` int(11) NOT NULL,
-  `fk_user` int(11) DEFAULT NULL,
+  `fk_user` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name_holder` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cc_number` int(11) DEFAULT NULL,
   `cvc` int(11) DEFAULT NULL,
@@ -88,24 +96,24 @@ CREATE TABLE `credit_card` (
 --
 
 INSERT INTO `credit_card` (`id_cc`, `fk_user`, `name_holder`, `cc_number`, `cvc`, `expire_date`, `balance`) VALUES
-(1, 1, 'ALI', 2123242413, 212, '2019-04-17', '100.0000');
+(1, '1', 'ALI', 2123242413, 212, '2019-04-17', '100.0000');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Cumulative`
+-- Table structure for table `cumulative`
 --
 
-CREATE TABLE `Cumulative` (
-  `fk_id` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE `cumulative` (
+  `fk_id` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `value` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `Cumulative`
+-- Dumping data for table `cumulative`
 --
 
-INSERT INTO `Cumulative` (`fk_id`, `value`) VALUES
+INSERT INTO `cumulative` (`fk_id`, `value`) VALUES
 ('1', 1600);
 
 -- --------------------------------------------------------
@@ -116,7 +124,7 @@ INSERT INTO `Cumulative` (`fk_id`, `value`) VALUES
 
 CREATE TABLE `day_value` (
   `id` int(11) NOT NULL,
-  `fk_client` int(11) DEFAULT NULL,
+  `fk_client` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `value` double DEFAULT NULL,
   `dates` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -126,10 +134,10 @@ CREATE TABLE `day_value` (
 --
 
 INSERT INTO `day_value` (`id`, `fk_client`, `value`, `dates`) VALUES
-(1, 1, 1000, '2019-04-19'),
-(2, 1, 1000, '2019-04-19'),
-(3, 1, 1000, '2019-04-19'),
-(4, 1, 1000, '2019-04-19');
+(1, '1', 1000, '2019-04-19'),
+(2, '1', 1000, '2019-04-19'),
+(3, '1', 1000, '2019-04-19'),
+(4, '1', 1000, '2019-04-19');
 
 -- --------------------------------------------------------
 
@@ -142,7 +150,8 @@ CREATE TABLE `device` (
   `device_sn` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `deive_type` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `amper_capacity` int(11) DEFAULT NULL,
-  `fk_client` int(11) NOT NULL
+  `fk_client` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `fkSupplier` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -168,7 +177,7 @@ CREATE TABLE `firebase_config` (
 
 CREATE TABLE `hour_value` (
   `id` int(11) NOT NULL,
-  `fk_client` int(11) DEFAULT NULL,
+  `fk_client` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `val` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -177,22 +186,9 @@ CREATE TABLE `hour_value` (
 --
 
 INSERT INTO `hour_value` (`id`, `fk_client`, `val`) VALUES
-(1, 1, 100),
-(2, 1, 100),
-(3, 1, 100);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `login`
---
-
-CREATE TABLE `login` (
-  `id_user` int(11) DEFAULT NULL,
-  `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `role` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+(1, '1', 100),
+(2, '1', 100),
+(3, '1', 100);
 
 -- --------------------------------------------------------
 
@@ -202,7 +198,7 @@ CREATE TABLE `login` (
 
 CREATE TABLE `month_value` (
   `id` int(11) NOT NULL,
-  `fk_client` int(11) DEFAULT NULL,
+  `fk_client` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `value` double DEFAULT NULL,
   `dates` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -212,15 +208,15 @@ CREATE TABLE `month_value` (
 --
 
 INSERT INTO `month_value` (`id`, `fk_client`, `value`, `dates`) VALUES
-(1, 1, 9600, '2019-04-19'),
-(2, 1, 9600, '2019-04-19'),
-(3, 1, 5400, '2019-04-19'),
-(4, 1, 4000, '2019-04-19'),
-(5, 1, 4000, '2019-04-19'),
-(6, 1, 4000, '2019-04-19'),
-(7, 1, 4000, '2019-04-19'),
-(8, 1, 4000, '2019-04-19'),
-(9, 1, 4000, '2019-04-19');
+(1, '1', 9600, '2019-04-19'),
+(2, '1', 9600, '2019-04-19'),
+(3, '1', 5400, '2019-04-19'),
+(4, '1', 4000, '2019-04-19'),
+(5, '1', 4000, '2019-04-19'),
+(6, '1', 4000, '2019-04-19'),
+(7, '1', 4000, '2019-04-19'),
+(8, '1', 4000, '2019-04-19'),
+(9, '1', 4000, '2019-04-19');
 
 -- --------------------------------------------------------
 
@@ -233,6 +229,13 @@ CREATE TABLE `pass` (
   `password` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `pass`
+--
+
+INSERT INTO `pass` (`SID`, `password`) VALUES
+(4, 'admin123');
+
 -- --------------------------------------------------------
 
 --
@@ -241,8 +244,10 @@ CREATE TABLE `pass` (
 
 CREATE TABLE `payment` (
   `id` int(11) NOT NULL,
-  `fk_client` int(11) DEFAULT NULL,
-  `balance` double DEFAULT NULL,
+  `fk_client` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `consumption` double DEFAULT NULL,
+  `costof1` float NOT NULL,
+  `Total` float NOT NULL,
   `payment_st` int(11) DEFAULT NULL,
   `issued_date` date DEFAULT NULL,
   `payment_date` date DEFAULT NULL
@@ -252,16 +257,10 @@ CREATE TABLE `payment` (
 -- Dumping data for table `payment`
 --
 
-INSERT INTO `payment` (`id`, `fk_client`, `balance`, `payment_st`, `issued_date`, `payment_date`) VALUES
-(1, 1, 231, 0, '2019-04-09', '2019-04-23'),
-(2, 2, 432, 1, '2019-04-03', '2019-04-24'),
-(5, 1, 100, 1, '2019-04-15', '2019-04-18'),
-(6, 1, 100, 0, '2019-04-02', NULL),
-(7, 1, 0, 0, '2019-04-19', NULL),
-(8, 1, 240000, 0, '2019-04-19', NULL),
-(9, 1, 240000, 0, '2019-04-19', NULL),
-(10, 1, 240000, 0, '2019-04-19', NULL),
-(11, 1, 240000, 0, '2019-04-19', NULL);
+INSERT INTO `payment` (`id`, `fk_client`, `consumption`, `costof1`, `Total`, `payment_st`, `issued_date`, `payment_date`) VALUES
+(1, '1', 231, 100, 600, 0, '2019-04-09', '2019-04-23'),
+(2, '2', 432, 0, 0, 1, '2019-04-03', '2019-04-24'),
+(5, '1', 100, 0, 0, 1, '2019-04-15', '2019-04-18');
 
 -- --------------------------------------------------------
 
@@ -270,8 +269,8 @@ INSERT INTO `payment` (`id`, `fk_client`, `balance`, `payment_st`, `issued_date`
 --
 
 CREATE TABLE `person` (
-  `PID` int(11) NOT NULL,
-  `role` bit(2) NOT NULL,
+  `PID` int(20) NOT NULL,
+  `role` int(1) NOT NULL,
   `fname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `lname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `city` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
@@ -285,7 +284,8 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`PID`, `role`, `fname`, `lname`, `city`, `street`, `phone`, `email`) VALUES
-(1, b'00', 'ali', 'rmayt', 'dd', 'ss', 11111, 'aalala@fwfw.com');
+(2, 1, 'ali', 'ibrahim', 'adad', 'dadad', 23123131, 'asdasd@gmail.com'),
+(3, 0, 'hassan', 'aknan', 'biruet', 'fourth street', 30423424, 'asd@gmail.om');
 
 -- --------------------------------------------------------
 
@@ -307,7 +307,7 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`id`, `PID`, `SID`, `comapany_name`, `cost_1kw`, `user_capacity`) VALUES
-(1, 2, 0, 'mass gp', 60, 100);
+(2, 2, 4, 'LBPower', 100, 50);
 
 --
 -- Indexes for dumped tables
@@ -426,16 +426,10 @@ ALTER TABLE `payment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `person`
---
-ALTER TABLE `person`
-  MODIFY `PID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
