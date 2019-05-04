@@ -17,7 +17,7 @@ if ( isset($_GET['fk_client'])) {
  
     $fk_client=$_GET['fk_client'];
    
-$query = "SELECT `id`, `payment_st`, `issued_date`, `payment_date` FROM `payment` WHERE  fk_client=". $fk_client;
+$query = "SELECT `id`, `payment_st`, `issued_date`, `payment_date` FROM `payment` WHERE  fk_client='". $fk_client."'";
 
 $result= mysqli_query($conn,$query);
 $dbdata = array();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 27, 2019 at 05:28 AM
+-- Generation Time: May 02, 2019 at 08:45 PM
 -- Server version: 10.3.14-MariaDB
 -- PHP Version: 7.3.2
 
@@ -52,7 +52,7 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`id`, `PID`, `fkSupplier`, `Supplier_Company`) VALUES
-('1', 3, 2, 'LBpower');
+('tFjtHhMX5HOfthWG9yko0ePqqm62', 3, 2, 'LBpower');
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ CREATE TABLE `credit_card` (
 --
 
 INSERT INTO `credit_card` (`id_cc`, `fk_user`, `name_holder`, `cc_number`, `cvc`, `expire_date`, `balance`) VALUES
-(1, '1', 'ALI', 2123242413, 212, '2019-04-17', '100.0000');
+(1, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 'ALI', 2123242413, 212, '2019-04-17', '100.0000');
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,8 @@ CREATE TABLE `cumulative` (
 --
 
 INSERT INTO `cumulative` (`fk_id`, `value`) VALUES
-('1', 1600);
+('1', 2300),
+('tFjtHhMX5HOfthWG9yko0ePqqm62', 504);
 
 -- --------------------------------------------------------
 
@@ -134,10 +135,8 @@ CREATE TABLE `day_value` (
 --
 
 INSERT INTO `day_value` (`id`, `fk_client`, `value`, `dates`) VALUES
-(1, '1', 1000, '2019-04-19'),
-(2, '1', 1000, '2019-04-19'),
-(3, '1', 1000, '2019-04-19'),
-(4, '1', 1000, '2019-04-19');
+(1, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 280, '2019-05-01'),
+(2, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 280, '2019-05-01');
 
 -- --------------------------------------------------------
 
@@ -186,9 +185,12 @@ CREATE TABLE `hour_value` (
 --
 
 INSERT INTO `hour_value` (`id`, `fk_client`, `val`) VALUES
-(1, '1', 100),
-(2, '1', 100),
-(3, '1', 100);
+(1, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 28),
+(2, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 28),
+(3, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 28),
+(4, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 28),
+(5, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 28),
+(6, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 28);
 
 -- --------------------------------------------------------
 
@@ -208,15 +210,10 @@ CREATE TABLE `month_value` (
 --
 
 INSERT INTO `month_value` (`id`, `fk_client`, `value`, `dates`) VALUES
-(1, '1', 9600, '2019-04-19'),
-(2, '1', 9600, '2019-04-19'),
-(3, '1', 5400, '2019-04-19'),
-(4, '1', 4000, '2019-04-19'),
-(5, '1', 4000, '2019-04-19'),
-(6, '1', 4000, '2019-04-19'),
-(7, '1', 4000, '2019-04-19'),
-(8, '1', 4000, '2019-04-19'),
-(9, '1', 4000, '2019-04-19');
+(1, '1', 4000, '2019-05-01'),
+(2, '1', 4000, '2019-05-01'),
+(3, '1', 4000, '2019-05-01'),
+(4, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 3280, '2019-05-01');
 
 -- --------------------------------------------------------
 
@@ -258,9 +255,10 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id`, `fk_client`, `consumption`, `costof1`, `Total`, `payment_st`, `issued_date`, `payment_date`) VALUES
-(1, '1', 231, 100, 600, 0, '2019-04-09', '2019-04-23'),
-(2, '2', 432, 0, 0, 1, '2019-04-03', '2019-04-24'),
-(5, '1', 100, 0, 0, 1, '2019-04-15', '2019-04-18');
+(12, '1', 4000, 0, 0, 0, '2019-05-01', NULL),
+(13, '1', 4000, 100, 400000, 0, '2019-05-01', NULL),
+(14, '1', 4000, 100, 400000, 0, '2019-05-01', NULL),
+(15, 'tFjtHhMX5HOfthWG9yko0ePqqm62', 3280, 0, 0, 0, '2019-05-01', NULL);
 
 -- --------------------------------------------------------
 
@@ -285,7 +283,7 @@ CREATE TABLE `person` (
 
 INSERT INTO `person` (`PID`, `role`, `fname`, `lname`, `city`, `street`, `phone`, `email`) VALUES
 (2, 1, 'ali', 'ibrahim', 'adad', 'dadad', 23123131, 'asdasd@gmail.com'),
-(3, 0, 'hassan', 'aknan', 'biruet', 'fourth street', 30423424, 'asd@gmail.om');
+(3, 0, 'hassan', 'aknan', 'biruet', 'fourth street', 30423424, 'a@gmail.om');
 
 -- --------------------------------------------------------
 
@@ -399,7 +397,7 @@ ALTER TABLE `credit_card`
 -- AUTO_INCREMENT for table `day_value`
 --
 ALTER TABLE `day_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `device`
@@ -411,19 +409,25 @@ ALTER TABLE `device`
 -- AUTO_INCREMENT for table `hour_value`
 --
 ALTER TABLE `hour_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `month_value`
 --
 ALTER TABLE `month_value`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `person`
+--
+ALTER TABLE `person`
+  MODIFY `PID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `supplier`
