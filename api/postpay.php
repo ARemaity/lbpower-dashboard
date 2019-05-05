@@ -28,7 +28,7 @@
     $paymentid=$_POST['paymentid'];
 
     $total=$_POST['Total'];
-
+  }
 
 
 ?>
