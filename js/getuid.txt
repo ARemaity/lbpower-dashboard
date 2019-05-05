@@ -1,0 +1,46 @@
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
+exports.createProfile = functions.auth.user().onCreate( (UserData) => {
+
+  function getuid(){
+
+    if(UserData){
+
+
+
+ 
+const uid=UserData.uid;
+ return console.log("the uid is "+uid);
+    }else{
+return getuid();
+
+ }
+
+  }
+
+  
+ //c}); onst uid = context.uid;
+   
+  // context.auth.uid
+  // snap.uid
+  
+ });    
+
+  //function getuid(callback) {
+  //  if (typeof FB === 'undefined' || typeof twtter === 'undefined') {
+  //    setTimeout (function () {
+    //     when_external_loaded (callback);
+      //}, 100); // wait 100 ms
+    //} else { callback (); }
+  //}
+  
+
+  // const email=context.params.email;
+
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//  response.send("Hello from Firebase!");
+// //
