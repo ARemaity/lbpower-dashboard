@@ -5,7 +5,7 @@ include("../DBConnect.php");
 
 <html lang="en">
 <head>
-	<title>Edit Supplier</title>
+	<title>Add Supplier</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -35,7 +35,8 @@ include("../DBConnect.php");
   <?php
   if($_SESSION['role']==1){
   echo "<a class='active' href='../supplier/SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
-  
+  echo "<a href='../supplier/newuser.html'><i class='fa fa-user-plus'></i> Add User</a>";
+  echo "<a href='../supplier/ViewMonthlyRev.php'><i class='fa fa-area-chart'></i> Monthly Revenue</a>";
   }
   else if($_SESSION['role']==2){
   echo "<a href='../admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
@@ -46,6 +47,7 @@ include("../DBConnect.php");
   }
   ?>
   <a href="../supplier/ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
+  <a href="../SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
   <a href="../viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
   <a href="../logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
 </div>
@@ -59,130 +61,133 @@ include("../DBConnect.php");
 	
 if(isset($_GET['submit'])){	//	page submitted
 	
-	$sql = "update person set 
-	fname = '".$_GET['fname']."' , 
-	lname = '".$_GET['lname']."' ,
-	city = '".$_GET['city']."' , 
-	street = '".$_GET['street']."' , 
-	phone = '".$_GET['phone']."' , 
-	email = '".$_GET['email']."' 
-	where PID = ".$_GET['PID'];
-	
-	$sql2= "update supplier set
-	comapany_name = '".$_GET['cname']."' ,
-	cost_1kw = '".$_GET['kw']."' ,
-	user_capacity = '".$_GET['ucap']."'
-	where PID = ".$_GET['PID'];
-	
+	if($_GET['password'] == $_GET['passwordr']){
+	$sql3 = "INSERT INTO pass(SID, password)
+			 VALUES('".$_GET["SID"]."', '".$_GET["password"]."')";
+	$result = mysqli_query($connect,$sql3);
+			 
+	$sql="INSERT INTO person(PID, role, fname, lname, city, street, phone, email)
+		   VALUES(default, 1, '".$_GET["fname"]."', '".$_GET["lname"]."', '".$_GET["city"]."', '".$_GET["street"]."', '".$_GET["phone"]."', '".$_GET["email"]."')";
 	$result = mysqli_query($connect,$sql);
+	
+	$checkLastid = mysqli_query($connect, "SELECT PID FROM person ORDER BY PID DESC LIMIT 1 ");
+    $value = mysqli_fetch_object($checkLastid);
+	$last = (int)$value->PID;
+	
+	
+	$sql2 =" INSERT INTO supplier(id, PID, SID, comapany_name, cost_1kw, user_capacity)
+		    VALUES (default, '".$last."' ,'".$_GET["SID"]."' ,'".$_GET["cname"]."', '".$_GET["cpkw"]."', '".$_GET["ucap"]."') ";
 	$result2 = mysqli_query($connect,$sql2);
-
-	//	If the sql returns an error
-	if(!$result || !$result2)
+	}
+	else{
+		echo '<h2 style="color:red;">Passwords Must Match</h2>';
+			  header("refresh:1;url=../web/admin/AddSupplier.php");
+	}
+		//If the sql returns an error
+	if(!$result || !$result2){
 			die("Something went wrong");
-	else
-			echo ' <h2 style="color:green;">User Updated Successfully</h2>';
+	}
+	else{
+			echo ' <h2 style="color:green;">Supplier Added Successfully</h2>';
 			header("refresh:1;url=../admin/ViewSuppliers.php");
+	}
 }
-else{
-	$id = $_GET['PID'];
 
-	//	Write and execute an SQL query
-	$sql = "select * from person where PID=".$id;
-	$sql2= "select * from supplier where PID=".$id;
-	$result = mysqli_query($connect,$sql);
-	$result2 = mysqli_query($connect,$sql2);
 
-	//	If the sql returns an error
-	if(!$result || !$result2)
-			die("something went wrong");
-
-	
-	$row = mysqli_fetch_assoc($result);
-	$row2 = mysqli_fetch_assoc($result2);
 ?>
 <div class="limiter">
-	<div class="container-login100" style="background-image: url('../images/bg-01.jpg');">
+	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="GET">
 					
 					
 					<span class="login100-form-title p-b-34 p-t-27">
-						Edit User
+						Add Supplier
 					</span>
-				
-					<div class="wrap-input100 validate-input" data-validate = "PID">
-						<input class="input100" type="Hidden" name="PID" value = <?php echo $row['PID']; ?> >
-					</div>
-				
+					
 					<div class="wrap-input100 validate-input" data-validate = "First Name">
-						<label> First Name</label>
-						<input class="input100" type="text" name="fname" value = <?php echo $row['fname']; ?> >
+						<label>First Name</label>
+						<input class="input100" type="text" name="fname" >
 						<span data-placeholder="First Name"></span>
 					</div>
-
+					
 					<div class="wrap-input100 validate-input" data-validate = "Last Name">
-					<label> Last Name</label>
-						<input class="input100" type="text" name="lname" value = <?php echo $row['lname']; ?> >
+						<label>Last Name</label>
+						<input class="input100" type="text" name="lname" >
 						<span data-placeholder="Last Name"></span>
 					</div>
-
+					
 					<div class="wrap-input100 validate-input" data-validate = "City">
-					<label> City</label>
-						<input class="input100" type="text" name="city" value = <?php echo $row['city']; ?> >
+						<label>City</label>
+						<input class="input100" type="text" name="city" >
 						<span data-placeholder="City"></span>
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Street">
-					<label> Street</label>
-						<input class="input100" type="text" name="street" value = <?php echo $row['street']; ?> >
+						<label>Street</label>
+						<input class="input100" type="text" name="street" >
 						<span data-placeholder="Street"></span>
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Phone">
-					<label> Phone Number</label>
-						<input class="input100" type="text" name="phone" value = <?php echo $row['phone']; ?> >
-						
+						<label>Phone</label>
+						<input class="input100" type="text" name="phone" >
+						<span data-placeholder="Phone"></span>
 					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Email">
-					<label> Email Address</label>
-						<input class="input100" type="text" name="email" value = <?php echo $row['email']; ?> >
+						<label>Email</label>
+						<input class="input100" type="text" name="email" >
 						<span data-placeholder="Email"></span>
 					</div>
 					
+					<div class="wrap-input100 validate-input" data-validate = "SID">
+						<label>SID</label>
+						<input class="input100" type="text" name="SID" >
+						<span data-placeholder="SID"></span>
+					</div>
+				
 					<div class="wrap-input100 validate-input" data-validate = "Company Name">
-					<label> Company Name</label>
-						<input class="input100" type="text" name="cname" value = <?php echo $row2['comapany_name']; ?> >
-						<span data-placeholder="Email"></span>
+						<label>Company Name</label>
+						<input class="input100" type="text" name="cname" >
+						<span data-placeholder="Company Name"></span>
 					</div>
-					
-					<div class="wrap-input100 validate-input" data-validate = "costperkw">
+
+					<div class="wrap-input100 validate-input" data-validate = "Cost Per KW">
 					<label> Cost Per KW</label>
-						<input class="input100" type="text" name="kw" value = <?php echo $row2['cost_1kw']; ?> >
-						<span data-placeholder="Email"></span>
+						<input class="input100" type="number" name="cpkw" >
+						<span data-placeholder="Cost Per KW"></span>
 					</div>
-					
+
 					<div class="wrap-input100 validate-input" data-validate = "User Capacity">
 					<label> User Capacity</label>
-						<input class="input100" type="text" name="ucap" value = <?php echo $row2['user_capacity']; ?> >
-						<span data-placeholder="Email"></span>
+						<input class="input100" type="number" name="ucap" >
+						<span data-placeholder="User Capacity"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "Password">
+					<label> Password</label>
+						<input class="input100" type="password" name="password" >
+						<span data-placeholder="Password"></span>
+					</div>
+					
+					<div class="wrap-input100 validate-input" data-validate = "Password">
+					<label>Repeat Password</label>
+						<input class="input100" type="password" name="passwordr" >
+						<span data-placeholder="Repeat Password"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn" name="submit">
-							Submit
+							Add
 						</button>
 						<input type="button" class="login100-form-btn" value="Cancel" onclick="window.location.href='../admin/viewsuppliers.php'" name="cancel" />
 					</div>
-					<br>
 				</form>
 			</div>
 		</div>	
 	</div>
 <?php 
-}
-//	close the connection
 	mysqli_close($connect);
 ?>
 

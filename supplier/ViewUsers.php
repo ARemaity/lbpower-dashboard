@@ -18,18 +18,21 @@ include("../DBConnect.php");
   <?php
   if($_SESSION['role']==1){
 	echo "<a href='../supplier/SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+	echo "<a href='../supplier/ViewMonthlyRev.php'><i class='fa fa-area-chart'></i> Monthly Revenue</a>";
 	echo "<a href='../supplier/newuser.html'><i class='fa fa-user-plus'></i> Add User</a>";
+	echo  '<a style=float:right href="../SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>';
+	
   }
   else if($_SESSION['role']==2){
   echo "<a href='../admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
   echo "<a href='../admin/ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
-
+  echo "<a href='../admin/AddSupplier.php'><i class='fa fa-user-plus'></i> Add Supplier</a>";
+  echo "<a href='../admin/ViewComplaints.php'><i class='fa fa-thumbs-down'></i> Complaints</a>";
   }
   ?>
   <a class="active" href="../supplier/ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
   <a style=float:right href="../logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
   <a style=float:right href="../viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
-  <a style=float:right href="../SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
 </div>
 
 <link rel="stylesheet" type="text/css" href="../css/Style.css">
