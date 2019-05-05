@@ -2,14 +2,27 @@ body {
  background-image: url("background.jpg");
 }
 
+html, body {
+  height: 100%; /*Fixes the height to 100% of the viewport*/
+}
+
+.navbar-offset {
+    top: 37px; /*Offsets the top navbar 37px from the top of the viewport*/
+}
+.container-fluid.scrollable {
+  height: 100%; /*Sets the scrollable area to 100% of the viewport*/
+  overflow: auto; /*Allows the scrollable area to have a scrollbar based on the height of its content*/
+  background: #ccc;
+}
+
 /* Style the navigation bar */
 .navbar {
-  position: fixed;
+  position: fixed-top;
   top: 0;
   width: 100%;
   background-color: #555;
   overflow: auto;
-  margin-bottom: 12px;
+  margin-bottom: 1px;
 }
 
 /* Navbar links */
@@ -114,17 +127,6 @@ button:hover {
   background-color: #f44336;
 }
 
-/* Center the image and position the close button */
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-  position: relative;
-}
-
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
 
 .container {
   padding: 16px;
