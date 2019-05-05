@@ -1,3 +1,4 @@
+<?php session_start(); ?>
  <html>
  <body>
 <head>
@@ -10,14 +11,24 @@ include("DBConnect.php");
 <!-- Load an icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="navbar">
-  <a href="#"><i class="fa fa-dashboard"></i> DashBoard</a>
-  <a class="active" href="ViewSuppliers.php"><i class="fa fa-bolt"></i> View Suppliers</a> 
+  <?php
+  if($_SESSION['role']==1){
+  echo "<a href='SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  }
+  else if($_SESSION['role']==2){
+  echo "<a href='AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a class='active' href='ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
+
+  }
+  ?>
   <a href="ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
-  <a style=float:right href="#"><i class="fa fa-sign-out"></i> Sign Out</a>
-  <a style=float:right href="#"><i class="fa fa-address-card-o"></i> View Profile</a>
+  <a style=float:right href="logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
+  <a style=float:right href="viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
+  <a style=float:right href="SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
 </div>
 
 <link rel="stylesheet" type="text/css" href="css/Style.css">
+
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for supplier..">
 
@@ -62,6 +73,8 @@ include("DBConnect.php");
 			<td><?php echo $row['comapany_name']; ?></td>
 			<td><?php echo $row['cost_1kw']; ?></td>
 			<td><?php echo $row['user_capacity']; ?></td>
+			<?php $query="EditSupplier.php?PID=".$row['PID'];
+			echo "<td width='50'> <a href=".$query.">Edit</a></td>"; ?>
         </tr>
 		<?php } ?>
     </tbody>
