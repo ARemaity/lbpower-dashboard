@@ -72,9 +72,12 @@ include("../DBConnect.php");
 	    $result = mysqli_query($connect,$sql);
 	}
 
-		for($i=0;$i<mysqli_num_rows($result);$i++){
-		$row = mysqli_fetch_assoc($result);
-		
+		//for($i=0;$i<mysqli_num_rows($result);$i++){
+		//$row = mysqli_fetch_assoc($result);
+		while($row = mysqli_fetch_assoc($result)){
+			$rows[]=$row;
+		}
+		foreach($rows as $key=>$row){
 		//Check if user does NOT have a device
 		$devicecheck=	'SELECT PID
 						 FROM client
@@ -82,8 +85,7 @@ include("../DBConnect.php");
 										  from device
 										  where fk_client='.$row['PID'].')';
 		$result2 = mysqli_query($connect,$devicecheck);
-		$row2= mysqli_fetch_assoc($result2);
-			
+		$row2= mysqli_fetch_assoc($result2);	
 		?>
 		
         <tr>
@@ -99,16 +101,15 @@ include("../DBConnect.php");
 				$query="../supplier/editUser.php?PID=".$row['PID'];
 				echo "<td width='100'> <a href=".$query.">Edit User</a></td>";
 				if($row['PID']=$row2['PID']){
-					$query2="AddDevice.php?PID=".$row2['PID'];
+					$query2="AddDevice.php?".$key['PID'];
+					$_SESSION['key']=$key['PID'];
 					echo "<td width='100'> <a href=".$query2.">Add Device</a></td>";
 				}
 				else
-					echo '<td>Exists</td>';
-				
+					echo '<td>Exists</td>';				
 			?>
-			
         </tr>
-		<?php }?>
+		<?php } //}?>
     </tbody>
 </table>
 

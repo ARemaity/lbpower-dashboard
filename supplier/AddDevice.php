@@ -54,8 +54,8 @@ include("../DBConnect.php");
  
  
 <?php
-$cPID=$_GET['PID'];
-echo $cPID;
+$key=$_SESSION['key'];
+echo $key;
 if(isset($_GET['submit'])){	//	page submitted
 	
 	$sql =" INSERT INTO device(id_device, device_sn, deive_type, amper_capacity, fk_client)
