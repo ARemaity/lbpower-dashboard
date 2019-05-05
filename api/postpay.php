@@ -12,8 +12,11 @@
     die("Connection failed: " . $conn->connect_error);
   }
   mysqli_set_charset($conn, "utf8");
-  
-     $expire_date=$_POST['expire_date'];//TODO:<<<CHECK IF EXPIRE DATE outdated inside android activity >></CHECK>
+  if(isset($_POST['uid'])){
+    $uid = $_POST['uid'];
+    $number = $_POST['number'];
+   $expire_date=$_POST['expire_date'];
+//TODO:<<<CHECK IF EXPIRE DATE outdated inside android activity >></CHECK>
 
     $balance=$_POST['balance'];
     

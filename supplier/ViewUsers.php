@@ -103,6 +103,7 @@ include("../DBConnect.php");
 				if($row['PID']=$row2['PID']){
 					$query2="AddDevice.php?ID=".$id=$rows[$key]['PID'];
 					//$_SESSION['cPID']=$rows[$key]['PID'];
+					//TODO: comment here for better undertstanding
 					$_SESSION['ID']=$id;
 					echo "<td width='100'> <a href=".$query2.">Add Device</a></td>";
 				}
