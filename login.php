@@ -74,7 +74,7 @@ if(isset($_POST['submit'])){
 				$_SESSION['email'] = $row['email'];
 				$_SESSION['PID'] = $row['PID'];
 				$_SESSION['cname']=$row['comapany_name'];
-				header("refresh:1;url=SupplierDash.php");
+				header("refresh:1;url=../web/supplier/SupplierDash.php");
 				}
 				
 			else if($row['role']==2){
@@ -90,7 +90,7 @@ if(isset($_POST['submit'])){
 				$_SESSION['Name'] = $row['fname'];
 				$_SESSION['email'] = $row['email'];
 				$_SESSION['PID'] = $row['PID'];
-				header("refresh:1;url=AdminDash.php");
+				header("refresh:1;url=../web/admin/AdminDash.php");
 				}
 			}
 		 

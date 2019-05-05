@@ -24,18 +24,18 @@ include("DBConnect.php");
 <div class="navbar">
   <?php
   if($_SESSION['role']==1){
-  echo "<a href='SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a href='../web/supplier/SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
   }
   else if($_SESSION['role']==2){
-  echo "<a href='AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
-  echo "<a href='ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
+  echo "<a href='../web/admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a href='../web/admin/ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
 
   }
   ?>
-  <a href="ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
-  <a style=float:right href="logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
-  <a class="active" style=float:right href="viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
-  <a style=float:right href="SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
+  <a href="../web/supplier/ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
+  <a style=float:right href="../web/logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
+  <a class="active" style=float:right href="../web/viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
+  <a style=float:right href="../web/SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
 </div>
 
 <link rel="stylesheet" type="text/css" href="css/Style.css">

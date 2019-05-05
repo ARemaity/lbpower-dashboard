@@ -9,7 +9,7 @@ session_start();
 </head>
  
  <?php
-include("DBConnect.php");
+include("../DBConnect.php");
 ?>
 
 <!-- Load an icon library -->
@@ -17,21 +17,21 @@ include("DBConnect.php");
 <div class="navbar">
   <?php
   if($_SESSION['role']==1){
-  echo "<a href='SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a href='../supplier/SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
   }
   else if($_SESSION['role']==2){
-  echo "<a href='AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
-  echo "<a href='ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
+  echo "<a href='../admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a href='../admin/ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
 
   }
   ?>
-  <a class="active" href="ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
-  <a style=float:right href="logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
-  <a style=float:right href="viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
-  <a style=float:right href="SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
+  <a class="active" href="../supplier/ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
+  <a style=float:right href="../logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
+  <a style=float:right href="../viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
+  <a style=float:right href="../SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
 </div>
 
-<link rel="stylesheet" type="text/css" href="css/Style.css">
+<link rel="stylesheet" type="text/css" href="../css/Style.css">
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for user..">
 
@@ -64,7 +64,7 @@ include("DBConnect.php");
 	$result = mysqli_query($connect,$sql);
 	}
 	else if($_SESSION['role'] == 2){
-		$sql="SELECT *
+		$sql="SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
 			  FROM person, client, supplier
 			  WHERE person.PID=client.PID
 			  AND Supplier_Company=comapany_name
@@ -96,13 +96,11 @@ include("DBConnect.php");
 			<td><?php echo $row['email']; ?></td>
 			<td><?php echo $row['Supplier_Company']; ?></td>
 			<?php
-				$query="editUser.php?PID=".$row['PID'];
+				$query="../supplier/editUser.php?PID=".$row['PID'];
 				echo "<td width='100'> <a href=".$query.">Edit User</a></td>";
 				if($row['PID']=$row2['PID']){
-					//foreach ($i as $index=>$row2['PID']){
 					$query2="AddDevice.php?PID=".$row2['PID'];
 					echo "<td width='100'> <a href=".$query2.">Add Device</a></td>";
-					//}
 				}
 				else
 					echo '<td>Exists</td>';
