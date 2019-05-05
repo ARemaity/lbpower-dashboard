@@ -54,12 +54,15 @@ include("../DBConnect.php");
  
  
 <?php
-$key=$_SESSION['key'];
-echo $key;
-if(isset($_GET['submit'])){	//	page submitted
+//$key=$_SESSION['cPID'];
+//echo $key;
+$cPID=$_SESSION['ID'];
+echo $cPID;
 	
+if(isset($_GET['submit'])){	//	page submitted
+
 	$sql =" INSERT INTO device(id_device, device_sn, deive_type, amper_capacity, fk_client)
-		    VALUES (default, '".$_GET["sn"]."' ,'".$_GET["type"]."', '".$_GET["capacity"]."', '".$cPID."') ";
+		    VALUES (default, '".$_GET["sn"]."' ,'".$_GET["type"]."', '".$_GET["capacity"]."', '".$_GET["cPID"]."') ";
 	$result = mysqli_query($connect,$sql);
 
 		//If the sql returns an error
@@ -79,6 +82,11 @@ if(isset($_GET['submit'])){	//	page submitted
 					<span class="login100-form-title p-b-34 p-t-27">
 						Add Device
 					</span>
+					
+						<div class="wrap-input100 validate-input" data-validate = "PID">
+						
+						<input class="input100" type="hidden" name="cPID" value = <?php echo $cPID; ?> >
+					</div>
 				
 					<div class="wrap-input100 validate-input" data-validate = "Serial Number">
 						<label>Serial Number</label>

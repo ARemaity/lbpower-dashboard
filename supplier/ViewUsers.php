@@ -101,8 +101,9 @@ include("../DBConnect.php");
 				$query="../supplier/editUser.php?PID=".$row['PID'];
 				echo "<td width='100'> <a href=".$query.">Edit User</a></td>";
 				if($row['PID']=$row2['PID']){
-					$query2="AddDevice.php?".$key['PID'];
-					$_SESSION['key']=$key['PID'];
+					$query2="AddDevice.php?ID=".$id=$rows[$key]['PID'];
+					//$_SESSION['cPID']=$rows[$key]['PID'];
+					$_SESSION['ID']=$id;
 					echo "<td width='100'> <a href=".$query2.">Add Device</a></td>";
 				}
 				else
