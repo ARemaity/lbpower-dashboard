@@ -43,13 +43,13 @@ include("../DBConnect.php");
   echo "<a class='active' href='../supplier/SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
   }
   else if($_SESSION['role']==2){
-  echo "<a href='../admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a class='active' href='../admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
   echo "<a href='../admin/ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
-
+  echo "<a href='../admin/AddSupplier.php'><i class='fa fa-user-plus'></i> Add Supplier</a>";
+  echo "<a href='../admin/ViewComplaints.php'><i class='fa fa-thumbs-down'></i> Complaints</a>";
   }
   ?>
   <a href="../supplier/ViewUsers.php"><i class="fa fa-users"></i> View Users</a>
-  <a href="../SubmitComplaint.php"><i class="fa fa-bug"></i> Submit Complaint</a>
   <a href="../viewprofile.php"><i class="fa fa-address-card-o"></i> Profile</a>
   <a href="../logout.php"><i class="fa fa-sign-out"></i> Sign Out</a>
 </div>

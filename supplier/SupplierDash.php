@@ -41,6 +41,8 @@ include("../DBConnect.php");
   <?php
   if($_SESSION['role']==1){
   echo "<a href='../supplier/SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a href='../supplier/ViewMonthlyRev.php'><i class='fa fa-area-chart'></i> Monthly Revenue</a>";
+  echo "<a href='../supplier/newuser.html'><i class='fa fa-user-plus'></i> Add User</a>";
   }
   else if($_SESSION['role']==2){
   echo "<a href='../admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";

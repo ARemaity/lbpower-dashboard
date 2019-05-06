@@ -54,10 +54,7 @@ echo "error 1 q";
 
   }else{
 
-
     echo "no uid is inserted";
   }
 
 
-
-?>

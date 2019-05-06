@@ -37,10 +37,14 @@ include("../DBConnect.php");
   <?php
   if($_SESSION['role']==1){
   echo "<a class='active' href='../web/supplier/SupplierDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a href='../supplier/newuser.html'><i class='fa fa-user-plus'></i> Add User</a>";
+  echo "<a href='../supplier/ViewMonthlyRev.php'><i class='fa fa-area-chart'></i> Monthly Revenue</a>";
   }
   else if($_SESSION['role']==2){
-  echo "<a href='../web/admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
-  echo "<a href='../web/admin/ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
+  echo "<a href='../admin/AdminDash.php'><i class='fa fa-dashboard'></i> DashBoard</a>";
+  echo "<a href='../admin/ViewSuppliers.php'><i class='fa fa-bolt'></i> View Suppliers</a>";
+  echo "<a href='../admin/AddSupplier.php'><i class='fa fa-user-plus'></i> Add Supplier</a>";
+  echo "<a href='../admin/ViewComplaints.php'><i class='fa fa-thumbs-down'></i> Complaints</a>";
 
   }
   ?>
