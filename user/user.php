@@ -30,11 +30,11 @@ else if ( isset($_GET['id'])) {
 
 $uid=$_GET['id'];
 $_SESSION['id']=$uid;
-
-echo ' <div id="x" class="y-div">
-<button onclick="logout()">Logout</button>
-</div>
-';
+echo '<  header("Location: http://www.redirect.to.url.com/"); ';
+// echo ' <div id="x" class="y-div">
+// <button onclick="logout()">Logout</button>
+// </div>
+// ';
 
 }
 else{
@@ -48,7 +48,7 @@ echo "sorry bro";
 ?>
 
 <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-    <script src="js/auth.js"></script>
+    <script src="../js/auth.js"></script>
     <script>
     
     
