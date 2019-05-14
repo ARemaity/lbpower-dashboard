@@ -2,6 +2,7 @@
 <?php
 session_start();
 include("../DBConnect.php");
+$id=$_GET['id'];
 ?>
 <html lang="en">
 
@@ -70,7 +71,7 @@ include("../DBConnect.php");
       <li class="nav-item">
         <a class="nav-link" href="Consumption.html">
           <i class="fas fa-fw fa-table"></i>
-          <span>View Users</span></a>
+          <span>View Consumption</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../SubmitComplaint.php">

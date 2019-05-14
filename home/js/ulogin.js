@@ -1,5 +1,4 @@
- 
-  firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
     //  document.getElementById("user_div").style.display = "block";//..this to show the elemet
      /// document.getElementById("login_div").style.display = "none";//..THIS FOR TO hide the elemnet
@@ -7,13 +6,13 @@
      
   //$.post( "test.php", { id: io } );
   //
-      if(user != null){ var io=user.uid;
+      if(user != null){ 
+        var io=user.uid;
         window.alert("success "+io);
-  
        
-     // var str="http://lbpower.000webhostapp.com/user/index.php?id="+io;
+      var str="http://localhost/remoteISD/web/client/clientdash.php?id="+io;
       //window.alert(str);
-     // window.location.replace(str);
+      window.location.replace(str);
       
         //var email_id = user.email;
        // document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
@@ -22,7 +21,7 @@
   
     } else {
       // No user is signed in.
-     
+      Window.reload();
     //  document.getElementById("user_div").style.display = "none";
      // document.getElementById("login_div").style.display = "block";
     }
@@ -38,8 +37,7 @@
       document.getElementById("password").innerHTML = "";
       document.getElementById("repassword").innerHTML = "";}
   
-    console.log(userEmail);
-    console.log(userPass);
+    
          firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
