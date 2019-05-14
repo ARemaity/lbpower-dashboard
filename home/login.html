@@ -83,12 +83,12 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="index.html">Home</a>
+                                    <a class="nav-link" href="http://127.0.0.1:5500/index-5.html">Home</a>
                                 </li>
 
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="registration.html">Register</a>
+                                    <a class="nav-link" href="">Register</a>
                                 </li>
                                 <!-- <li class="nav-item">
 									<a class="nav-link" href="#roadmap">Roadmap</a>
@@ -104,8 +104,9 @@
                                 </li>
 
                                 <li class="nav-item mt-2">
-                                    <a class="btn btn-primary js-tilt" href="#app" role="button"
+                                    <a class="btn btn-primary js-tilt" href="#" role="button"
                                         data-tilt-perspective="300" data-tilt-speed="700"
+                                        style="background-color:azure;"
                                         data-tilt-max="24"><span>login</span></a>
                                 </li>
                             </ul>
@@ -117,84 +118,26 @@
     </div>
     <div class="section full-height height-auto-lg hide-over background-light-blue">
         <div class="hero-center-wrap relative-on-lg">
-            <div class="container">
-                <!-- <form id="contact-form" class="mt-5" method="post" action="registration.php" -->
-                    <!-- role="form" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.3s"> -->
-                <div class="row">
-                    <div class="col-sm-6 form-group">
-                        <label>First Name</label>
-
-                        <input id="fname"type="text" placeholder="Enter First Name Here.." class="form-control">
-                        <div class="help-block with-errors"></div>
-                    </div>
-
-                    <div class="col-sm-6 form-group">
-                        <label>Last Name</label>
-
-                        <input id="lname" type="text" placeholder="Enter Last Name Here.." class="form-control">
-                        <div class="help-block with-errors"></div>
-                    </div>
-
-
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6 form-group">
-                        <label>City</label>
-
-                        <input id="lname" type="text" placeholder="Enter your city " class="form-control">
-                        <div class="help-block with-errors"></div>
-                    </div>
-
-                    <div class="col-sm-6 form-group">
-                        <label>Street</label>
-
-                        <input id="street"type="text" placeholder="Enter you street" class="form-control">
-                        <div class="help-block with-errors"></div>
-                    </div>
-
-
-                </div>
-
-                <div class="row justify-content-center">
-                    <div class="col-sm-6 form-group">
-                        <label> Email</label>
-
-
-
-                        <input id="email" type="email" name="email" class="form-control"
-                            placeholder="Enter your email *" required="required" data-error="Valid email is required.">
-                        <div class="help-block with-errors"></div>
-
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Phone</label>
-
-                        <input id="phone" type="tel" name="phone" class="form-control"
-                            placeholder="Enter your phone">
-                        <div class="help-block with-errors">
+            <div class="container" id="logindiv">
+              
+                    
+                    <div class="col-lg-4 col-centered" style="margin-left:35%;">   
+                        <label data-error="wrong" data-success="right"   for="defaultForm-email">Email</label>
+                          <input type="email"  id="email_field" placeholder="Enter Email" class="form-control validate">
+                      
                         </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label>Password</label>
-                        <div class="form-group">
-                            <input id="password" type="password" class="form-control" placeholder="Password *" value="" />
+                </div> <div class="container"  id="logindiv">
+                        <div class="col-lg-4 col-centered" style="margin-left:35%;">   
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
+                          <input type="password"  placeholder="Enter password" id="password_field" class="form-control validate">
+                      
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Renter Password</label>
-                        <div class="form-group">
-                            <input id="repassword" type="password" class="form-control" placeholder="Confirm Password *" value="" />
-                        </div>
-                    </div>
-                    <div class="col-md-8 mt-3 form-group text-center">
-                        <input type="submit" name="submit" class="btn btn-primary btn-send text-center" value="Register">
+                
+                      </div>
+                    <div class="col-md-12 text-center" style="margin-top:50px;">
+                        <input type="submit" onclick="login()" class="btn btn-primary btn-send text-center" value="Sign in">
                     </div>
                 </div>
-
-
-            <!-- </form> -->
 
             </div>
 
@@ -244,6 +187,9 @@
 
     <!-- JAVASCRIPT
     ================================================== -->
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ulogin.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
