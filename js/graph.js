@@ -1,7 +1,14 @@
 
- var user = firebase.auth().currentUser;
-var root="Time_"+user;
 
+  function getuid(){
+
+
+
+    window.alert(id);
+  }
+
+  var root="Time_"+id;  
+  const nbOfElts = 300;
 firebase.database().ref(root).limitToLast(nbOfElts).on('value', ts_measures => {
     // If you want to get into details, read the following comments :-)
     // 'ts_measures' is a snapshot raw Object, obtained on changed value of 'timestamped_measures' node

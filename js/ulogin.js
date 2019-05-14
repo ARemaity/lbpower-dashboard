@@ -9,7 +9,7 @@
   //
       if(user != null){
         var io=user.uid;
-      var str="http://localhost/lb1.0/lb1.0/ulogin.php?id="+io;
+      var str="http://localhost/final/user/graph.php?id="+io;
       //window.alert(str);
       window.location.replace(str);
       

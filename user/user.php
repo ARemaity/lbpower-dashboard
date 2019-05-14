@@ -21,7 +21,7 @@ if(!isset($_SERVER['HTTP_REFERER']))
     </head>
     <body>
 <script>
-    window.location.replace("http://localhost/firebaseWebLogin/ulogin.html");</script>   
+    window.location.replace("http://localhost/final/");</script>   
     </body>
     </html>
         ';   }
@@ -30,11 +30,17 @@ else if ( isset($_GET['id'])) {
 
 $uid=$_GET['id'];
 $_SESSION['id']=$uid;
-echo '<  header("Location: http://www.redirect.to.url.com/"); ';
-// echo ' <div id="x" class="y-div">
-// <button onclick="logout()">Logout</button>
-// </div>
-// ';
+
+echo '<script>
+window.location.replace("http://localhost/final/user/graph.php);</script>  ';
+
+
+
+
+//  echo ' <div id="x" class="y-div">
+//  <button onclick="logout()">Logout</button>
+//  </div>
+//  ';
 
 }
 else{
@@ -54,7 +60,7 @@ echo "sorry bro";
     
     function logout() {
             firebase.auth().signOut();
-            window.location.replace("http://localhost/firebaseWebLogin/ulogin.html");
+            window.location.replace("http://localhost/final/user/ulogin.html");
         }
 </script>
 
