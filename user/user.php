@@ -21,7 +21,11 @@ if(!isset($_SERVER['HTTP_REFERER']))
     </head>
     <body>
 <script>
+<<<<<<< HEAD
     window.location.replace("http://localhost/final/");</script>   
+=======
+    window.location.replace("http://lbpower.000webhostapp.com/");</script>   
+>>>>>>> e2c11f4fe60ece93674697c19a686eeb5c196b9d
     </body>
     </html>
         ';   }
@@ -30,6 +34,7 @@ else if ( isset($_GET['id'])) {
 
 $uid=$_GET['id'];
 $_SESSION['id']=$uid;
+<<<<<<< HEAD
 
 echo '<script>
 window.location.replace("http://localhost/final/user/graph.php);</script>  ';
@@ -41,6 +46,10 @@ window.location.replace("http://localhost/final/user/graph.php);</script>  ';
 //  <button onclick="logout()">Logout</button>
 //  </div>
 //  ';
+=======
+echo '<  header("Location:http://lbpower.000webhostapp.com/user/"); ';
+
+>>>>>>> e2c11f4fe60ece93674697c19a686eeb5c196b9d
 
 }
 else{
