@@ -21,7 +21,7 @@ if(!isset($_SERVER['HTTP_REFERER']))
     </head>
     <body>
 <script>
-    window.location.replace("http://localhost/firebaseWebLogin/ulogin.html");</script>   
+    window.location.replace("http://lbpower.000webhostapp.com/");</script>   
     </body>
     </html>
         ';   }
@@ -30,11 +30,8 @@ else if ( isset($_GET['id'])) {
 
 $uid=$_GET['id'];
 $_SESSION['id']=$uid;
-echo '<  header("Location: http://www.redirect.to.url.com/"); ';
-// echo ' <div id="x" class="y-div">
-// <button onclick="logout()">Logout</button>
-// </div>
-// ';
+echo '<  header("Location:http://lbpower.000webhostapp.com/user/"); ';
+
 
 }
 else{

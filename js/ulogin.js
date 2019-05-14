@@ -1,17 +1,24 @@
  
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+   
     //  document.getElementById("user_div").style.display = "block";//..this to show the elemet
-      document.getElementById("login_div").style.display = "none";//..THIS FOR TO hide the elemnet
+     // document.getElementById("login_div").style.display = "none";//..THIS FOR TO hide the elemnet
       var user = firebase.auth().currentUser;
      
   //$.post( "test.php", { id: io } );
   //
       if(user != null){
         var io=user.uid;
-      var str="http://localhost/lb1.0/lb1.0/ulogin.php?id="+io;
+        window.alert("success "+io);
+  
+       
+     var str="http://lbpower.000webhostapp.com/user/index.php?id="+io;
+    window.alert(str);
+     window.location.replace(str);
+      
       //window.alert(str);
-      window.location.replace(str);
+     // window.location.replace(str);
       
         //var email_id = user.email;
        // document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
@@ -22,8 +29,6 @@
       // No user is signed in.
   
     //  document.getElementById("user_div").style.display = "none";
-      document.getElementById("login_div").style.display = "block";
-  
     }
   });
   
