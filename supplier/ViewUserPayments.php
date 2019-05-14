@@ -36,7 +36,7 @@ include("../DBConnect.php");
 <link rel="stylesheet" type="text/css" href="../css/Style.css">
 
 <table id='users'>
-  <thead>
+	<thead>
     <tr>
 	  <th>Ammount</th>
 	  <th>Issued Date</th>
