@@ -21,7 +21,11 @@ if(!isset($_SERVER['HTTP_REFERER']))
     </head>
     <body>
 <script>
-    window.location.replace("http://localhost/firebaseWebLogin/ulogin.html");</script>   
+<<<<<<< HEAD
+    window.location.replace("http://localhost/final/");</script>   
+=======
+    window.location.replace("http://lbpower.000webhostapp.com/");</script>   
+>>>>>>> e2c11f4fe60ece93674697c19a686eeb5c196b9d
     </body>
     </html>
         ';   }
@@ -30,11 +34,22 @@ else if ( isset($_GET['id'])) {
 
 $uid=$_GET['id'];
 $_SESSION['id']=$uid;
+<<<<<<< HEAD
 
-echo ' <div id="x" class="y-div">
-<button onclick="logout()">Logout</button>
-</div>
-';
+echo '<script>
+window.location.replace("http://localhost/final/user/graph.php);</script>  ';
+
+
+
+
+//  echo ' <div id="x" class="y-div">
+//  <button onclick="logout()">Logout</button>
+//  </div>
+//  ';
+=======
+echo '<  header("Location:http://lbpower.000webhostapp.com/user/"); ';
+
+>>>>>>> e2c11f4fe60ece93674697c19a686eeb5c196b9d
 
 }
 else{
@@ -48,13 +63,13 @@ echo "sorry bro";
 ?>
 
 <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-    <script src="js/auth.js"></script>
+    <script src="../js/auth.js"></script>
     <script>
     
     
     function logout() {
             firebase.auth().signOut();
-            window.location.replace("http://localhost/firebaseWebLogin/ulogin.html");
+            window.location.replace("http://localhost/final/user/ulogin.html");
         }
 </script>
 

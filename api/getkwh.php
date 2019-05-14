@@ -1,4 +1,4 @@
-  <?php
+<?php
   header("Content-type: application/json; charset=utf-8");
   $servername = "localhost";
   $username = "id8992783_root";
@@ -26,20 +26,27 @@
       $data["kw"] =  $getCumumlative;
     }
 
-    $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id =". $fk_client or die(mysqli_error($conn));
+    $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" . $fk_client . "'"  or die(mysqli_error($conn));
+    $phone = "SELECT `phone` FROM `supplier`,`client`,`person` where client.fkSupplier = supplier.id and supplier.PID=person.PID and client.id ='" . $fk_client . "'"  or die(mysqli_error($conn));
 
     $result = mysqli_query($conn, $costQ);
-
-  if (mysqli_num_rows($result) == 0) {
+    $result2 = mysqli_query($conn, $phone);
+    if (mysqli_num_rows($result) == 0) {
       $data["bill"] =  0;
     } else {
       $cost = mysqli_fetch_object($result);
       $get1kw  = (int)$cost->cost_1kw;
       $total = $get1kw * $getCumumlative;
       $data["bill"] =  $total;
-  }
+    }
 
-
+    if (mysqli_num_rows($result2) == 0) {
+      $data["phone"] =  0;
+    } else {
+      $num = mysqli_fetch_object($result2);
+      $phones  = (int)$num->phone;
+      $data["phone"] =  $phones;
+    }
     array_push($dbdata["data"], $data);
 
 
@@ -47,3 +54,4 @@
   } else {
     echo "there is error";
   }
+  ?>
