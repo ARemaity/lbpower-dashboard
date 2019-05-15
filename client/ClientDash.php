@@ -50,7 +50,7 @@ $id=$_GET['id'];
           <a class="dropdown-item" href="#">Settings</a>
           <a class="dropdown-item" href="#">Activity Log</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" onclick="logout()" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>

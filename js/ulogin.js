@@ -10,9 +10,6 @@
   //
       if(user != null){
         var io=user.uid;
-<<<<<<< HEAD
-      var str="http://localhost/final/user/graph.php?id="+io;
-=======
         window.alert("success "+io);
   
        
@@ -20,7 +17,7 @@
     window.alert(str);
      window.location.replace(str);
       
->>>>>>> e2c11f4fe60ece93674697c19a686eeb5c196b9d
+///////>>>>>>> e2c11f4fe60ece93674697c19a686eeb5c196b9d
       //window.alert(str);
      // window.location.replace(str);
       
