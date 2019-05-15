@@ -10,3 +10,8 @@ var config = {
   };
   firebase.initializeApp(config);
   const auth = firebase.auth();
+
+
+  function logout(){
+    firebase.auth().signOut();
+  }

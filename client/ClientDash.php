@@ -150,6 +150,13 @@ $id=$_GET['id'];
   </div>
 
   <!-- Bootstrap core JavaScript-->  
+
+
+
+
+
+   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/sb-admin.min.js"></script>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

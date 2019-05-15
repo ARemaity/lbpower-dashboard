@@ -1,8 +1,9 @@
 
-  function logout(){
-    firebase.auth().signOut();
-  }
+ 
   
+function logout(){
+  firebase.auth().signOut();
+}
 
 
 (function($) {
