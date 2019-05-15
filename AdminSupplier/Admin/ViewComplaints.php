@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-include("DBConnect.php");
+include("../DBConnect.php");
 ?>
 <html lang="en">
 
@@ -13,16 +13,16 @@ include("DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Payments</title>
+  <title>View Complaints</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="../css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -30,7 +30,7 @@ include("DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="ClientDash.php">LBPower</a>
+    <a class="navbar-brand mr-1" href="AdminDash.php">LBPower</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -59,26 +59,31 @@ include("DBConnect.php");
 
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="ClientDash.php">
+      <li class="nav-item">
+        <a class="nav-link" href="../admin/AdminDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="Consumption.html">
+        <a class="nav-link" href="../admin/ViewSuppliers.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>View Consumption</span></a>
+          <span>View Suppliers</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="SubmitComplaint.php">
+        <a class="nav-link" href="../admin/AddSupplier.php">
+          <i class="fa fa-user-plus"></i>
+          <span>Add Supplier</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="../admin/ViewComplaints.php">
           <i class="fa fa-thumbs-down"></i>
-          <span>Submit Complaint</span></a>
+          <span>View Complaints</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ViewUserPayments.php">
-          <i class="fa fa-thumbs-down"></i>
-          <span>View Payments</span></a>
+        <a class="nav-link" href="../logout.php">
+          <i class="fa fa-sign-out"></i>
+          <span>Log Out</span></a>
       </li>
     </ul>
 
@@ -91,65 +96,52 @@ include("DBConnect.php");
           <li class="breadcrumb-item">
             <a href="AdminDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewPayments</li>
+          <li class="breadcrumb-item active">ViewComplaints</li>
         </ol>
 
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            My Clients</div>
+            Complaints</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <thead>
-		<tr>
-			<th>Ammount</th>
-			<th>Issued Date</th>
-			<th>Payment State</th>
-			<th>Date Paid</th>
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Details</th>
+			<th>Sender Type</th>
         </tr>
-	</thead>
+		</thead>
 		 <tfoot>
 		<tr>
-			<th>Amount</th>
-			<th>Issued Date</th>
-			<th>Payment State</th>
-			<th>Date Paid</th>
+            <th>Type</th>
+            <th>Details</th>
+			<th>Sender Type</th>
         </tr>
          </tfoot>
-		 
-		 <tbody>
-<?php
-$id = $_SESSION['id'];
-$sql="SELECT *
-      FROM payment
-      WHERE fk_client='".$id."' ";
-	  
-$result = mysqli_query($connect,$sql);
-
-while($row = mysqli_fetch_assoc($result)){
-?>
-	<tr>
-	  <td><?php echo $row['Total']; ?></td>
-      <td><?php echo $row['issued_date']; ?></td>
-	  <?php
-	  if($row['payment_st'] == 0){
-	  echo '<td>Unpaid</td>';
-	  echo '<td>No Date</td>';
-	  }
-	  else{
-		  echo '<td>Paid</td>';
-		  echo '<td>'.$row["payment_date"].'</td>';
-	  }
-		}
-	  ?>
-	</tr>
-<?php			
-	//	close the connection
-	mysqli_close($connect);
-?>
-				</tbody>
+<tbody>
+	
+    <?php
+	//	Write and execute an SQL query
+	$sql = "SELECT *
+	        FROM complaint";
+	$result = mysqli_query($connect,$sql);
+	?>
+	
+    <?php 
+		for($i=0;$i<mysqli_num_rows($result);$i++){
+		$row = mysqli_fetch_assoc($result); 
+		?>
+		
+        <tr>
+            <td><?php echo $row['complaint_type']; ?></td>
+            <td><?php echo $row['detials']; ?></td>
+            <td><?php echo $row['sender_type']; ?></td>
+        </tr>
+		<?php } mysqli_close($connect); ?>
+    </tbody>
               </table>
             </div>
           </div>

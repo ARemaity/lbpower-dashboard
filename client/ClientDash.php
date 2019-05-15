@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <?php
 session_start();
-include("../DBConnect.php");
-$id=$_GET['id'];
+include("DBConnect.php");
+$id=''.$_GET['id'].'';
+$_SESSION['id']=$id;
+
+	$sql="select * from client where '".$_SESSION['id']."' = id";
+	$result = mysqli_query($connect,$sql);
+	$row = mysqli_fetch_assoc($result);
+	$_SESSION['PID']=$row['PID'];
+	$_SESSION['fk_supplier'] = $row['fkSupplier'];
+	mysqli_close($connect);
 ?>
 <html lang="en">
 
@@ -74,14 +82,14 @@ $id=$_GET['id'];
           <span>View Consumption</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../SubmitComplaint.php">
+        <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../logout.php">
-          <i class="fa fa-sign-out"></i>
-          <span>Log Out</span></a>
+        <a class="nav-link" href="ViewUserPayments.php">
+          <i class="fa fa-thumbs-down"></i>
+          <span>View Payments</span></a>
       </li>
     </ul>
 
