@@ -6,15 +6,17 @@ $get1kw  ;
 $total;
 $unpaid;
 session_start();
-
+///TODO: this is FOR THE SECUIRTY
 if(!isset($_SERVER['HTTP_REFERER']))
 {        
   header('Location:http://localhost/final/LBPOWER/');
 
 }else if(isset($_GET['id'])){
-
+  
   $id=''.$_GET['id'].'';
   $_SESSION['id']=$id;
+
+   //////////////////////////////////////TODO: THIS QUERIES FOR 4 icon image make sure to check costraints 
   $getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $id . "'") or die(mysqli_error($conn));
   if (mysqli_num_rows($getdata) == 0) {
     $kw =  0;
@@ -28,7 +30,7 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
    
     $result = mysqli_query($connect, $costQ);
     if (mysqli_num_rows($result) == 0) {
-     
+    
       $get1kw=0;
       $total=0;
     } else {
@@ -51,7 +53,7 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
    $unpaid= mysqli_num_rows($unpaidQ);
 
     }
-
+//////////////////////////////////////////////////////////////////////
 
      }else if(isset($_SESSION['id'])){
   
