@@ -16,7 +16,7 @@ var config = {
  
       if(user != null){ 
         id=user.uid;
-        window.alert("success "+id);
+       // window.alert("success "+id);
       
         ////TODO: TESTING PURPPOSE MUST BE REMOVED UPON FINISH
         

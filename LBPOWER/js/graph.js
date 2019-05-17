@@ -60,7 +60,7 @@ firebase.database().ref(root).limitToLast(nbOfElts).on('value', ts_measures => {
 });
 
 
-      // window.alert("graph id is "+uid);
+      //     window.alert("graph id is "+uid);
      
        
    } else {

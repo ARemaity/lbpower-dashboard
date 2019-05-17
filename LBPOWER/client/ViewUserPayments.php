@@ -2,6 +2,8 @@
 <?php
 session_start();
 include("DBConnect.php");
+$id = $_SESSION['id'];
+
 ?>
 <html lang="en">
 
@@ -121,7 +123,10 @@ include("DBConnect.php");
 		 
 		 <tbody>
 <?php
-$id = $_SESSION['id'];
+// $id = $_SESSION['id'];
+
+
+// echo 'the id is '.$id;
 $sql="SELECT *
       FROM payment
       WHERE fk_client='".$id."' ";

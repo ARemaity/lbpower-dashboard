@@ -1,9 +1,71 @@
 <!DOCTYPE html>
 <?php
-session_start();
 include("DBConnect.php");
-$id=''.$_GET['id'].'';
-$_SESSION['id']=$id;
+$kw;
+$get1kw  ;
+$total;
+$unpaid;
+session_start();
+
+if(!isset($_SERVER['HTTP_REFERER']))
+{        
+  header('Location:http://localhost/final/LBPOWER/');
+
+}else if(isset($_GET['id'])){
+
+  $id=''.$_GET['id'].'';
+  $_SESSION['id']=$id;
+  $getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $id . "'") or die(mysqli_error($conn));
+  if (mysqli_num_rows($getdata) == 0) {
+    $kw =  0;
+  } else {
+    $cum = mysqli_fetch_object($getdata);
+    $getCumumlative  = (int)$cum->value;
+    $kw =  $getCumumlative;
+}
+
+$costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" .  $id . "'"  or die(mysqli_error($conn));
+   
+    $result = mysqli_query($connect, $costQ);
+    if (mysqli_num_rows($result) == 0) {
+     
+      $get1kw=0;
+      $total=0;
+    } else {
+      $cost = mysqli_fetch_object($result);
+      $get1kw  = (int)$cost->cost_1kw;
+      $total = $get1kw * $getCumumlative;
+      
+    }
+
+    $query = "SELECT * FROM `payment` WHERE      payment_st=0 AND fk_client='". $id."'";
+
+    $unpaidQ= mysqli_query($connect,$query);
+
+
+    if( mysqli_num_rows($unpaidQ)==0){
+
+      $unpaid=0;
+
+    }else{
+   $unpaid= mysqli_num_rows($unpaidQ);
+
+    }
+
+
+     }else if(isset($_SESSION['id'])){
+  
+
+}else{
+
+////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+header('Location:http://localhost/final/LBPOWER/');
+
+
+}
+
+
+
 
 	$sql="select * from client where '".$_SESSION['id']."' = id";
 	$result = mysqli_query($connect,$sql);
@@ -12,6 +74,13 @@ $_SESSION['id']=$id;
 	$_SESSION['fk_supplier'] = $row['fkSupplier'];
 	mysqli_close($connect);
 ?>
+
+
+
+
+
+
+
 <html lang="en">
 
 <head>
@@ -22,6 +91,7 @@ $_SESSION['id']=$id;
   <meta name="description" content="">
   <meta name="author" content="">
   <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<!-- Add additional services that you want to use -->
 	<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-database.js"></script>
 
@@ -69,8 +139,7 @@ $_SESSION['id']=$id;
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Activity Log</a>
+         
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" onclick="logout()" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
@@ -91,18 +160,13 @@ $_SESSION['id']=$id;
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="Consumption.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>View Consumption</span></a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="ViewUserPayments.php">
-          <i class="fa fa-thumbs-down"></i>
+        <i class="fa fa-money" ></i>
           <span>View Payments</span></a>
       </li>
     </ul>
@@ -123,57 +187,57 @@ $_SESSION['id']=$id;
     <div class="card text-white bg-primary o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-comments"></i>
+        <i class="fas fa-plug"></i>
         </div>
-        <div class="mr-5">26 New Messages!</div>
+        <div class="mr-5"><?php echo $kw;?> kw/h </div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="#">
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
         </span>
-      </a>
+      </a> -->
     </div>
   </div>
   <div class="col-xl-3 col-sm-6 mb-3">
     <div class="card text-white bg-warning o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-list"></i>
+        <i class="fas fa-money-bill-wave"></i>
         </div>
-        <div class="mr-5">11 New Tasks!</div>
+        <div class="mr-5">1kw cost <?php echo $get1kw;?> $ </div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="#">
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
         </span>
-      </a>
+      </a> -->
     </div>
   </div>
   <div class="col-xl-3 col-sm-6 mb-3">
     <div class="card text-white bg-success o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-shopping-cart"></i>
+        <i class="fas fa-file-invoice-dollar"></i>
         </div>
-        <div class="mr-5">123 New Orders!</div>
+        <div class="mr-5">payment today is  <?php echo $total;?> $</div>
       </div>
-      <a class="card-footer text-white clearfix small z-1" href="#">
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
         <span class="float-right">
           <i class="fas fa-angle-right"></i>
         </span>
-      </a>
+      </a> -->
     </div>
   </div>
   <div class="col-xl-3 col-sm-6 mb-3">
     <div class="card text-white bg-danger o-hidden h-100">
       <div class="card-body">
         <div class="card-body-icon">
-          <i class="fas fa-fw fa-life-ring"></i>
+        <i class="fas fa-exclamation-triangle"></i>
         </div>
-        <div class="mr-5">13 New Tickets!</div>
+        <div class="mr-5"><?php echo $unpaid;?> Unpaid payment</div>
       </div>
       <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
@@ -196,7 +260,7 @@ $_SESSION['id']=$id;
   there is problem try again later 
 </div>
   </div>
-  <div class="card-footer small text-muted">Live updatew</div>
+  <div class="card-footer small text-muted">Live update</div>
 </div>
 
 </div>
@@ -206,7 +270,7 @@ $_SESSION['id']=$id;
 <footer class="sticky-footer">
 <div class="container my-auto">
   <div class="copyright text-center my-auto">
-    <span>Copyright © Your Website 2019</span>
+    <span>Copyright © LBBPOWER 2019</span>
   </div>
 </div>
 </footer>
@@ -265,9 +329,7 @@ $_SESSION['id']=$id;
 
 
   <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+
 </body>
 
 </html>

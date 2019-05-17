@@ -16,7 +16,7 @@ var config = {
 
       if(user != null){ 
         id=user.uid;
-        window.alert("success "+id);////TODO: TESTING PURPPOSE MUST BE REMOVED UPON FINISH
+       // window.alert("success "+id);////TODO: TESTING PURPPOSE MUST BE REMOVED UPON FINISH
         
     } else {
      /////no thing here to make the user able to make the login processs
