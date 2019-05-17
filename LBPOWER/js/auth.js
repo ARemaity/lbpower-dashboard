@@ -13,11 +13,12 @@ var config = {
   firebase.auth().onAuthStateChanged(function(user) {
      var user = firebase.auth().currentUser;
      
-  //$.post( "test.php", { id: io } );
-  //
+ 
       if(user != null){ 
         id=user.uid;
-        window.alert("success "+io);////TODO: TESTING PURPPOSE MUST BE REMOVED UPON FINISH
+        window.alert("success "+id);
+      
+        ////TODO: TESTING PURPPOSE MUST BE REMOVED UPON FINISH
         
     } else {
       location.replace("http://localhost/final/LBPOWER/");

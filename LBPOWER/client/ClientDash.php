@@ -39,7 +39,14 @@ $_SESSION['id']=$id;
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin.css" rel="stylesheet">
+  <style>
+#alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
 
+</style>
 </head>
 
 <body id="page-top">
@@ -185,6 +192,9 @@ $_SESSION['id']=$id;
     Area Chart Example</div>
   <div class="card-body">
   <div id="myPlot" style="width: 100%; max-height:75vh"></div>
+  <div id="alert">
+  there is problem try again later 
+</div>
   </div>
   <div class="card-footer small text-muted">Live updatew</div>
 </div>
@@ -256,7 +266,8 @@ $_SESSION['id']=$id;
 
   <!-- Demo scripts for this page-->
   <script src="../js/demo/datatables-demo.js"></script>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 </body>
 
 </html>
