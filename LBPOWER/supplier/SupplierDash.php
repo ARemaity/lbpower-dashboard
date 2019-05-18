@@ -30,7 +30,7 @@ include("../DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="AdminDash.php">Welcome <?php echo ''.$_SESSION['Name'].''; ?></a>
+    <a class="navbar-brand mr-1" href="SupplierDash.php">Welcome <?php echo ''.$_SESSION['Name'].''; ?></a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -104,7 +104,7 @@ include("../DBConnect.php");
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
+            <a href="SupplierDash.php">Dashboard</a>
           </li>
         </ol>
 		
@@ -155,7 +155,7 @@ include("../DBConnect.php");
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="../logout.php">Logout</a>
         </div>
       </div>
     </div>
