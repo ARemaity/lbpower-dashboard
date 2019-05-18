@@ -160,7 +160,7 @@ header('Location:http://localhost/final/LBPOWER/');
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="SubmitComplaint.php">
+        <a class="nav-link" href="../SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
       </li>
