@@ -5,6 +5,7 @@ $kw;
 $get1kw  ;
 $total;
 $unpaid;
+$id;
 session_start();
 ///TODO: this is FOR THE SECUIRTY
 if(!isset($_SERVER['HTTP_REFERER']))
@@ -17,42 +18,7 @@ if(!isset($_SERVER['HTTP_REFERER']))
   $_SESSION['id']=$id;
 
    //////////////////////////////////////TODO: THIS QUERIES FOR 4 icon image make sure to check costraints 
-  $getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $id . "'") or die(mysqli_error($conn));
-  if (mysqli_num_rows($getdata) == 0) {
-    $kw =  0;
-  } else {
-    $cum = mysqli_fetch_object($getdata);
-    $getCumumlative  = (int)$cum->value;
-    $kw =  $getCumumlative;
-}
-
-$costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" .  $id . "'"  or die(mysqli_error($conn));
-   
-    $result = mysqli_query($connect, $costQ);
-    if (mysqli_num_rows($result) == 0) {
-    
-      $get1kw=0;
-      $total=0;
-    } else {
-      $cost = mysqli_fetch_object($result);
-      $get1kw  = (int)$cost->cost_1kw;
-      $total = $get1kw * $getCumumlative;
-      
-    }
-
-    $query = "SELECT * FROM `payment` WHERE      payment_st=0 AND fk_client='". $id."'";
-
-    $unpaidQ= mysqli_query($connect,$query);
-
-
-    if( mysqli_num_rows($unpaidQ)==0){
-
-      $unpaid=0;
-
-    }else{
-   $unpaid= mysqli_num_rows($unpaidQ);
-
-    }
+  
 //////////////////////////////////////////////////////////////////////
 
      }else if(isset($_SESSION['id'])){
@@ -66,7 +32,42 @@ header('Location:http://localhost/final/LBPOWER/');
 
 }
 
+$getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $_SESSION['id'] . "'") or die(mysqli_error($conn));
+  if (mysqli_num_rows($getdata) == 0) {
+    $kw =  0;
+  } else {
+    $cum = mysqli_fetch_object($getdata);
+    $getCumumlative  = (int)$cum->value;
+    $kw =  $getCumumlative;
+}
 
+$costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" .  $_SESSION['id']. "'"  or die(mysqli_error($conn));
+   
+    $result = mysqli_query($connect, $costQ);
+    if (mysqli_num_rows($result) == 0) {
+    
+      $get1kw=0;
+      $total=0;
+    } else {
+      $cost = mysqli_fetch_object($result);
+      $get1kw  = (int)$cost->cost_1kw;
+      $total = $get1kw * $getCumumlative;
+      
+    }
+
+    $query = "SELECT * FROM `payment` WHERE      payment_st=0 AND fk_client='". $_SESSION['id']."'";
+
+    $unpaidQ= mysqli_query($connect,$query);
+
+
+    if( mysqli_num_rows($unpaidQ)==0){
+
+      $unpaid=0;
+
+    }else{
+   $unpaid= mysqli_num_rows($unpaidQ);
+
+    }
 
 
 	$sql="select * from client where '".$_SESSION['id']."' = id";
@@ -143,7 +144,7 @@ header('Location:http://localhost/final/LBPOWER/');
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
          
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" onclick="logout()" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" onclick="logout();" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -162,13 +163,13 @@ header('Location:http://localhost/final/LBPOWER/');
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../SubmitComplaint.php">
+        <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="ViewUserPayments.php">
-        <i class="fa fa-money" ></i>
+        <i class="fas fa-money-bill-wave"></i>
           <span>View Payments</span></a>
       </li>
     </ul>

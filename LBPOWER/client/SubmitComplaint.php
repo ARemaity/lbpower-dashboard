@@ -2,8 +2,6 @@
 <?php
 session_start();
 include("DBConnect.php");
-$id = $_SESSION['id'];
-
 ?>
 <html lang="en">
 
@@ -15,7 +13,7 @@ $id = $_SESSION['id'];
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Payments</title>
+  <title>Submit Complaint</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -32,7 +30,6 @@ $id = $_SESSION['id'];
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="ClientDash.php">LBPower</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -42,15 +39,14 @@ $id = $_SESSION['id'];
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
 
-      <li class="nav-item dropdown no-arrow">
+    <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Activity Log</a>
+         
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" onclick="logout()" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -59,126 +55,78 @@ $id = $_SESSION['id'];
 
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="ClientDash.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="SubmitComplaint.php">
-          <i class="fa fa-thumbs-down"></i>
-          <span>Submit Complaint</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="ViewUserPayments.php">
-        <i class="fas fa-money-bill-wave"></i>
-          <span>View Payments</span></a>
-      </li>
-    </ul>
+<!-- Sidebar -->
+<ul class="sidebar navbar-nav">
+  <li class="nav-item   ">
+    <a class="nav-link" href="ClientDash.php">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span>
+    </a>
+  </li>
+  <li class="nav-item active">
+    <a class="nav-link" href="SubmitComplaint.php">
+      <i class="fa fa-thumbs-down"></i>
+      <span>Submit Complaint</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="ViewUserPayments.php">
+    <i class="fas fa-money-bill-wave"></i>
+      <span>View Payments</span></a>
+  </li>
+</ul>
 
-    <div id="content-wrapper">
+<div id="content-wrapper">
 
-      <div class="container-fluid">
-
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">ViewPayments</li>
-        </ol>
-
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            My Clients</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <thead>
-		<tr>
-			<th>Ammount</th>
-      <th>Issued Date</th>
-      <th>due date </th>
-			<th>Payment State</th>
-			<th>Date Paid</th>
-        </tr>
-	</thead>
-		 <tfoot>
-		<tr>
-			<th>Amount</th>
-      <th>Issued Date</th>
-      <th>Due Date</th>
-			<th>Payment State</th>
-			<th>Date Paid</th>
-        </tr>
-         </tfoot>
-		 
-		 <tbody>
-<?php
-// $id = $_SESSION['id'];
-
-
-// echo 'the id is '.$id;
-$sql="SELECT *
-      FROM payment
-      WHERE fk_client='".$id."' ";
-	  
-$result = mysqli_query($connect,$sql);
-
-while($row = mysqli_fetch_assoc($result)){
-?>
-	<tr>
-	  <td><?php echo $row['Total']; ?></td>
-      <td><?php echo $row['issued_date']; ?></td>
-      <td><?php $dueString=$row['issued_date']; 
-    
-      echo date('Y-m-d', strtotime($dueString. ' + 3 days'));
-      ?></td>
-	  <?php
-	  if($row['payment_st'] == 0){
-	  echo '<td>Unpaid</td>';
-	  echo '<td>No Date</td>';
-	  }
-	  else{
-		  echo '<td>Paid</td>';
-		  echo '<td>'.$row["payment_date"].'</td>';
-	  }
-		}
-	  ?>
-	</tr>
-<?php			
-	//	close the connection
-	mysqli_close($connect);
-?>
-				</tbody>
-              </table>
+  
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header">Submit Complaint</div>
+      <div class="card-body" style="width:100%;">
+        <form method="POST">
+          <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+					<select name="ctype" id="ctype" style="width:600px" required="required">
+					<option>Please choose you're complaint type.. If "Other" please specify</option>
+					<option value="Software">Software</option>
+					<option value="hardware">Hardware</option>
+					<option value="Other">Other</option>
+					</select>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
+		  
+		   <div class="form-group">
+		   	<div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+				  <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px; width:600px" required="required"></textarea>
+                </div>
+              </div>
+			 </div>
+		   </div>
+          <button class="btn btn-primary btn-block" type="submit" name="submit">Submit</button>
+        </form>
       </div>
-      <!-- /.container-fluid -->
-
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © LBPOWER 2019</span>
-          </div>
-        </div>
-      </footer>
-
     </div>
-    <!-- /.content-wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
+ 
+  <!-- /.container-fluid -->
 
+  <!-- Sticky Footer -->
+  <footer class="sticky-footer">
+    <div class="container my-auto">
+      <div class="copyright text-center my-auto">
+        <span>Copyright © LBPOWER 2019</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+<!-- /.content-wrapper -->
+
+</div>
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

@@ -9,7 +9,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   //
       if(user != null){ 
         var io=user.uid;
-        window.alert("success "+io);
+      // window.alert("success "+io);
        
       var str="http://localhost/final/LBPOWER/client/clientdash.php?id="+io;
       //window.alert(str);

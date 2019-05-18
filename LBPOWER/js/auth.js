@@ -27,5 +27,10 @@ var config = {
 
   function logout(){
     firebase.auth().signOut();
-    location.replace("http://localhost/final/LBPOWER/");
+
+
+    var str="http://localhost/final/LBPOWER/client/destroy.php"
+      //window.alert(str);
+      window.location.replace(str);
+    
   }
