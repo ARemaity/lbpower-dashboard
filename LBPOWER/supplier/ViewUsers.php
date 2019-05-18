@@ -60,21 +60,19 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-		<?php
-			if($_SESSION['role']==1){
-			echo '<a class="nav-link" href="../supplier/SupplierDash.php">
+        <?php
+        if ($_SESSION['role'] == 1) {
+          echo '<a class="nav-link" href="../supplier/SupplierDash.php">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span>
 				  </a>';
-			}
-		
-			else if($_SESSION['role']==2){
-			echo '<a class="nav-link" href="../supplier/AdminDash.php">
+        } else if ($_SESSION['role'] == 2) {
+          echo '<a class="nav-link" href="../supplier/AdminDash.php">
 						<i class="fas fa-fw fa-tachometer-alt"></i>
 						<span>Dashboard</span>
 				  </a>';
-		}
-		?>
+        }
+        ?>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="../Supplier/ViewUsers.php">
@@ -119,100 +117,99 @@ include("../DBConnect.php");
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <thead>
-		<tr>
-			<th>PID</th>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>City</th>
-			<th>Street</th>
-			<th>Phone</th>
-			<th>Email</th>
-			<th>Edit</th>
-			<th>Payments</th>
-			<th>Device</th>
-        </tr>
-	</thead>
-		 <tfoot>
-		<tr>
-			<th>PID</th>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>City</th>
-			<th>Street</th>
-			<th>Phone</th>
-			<th>Email</th>
-			<th>Edit</th>
-			<th>Payments</th>
-			<th>Device</th>
-        </tr>
-         </tfoot>
-		 
-		 <tbody>
-    <?php
-			if($_SESSION['role'] == 1){
-				$sql = "SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
+                <thead>
+                  <tr>
+                    <th>PID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>City</th>
+                    <th>Street</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Payments</th>
+                    <th>Device</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>PID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>City</th>
+                    <th>Street</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Payments</th>
+                    <th>Device</th>
+                  </tr>
+                </tfoot>
+
+                <tbody>
+                  <?php
+                  if ($_SESSION['role'] == 1) {
+                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
 								FROM person, client, supplier
 								WHERE person.PID=client.PID
-								AND client.fk_supplier= ".$_SESSION['PID']."
+								AND client.fk_supplier= " . $_SESSION['PID'] . "
 								AND Supplier_Company=comapany_name
 								AND person.role=0";
-				$result = mysqli_query($connect,$sql);
-				}
-			else if($_SESSION['role'] == 2){
-					$sql="SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
+                    $result = mysqli_query($connect, $sql);
+                  } else if ($_SESSION['role'] == 2) {
+                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
 								FROM person, client, supplier
 								WHERE person.PID=client.PID
 								AND Supplier_Company=comapany_name
 								AND person.role=0";
-					$result = mysqli_query($connect,$sql);
-			}
-		//for($i=0;$i<mysqli_num_rows($result);$i++){
-		//$row = mysqli_fetch_assoc($result);
-		while($row = mysqli_fetch_assoc($result)){
-			$rows[]=$row;
-		}
-		foreach($rows as $key=>$row){
-		//Check if user does NOT have a device
-		$devicecheck=	'SELECT PID
+                    $result = mysqli_query($connect, $sql);
+                  }
+                  //for($i=0;$i<mysqli_num_rows($result);$i++){
+                  //$row = mysqli_fetch_assoc($result);
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $rows[] = $row;
+                  }
+                  foreach ($rows as $key => $row) {
+                    //Check if user does NOT have a device
+                    $devicecheck =  'SELECT PID
 						 FROM client
 						 WHERE NOT EXISTS(select fk_client
 										  				from device
-															where fk_client='.$row['PID'].')';
-															
-		$result2 = mysqli_query($connect,$devicecheck);
-		$row2= mysqli_fetch_assoc($result2);
-		
-		?>
-		
-			<tr>
-			<td><?php echo $row['PID']; ?></td>
-			<td><?php echo $row['fname']; ?></td>
-			<td><?php echo $row['lname']; ?></td>
-			<td><?php echo $row['city']; ?></td>
-			<td><?php echo $row['street']; ?></td>
-			<td><?php echo $row['phone']; ?></td>
-			<td><?php echo $row['email']; ?></td>
-			<?php
-				$query="../supplier/editUser.php?PID=".$row['PID'];
-				echo "<td width='90'> <a href=".$query.">Edit User</a></td>";
-				$query3="../supplier/ViewUserPayments.php?PID=".$row['PID'];
-				echo "<td width='90'> <a href=".$query3.">Payments</a></td>";
-				if($row['PID']=$row2['PID']){
-					$query2="../supplier/AddDevice.php?ID=".$id=$rows[$key]['PID'];
-					//$_SESSION['cPID']=$rows[$key]['PID'];
-					//TODO: comment here for better undertstanding
-					$_SESSION['ID']=$id;
-					echo "<td width='100'> <a href=".$query2.">Add Device</a></td>";
-				}
-				else{
-					echo '<td>Exists</td>';
-				}
+															where fk_client=' . $row['PID'] . ')';
 
-			?>
-			</tr>
-			<?php } //}?>
-				</tbody>
+                    $result2 = mysqli_query($connect, $devicecheck);
+                    $row2 = mysqli_fetch_assoc($result2);
+
+                    ?>
+
+                    <tr>
+                      <td><?php echo $row['PID']; ?></td>
+                      <td><?php echo $row['fname']; ?></td>
+                      <td><?php echo $row['lname']; ?></td>
+                      <td><?php echo $row['city']; ?></td>
+                      <td><?php echo $row['street']; ?></td>
+                      <td><?php echo $row['phone']; ?></td>
+                      <td><?php echo $row['email']; ?></td>
+                      <?php
+                      $query = "../supplier/editUser.php?PID=" . $row['PID'];
+                      echo "<td width='90'> <a href=" . $query . ">Edit User</a></td>";
+                      $query3 = "../supplier/ViewUserPayments.php?PID=" . $row['PID'];
+                      echo "<td width='90'> <a href=" . $query3 . ">Payments</a></td>";
+                      if ($row['PID'] = $row2['PID']) {
+                        $query2 = "../supplier/AddDevice.php?ID=" . $id = $rows[$key]['PID'];
+                        //$_SESSION['cPID']=$rows[$key]['PID'];
+                        //TODO: comment here for better undertstanding
+                        $_SESSION['ID'] = $id;
+                        echo "<td width='100'> <a href=" . $query2 . ">Add Device</a></td>";
+                      } else {
+                        echo '<td>Exists</td>';
+                      }
+
+                      ?>
+                    </tr>
+                  <?php } 
+                ?>
+                </tbody>
               </table>
             </div>
           </div>

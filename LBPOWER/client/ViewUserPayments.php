@@ -107,7 +107,8 @@ $id = $_SESSION['id'];
     <thead>
 		<tr>
 			<th>Ammount</th>
-			<th>Issued Date</th>
+      <th>Issued Date</th>
+      <th>due date </th>
 			<th>Payment State</th>
 			<th>Date Paid</th>
         </tr>
@@ -115,7 +116,8 @@ $id = $_SESSION['id'];
 		 <tfoot>
 		<tr>
 			<th>Amount</th>
-			<th>Issued Date</th>
+      <th>Issued Date</th>
+      <th>Due Date</th>
 			<th>Payment State</th>
 			<th>Date Paid</th>
         </tr>
@@ -138,6 +140,10 @@ while($row = mysqli_fetch_assoc($result)){
 	<tr>
 	  <td><?php echo $row['Total']; ?></td>
       <td><?php echo $row['issued_date']; ?></td>
+      <td><?php $dueString=$row['issued_date']; 
+    
+      echo date('Y-m-d', strtotime($dueString. ' + 3 days'));
+      ?></td>
 	  <?php
 	  if($row['payment_st'] == 0){
 	  echo '<td>Unpaid</td>';
