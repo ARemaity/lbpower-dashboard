@@ -56,7 +56,7 @@ if(isset($_POST['submit'])){
 				$_SESSION['email'] = $row['email'];
 				$_SESSION['PID'] = $row['PID'];
 				$_SESSION['cname']=$row['comapany_name'];
-				header("refresh:1;url=../adminSupplier/supplier/SupplierDash.php");
+				header("refresh:1;url=../LBPower/supplier/SupplierDash.php");
 				}
 				
 			else if($row['role']==2){
@@ -72,7 +72,7 @@ if(isset($_POST['submit'])){
 				$_SESSION['Name'] = $row['fname'];
 				$_SESSION['email'] = $row['email'];
 				$_SESSION['PID'] = $row['PID'];
-				header("refresh:1;url=../adminSupplier/admin/AdminDash.php");
+				header("refresh:1;url=../LBPower/admin/AdminDash.php");
 				}
 			}
 		 

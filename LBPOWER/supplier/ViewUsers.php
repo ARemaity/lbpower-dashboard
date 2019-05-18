@@ -13,7 +13,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Suppliers</title>
+  <title>View Users</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -81,7 +81,7 @@ include("../DBConnect.php");
       </li>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/newuser.html">
+        <a class="nav-link" href="../Supplier/newuser.html">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>

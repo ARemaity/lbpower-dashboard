@@ -1,7 +1,7 @@
 <?php
 session_start();
 session_destroy();
-header("refresh:1;url=index.html");
+header("refresh:1;url=../LBPower/admin/index.html");
 ?>
 
 <html>
