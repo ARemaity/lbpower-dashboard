@@ -119,6 +119,9 @@ else{
             </div>
           </div>
           <button class="btn btn-primary btn-block" type="submit" name="submit">Edit</button>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="ViewUsers.php">Cancel</a>
+        </div>
         </form>
       </div>
     </div>
