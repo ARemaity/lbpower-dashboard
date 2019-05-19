@@ -169,13 +169,14 @@ include("../DBConnect.php");
                   while ($row = mysqli_fetch_assoc($result)) {
                     $rows[] = $row;
                   }
+				  if(mysqli_num_rows ( $result )>0){
                   foreach ($rows as $key => $row) {
                     //Check if user does NOT have a device
                     $devicecheck =  'SELECT PID
 						 FROM client
 						 WHERE NOT EXISTS(select fk_client
-										  				from device
-															where fk_client=' . $row['PID'] . ')';
+										  from device
+										  where fk_client=' . $row['PID'] . ')';
 
                     $result2 = mysqli_query($connect, $devicecheck);
                     $row2 = mysqli_fetch_assoc($result2);
@@ -207,7 +208,7 @@ include("../DBConnect.php");
 
                       ?>
                     </tr>
-                  <?php } 
+                  <?php } }
                 ?>
                 </tbody>
               </table>

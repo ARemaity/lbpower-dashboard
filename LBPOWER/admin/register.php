@@ -13,91 +13,17 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Add Supplier</title>
+  <title>Register</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <!-- Page level plugin CSS-->
-  <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin.css" rel="stylesheet">
 
 </head>
 
-<body id="page-top">
-
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-    <a class="navbar-brand mr-1" href="AdminDash.php">LBPower</a>
-
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
-
-
-    <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0">
-
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Activity Log</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-        </div>
-      </li>
-    </ul>
-
-  </nav>
-
-  <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="../admin/AdminDash.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../admin/ViewSuppliers.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>View Suppliers</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="../admin/AddSupplier.php">
-          <i class="fa fa-user-plus"></i>
-          <span>Add Supplier</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../admin/ViewComplaints.php">
-          <i class="fa fa-thumbs-down"></i>
-          <span>View Complaints</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../logout.php">
-          <i class="fa fa-sign-out"></i>
-          <span>Log Out</span></a>
-      </li>
-    </ul>
-
-    <div id="content-wrapper" class="bg-dark">
-
-      <div class="container-fluid">
-
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Add Supplier</li>
-        </ol>
+<body class="bg-dark">
 
 <?php
 	
@@ -126,7 +52,6 @@ if(isset($_GET['submit'])){	//	page submitted
 	}
 	else{
 		echo '<h2 style="color:red;">Passwords Must Match</h2>';
-			  mysqli_close($connect);
 			  header("refresh:1;url=../web/admin/register.php");
 	}
 		//If the sql returns an error
@@ -136,14 +61,14 @@ if(isset($_GET['submit'])){	//	page submitted
 	else{
 			echo ' <h2 style="color:green;">Supplier Added Successfully</h2>';
 			mysqli_close($connect);
-			header("refresh:1;url=ViewSuppliers.php");
+			header("refresh:1;url=..login.php");
 	}
 }
 ?>
 
   <div class="container">
     <div class="card card-register mx-auto mt-5">
-      <div class="card-header">Add Supplier</div>
+      <div class="card-header">Register</div>
       <div class="card-body">
         <form style="background-color gray" method="GET">
           <div class="form-group">
@@ -184,7 +109,7 @@ if(isset($_GET['submit'])){	//	page submitted
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="Phone"  name="phone" class="form-control" placeholder="Phone" required="required" autofocus="autofocus">
+                  <input type="number" id="Phone"  name="phone" class="form-control" placeholder="Phone" required="required" autofocus="autofocus">
                   <label for="Phone">Phone</label>
                 </div>
               </div>
@@ -225,63 +150,30 @@ if(isset($_GET['submit'])){	//	page submitted
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="required">
+                  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="required"
+				  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                   <label for="inputPassword">Password</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="password" id="confirmPassword" name="passwordr" class="form-control" placeholder="Confirm password" required="required">
+                  <input type="password" id="confirmPassword" name="passwordr" class="form-control" placeholder="Confirm password" required="required"
+				   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords must match!" required>
                   <label for="confirmPassword">Confirm password</label>
                 </div>
               </div>
             </div>
           </div>
-          <button class="btn btn-primary btn-block" type="submit" name="submit">Add</button>
+          <button class="btn btn-primary btn-block" type="submit" name="submit">Register</button>
         </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="../login.php">Login Page</a>
+          <a class="d-block small" href="#">Forgot Password?</a>
+		  <a class="d-block small" href="index.html">Back to Home?</a>
       </div>
-    </div>
+	</div>
   </div>
-      <!-- /.container-fluid -->
-
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © LBPOWER 2019</span>
-          </div>
-        </div>
-      </footer>
-
-    </div>
-    <!-- /.content-wrapper -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>
@@ -289,19 +181,10 @@ if(isset($_GET['submit'])){	//	page submitted
 
   <!-- Core plugin JavaScript-->
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="../vendor/datatables/jquery.dataTables.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
   
 <script>
 var myInput = document.getElementById("inputPassword");
+var confirm = document.getElementById("confirmPassword");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
@@ -310,6 +193,14 @@ var length = document.getElementById("length");
 
 // When the user starts to type something inside the password field
 myInput.onkeyup = function() {
+var confirmed = confirm;
+if (confirmed == myInput) {
+    confirm.classList.remove("invalid");
+    confirm.classList.add("valid");
+  } else {
+    confirm.classList.remove("valid");
+    confirm.classList.add("invalid");
+}
   // Validate lowercase letters
   var lowerCaseLetters = /[a-z]/g;
   if(myInput.value.match(lowerCaseLetters)) { 
@@ -348,9 +239,10 @@ myInput.onkeyup = function() {
     length.classList.remove("valid");
     length.classList.add("invalid");
   }
-  
 }
+
 </script>
+
 </body>
 
 </html>
