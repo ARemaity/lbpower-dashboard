@@ -82,6 +82,12 @@ if($insert){
       <span>Dashboard</span>
     </a>
   </li>
+  <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+        <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </li>
   <li class="nav-item active">
     <a class="nav-link" href="SubmitComplaint.php">
       <i class="fa fa-thumbs-down"></i>

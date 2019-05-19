@@ -20,8 +20,22 @@ while ($row= mysqli_fetch_assoc($result))  {
     $data["phone"] = $row["phone"];
   
   }
-
-
+  
+  $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" . $id . "'"  or die(mysqli_error($conn));
+  $results= mysqli_query($connect,$costQ);
+  $cost = mysqli_fetch_object($results);
+  $get1kw  = (int)$cost->cost_1kw;
+  $phone = "SELECT `fname`,`lname`,`phone` FROM `supplier`,`client`,`person` where client.fkSupplier = supplier.id and supplier.PID=person.PID and client.id ='" . $id . "'"  or die(mysqli_error($conn));
+  $result= mysqli_query($connect,$query);
+  $data2 = array();
+  while ($row= mysqli_fetch_assoc($result))  {
+      $data2 = array();
+      $data2["fname"] = $row["fname"];
+      $data2["lname"] = $row["lname"];
+      $data2["phone"] = $row["phone"];
+    
+    }
+  
 ?>
 <html lang="en">
 
@@ -186,12 +200,18 @@ while ($row= mysqli_fetch_assoc($result))  {
           <span>Dashboard</span>
         </a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="profile.php">
+        <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="ViewUserPayments.php">
         <i class="fas fa-money-bill-wave"></i>
           <span>View Payments</span></a>
@@ -291,50 +311,29 @@ while ($row= mysqli_fetch_assoc($result))  {
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Experience</label>
+                                                <label>Supplier name</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>Expert</p>
+                                                <p><?php echo  $data2["fname"]." ".$data2["lname"];?></p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Hourly Rate</label>
+                                                <label>Supplier Phone</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>10$/hr</p>
+                                                <p><?php echo  $data2["phone"]?></p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Total Projects</label>
+                                                <label>Cost of 1 kw/h</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p>230</p>
+                                                <p><?php echo $get1kw?></p>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>English Level</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>Expert</p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label>Your Bio</label><br/>
-                                        <p>Your detail description</p>
-                                    </div>
-                                </div>
+                            
                             </div>
                         </div>
                     </div>
