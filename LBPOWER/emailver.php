@@ -7,7 +7,7 @@ $message = '';
 if(isset($_GET['activation_code']))
 {
  
-    $getdata = mysqli_query($connect , "SELECT * FROM pass Where activation_code='" . $_GET['activation_code'] . "' ORDER BY SID DESC LIMIT 1");
+    $getdata = mysqli_query($connect , "SELECT * FROM pass Where activation_code='" . $_GET['activation_code'] . "' ORDER BY SID DESC LIMIT 1") or die(mysqli_error($connect));
  
  if(mysqli_num_rows($getdata)>0)
  {
@@ -40,7 +40,7 @@ if(isset($_GET['activation_code']))
 <!DOCTYPE html>
 <html>
  <head>
-  <title>PHP Register Login Script with Email Verification</title>  
+  <title>Email Verification</title>  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -48,7 +48,7 @@ if(isset($_GET['activation_code']))
  <body>
   
   <div class="container">
-   <h1 align="center">PHP Register Login Script with Email Verification</h1>
+   <h1 align="center">LBPOWER Email Verification</h1>
   
    <h3><?php echo $message; ?></h3>
    
