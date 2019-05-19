@@ -2,6 +2,26 @@
 <?php
 session_start();
 include("DBConnect.php");
+$message='';
+
+if(isset($_POST['submit'])){
+$type=$_POST["ctype"];
+$text=$_POST["subject"];
+
+$insert = mysqli_query($connect, "INSERT INTO complaint(complaint_type,detials,sender_type,fk_sender)  VALUES ('" . $type . "','" . $text . "','1','" .  $_SESSION['id'] . "')") ;
+if($insert){
+
+
+  $message = '<label class="text-success">Success ,message will be resolved as soon as possible</label>';
+
+}else{
+
+  $message = '<label class="text-danger">there is problem try again later </label>';
+
+}
+
+}
+
 ?>
 <html lang="en">
 
@@ -30,7 +50,7 @@ include("DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-
+  <a class="navbar-brand mr-1" href="ClientDash.php">LBPOWER</a>
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
     </button>
@@ -38,15 +58,14 @@ include("DBConnect.php");
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
-
-    <li class="nav-item dropdown no-arrow">
+      <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
          
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" onclick="logout()" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" onclick="logout();" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -82,6 +101,7 @@ include("DBConnect.php");
       <div class="card-header">Submit Complaint</div>
       <div class="card-body" style="width:100%;">
         <form method="POST">
+        <?php echo $message; ?>
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">

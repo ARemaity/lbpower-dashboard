@@ -126,7 +126,7 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="ClientDash.php">Welcome</a>
+    <a class="navbar-brand mr-1" href="ClientDash.php">LBPOWER</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -160,6 +160,12 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
         <a class="nav-link" href="ClientDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+        <i class="fas fa-user"></i>
+          <span>Profile</span>
         </a>
       </li>
       <li class="nav-item">
