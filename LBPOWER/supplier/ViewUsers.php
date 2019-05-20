@@ -150,9 +150,9 @@ include("../DBConnect.php");
                   <?php
                   if ($_SESSION['role'] == 1) {
                     $sql = "SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
-								FROM person, client, supplier
+								FROM person, client, supplier, pass
 								WHERE person.PID=client.PID
-								AND client.fk_supplier= " . $_SESSION['PID'] . "
+								AND client.fksupplier= " . $_SESSION['PID'] . "
 								AND Supplier_Company=comapany_name
 								AND person.role=0";
                     $result = mysqli_query($connect, $sql);

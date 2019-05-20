@@ -81,7 +81,7 @@
 											<a class="nav-link" href="index.html">Home</a>
 										</li>
 								<li class="nav-item">
-									<a class="nav-link" href="registration.html">Register</a>
+									<a class="nav-link" href="../registration.php">Register</a>
 								</li>
 								<!-- <li class="nav-item">
 									<a class="nav-link" href="#roadmap">Roadmap</a>
@@ -97,7 +97,7 @@
 								</li>
 
 								<li class="nav-item mt-2">
-									<a class="btn btn-primary js-tilt" href="http://localhost/remoteISD/web/LBPower/login.php" role="button" data-tilt-perspective="300" data-tilt-speed="700" data-tilt-max="24"><span>login</span></a>
+									<a class="btn btn-primary js-tilt" href="../login.php" role="button" data-tilt-perspective="300" data-tilt-speed="700" data-tilt-max="24"><span>login</span></a>
 								</li>
 							</ul>
 						</div>

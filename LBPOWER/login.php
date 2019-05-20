@@ -28,7 +28,7 @@ session_start();
 include("DBConnect.php");
 if(isset($_POST['submit'])){
 	
-	$sql ="SELECT role
+	$sql ="SELECT role, email
 	       FROM person, pass
 	       WHERE email = '".$_POST['email']."' AND password ='".$_POST['pass']."' ";
 
@@ -44,7 +44,7 @@ if(isset($_POST['submit'])){
 			$row = mysqli_fetch_assoc($result);
 			if($row['role']==1){
 				 $sql ="SELECT email, role, fname, supplier.PID, comapany_name
-						FROM person, supplier
+						FROM person, supplier, pass
 						WHERE email= '".$_POST['email']."'
 						AND Supplier.PID=Person.PID";
 						
@@ -61,7 +61,7 @@ if(isset($_POST['submit'])){
 				
 			else if($row['role']==2){
 				 $sql ="SELECT email, role, fname, admin.PID
-						FROM person, admin
+						FROM person, admin, pass
 						WHERE email='".$_POST['email']."'
 						AND admin.PID=Person.PID";
 						
@@ -95,7 +95,7 @@ if(isset($_POST['submit'])){
           <div class="form-group">
             <div class="form-label-group">
               <input type="password" id="password" name="pass" class="form-control" placeholder="Password" required="required">
-              <label for="pass">Password</label>
+              <label for="password">Password</label>
             </div>
           </div>
           <div class="form-group">
