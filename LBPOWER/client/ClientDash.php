@@ -32,42 +32,42 @@ header('Location:http://localhost/final/LBPOWER/');
 
 }
 
-$getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $_SESSION['id'] . "'") or die(mysqli_error($conn));
-  if (mysqli_num_rows($getdata) == 0) {
-    $kw =  0;
-  } else {
-    $cum = mysqli_fetch_object($getdata);
-    $getCumumlative  = (int)$cum->value;
-    $kw =  $getCumumlative;
-}
+// $getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $_SESSION['id'] . "'") or die(mysqli_error($conn));
+//   if (mysqli_num_rows($getdata) == 0) {
+//     $kw =  0;
+//   } else {
+//     $cum = mysqli_fetch_object($getdata);
+//     $getCumumlative  = (int)$cum->value;
+//     $kw =  $getCumumlative;
+// }
 
-$costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" .  $_SESSION['id']. "'"  or die(mysqli_error($conn));
+// $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" .  $_SESSION['id']. "'"  or die(mysqli_error($conn));
    
-    $result = mysqli_query($connect, $costQ);
-    if (mysqli_num_rows($result) == 0) {
+//     $result = mysqli_query($connect, $costQ);
+//     if (mysqli_num_rows($result) == 0) {
     
-      $get1kw=0;
-      $total=0;
-    } else {
-      $cost = mysqli_fetch_object($result);
-      $get1kw  = (int)$cost->cost_1kw;
-      $total = $get1kw * $getCumumlative;
+//       $get1kw=0;
+//       $total=0;
+//     } else {
+//       $cost = mysqli_fetch_object($result);
+//       $get1kw  = (int)$cost->cost_1kw;
+//       $total = $get1kw * $getCumumlative;
       
-    }
+//     }
 
-    $query = "SELECT * FROM `payment` WHERE      payment_st=0 AND fk_client='". $_SESSION['id']."'";
+//     $query = "SELECT * FROM `payment` WHERE      payment_st=0 AND fk_client='". $_SESSION['id']."'";
 
-    $unpaidQ= mysqli_query($connect,$query);
+//     $unpaidQ= mysqli_query($connect,$query);
 
 
-    if( mysqli_num_rows($unpaidQ)==0){
+//     if( mysqli_num_rows($unpaidQ)==0){
 
-      $unpaid=0;
+//       $unpaid=0;
 
-    }else{
-   $unpaid= mysqli_num_rows($unpaidQ);
+//     }else{
+//    $unpaid= mysqli_num_rows($unpaidQ);
 
-    }
+//     }
 
 
 	$sql="select * from client where '".$_SESSION['id']."' = id";
@@ -80,7 +80,29 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
 
 
 
-
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $("#kw").load('kw.php')
+        }, 2000);
+    });
+    $(document).ready(function(){
+        setInterval(function(){
+            $("#cost").load('cost.php')
+        }, 2000);
+    });
+    $(document).ready(function(){
+        setInterval(function(){
+            $("#bill").load('bill.php')
+        }, 2000);
+    });
+    $(document).ready(function(){
+        setInterval(function(){
+            $("#unpaid").load('unpaid.php')
+        }, 2000);
+    });
+    </script>
 
 
 
@@ -198,7 +220,8 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
         <div class="card-body-icon">
         <i class="fas fa-plug"></i>
         </div>
-        <div class="mr-5"><?php echo $kw;?> kw/h </div>
+        <div id="kw" class="mr-5"> kw/h </div>
+        <?php //echo $kw;?>
       </div>
       <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
@@ -214,7 +237,7 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
         <div class="card-body-icon">
         <i class="fas fa-money-bill-wave"></i>
         </div>
-        <div class="mr-5">1kw cost <?php echo $get1kw;?> $ </div>
+        <div id="cost"class="mr-5"></div>
       </div>
       <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
@@ -230,7 +253,7 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
         <div class="card-body-icon">
         <i class="fas fa-file-invoice-dollar"></i>
         </div>
-        <div class="mr-5">payment today is  <?php echo $total;?> $</div>
+        <div id="bill" class="mr-5"></div>
       </div>
       <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
@@ -246,7 +269,7 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
         <div class="card-body-icon">
         <i class="fas fa-exclamation-triangle"></i>
         </div>
-        <div class="mr-5"><?php echo $unpaid;?> Unpaid payment</div>
+        <div id="unpaid"class="mr-5"></div>
       </div>
       <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>

@@ -1,41 +1,44 @@
-
-
-
 <!DOCTYPE html>
 <?php
 session_start();
 include("DBConnect.php");
+
+if (!isset($_SERVER['HTTP_REFERER'])) {
+  header('Location:http://localhost/final/LBPOWER/');
+} else if (isset($_SESSION['id'])) { } else {
+
+  ////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+  header('Location:http://localhost/final/LBPOWER/');
+}
 $id = $_SESSION['id'];
 
-$query = "SELECT  `fname`, `lname`, `city`, `street`, `phone` FROM `person` INNER JOIN `client` on  client.PID = person.PID  WHERE id='". $id."'" ;
+$query = "SELECT  `fname`, `lname`, `city`, `street`, `phone` FROM `person` INNER JOIN `client` on  client.PID = person.PID  WHERE id='" . $id . "'";
 
-$result= mysqli_query($connect,$query);
+$result = mysqli_query($connect, $query);
 $data = array();
-while ($row= mysqli_fetch_assoc($result))  {
-    $data = array();
-    $data["fname"] = $row["fname"];
-    $data["lname"] = $row["lname"];
-    $data["city"] = $row["city"];
-    $data["street"] = $row["street"];
-    $data["phone"] = $row["phone"];
-  
-  }
-  
-  $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" . $id . "'"  or die(mysqli_error($conn));
-  $results= mysqli_query($connect,$costQ);
-  $cost = mysqli_fetch_object($results);
-  $get1kw  = (int)$cost->cost_1kw;
-  $phone = "SELECT `fname`,`lname`,`phone` FROM `supplier`,`client`,`person` where client.fkSupplier = supplier.id and supplier.PID=person.PID and client.id ='" . $id . "'"  or die(mysqli_error($conn));
-  $result= mysqli_query($connect,$query);
+while ($row = mysqli_fetch_assoc($result)) {
+  $data = array();
+  $data["fname"] = $row["fname"];
+  $data["lname"] = $row["lname"];
+  $data["city"] = $row["city"];
+  $data["street"] = $row["street"];
+  $data["phone"] = $row["phone"];
+}
+
+$costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" . $id . "'"  or die(mysqli_error($conn));
+$results = mysqli_query($connect, $costQ);
+$cost = mysqli_fetch_object($results);
+$get1kw  = (int)$cost->cost_1kw;
+$phone = "SELECT `fname`,`lname`,`phone` FROM `supplier`,`client`,`person` where client.fkSupplier = supplier.id and supplier.PID=person.PID and client.id ='" . $id . "'"  or die(mysqli_error($conn));
+$result = mysqli_query($connect, $query);
+$data2 = array();
+while ($row = mysqli_fetch_assoc($result)) {
   $data2 = array();
-  while ($row= mysqli_fetch_assoc($result))  {
-      $data2 = array();
-      $data2["fname"] = $row["fname"];
-      $data2["lname"] = $row["lname"];
-      $data2["phone"] = $row["phone"];
-    
-    }
-  
+  $data2["fname"] = $row["fname"];
+  $data2["lname"] = $row["lname"];
+  $data2["phone"] = $row["phone"];
+}
+
 ?>
 <html lang="en">
 
@@ -47,107 +50,124 @@ while ($row= mysqli_fetch_assoc($result))  {
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<style>
-    
-    
-    body{
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-}
-.emp-profile{
-    padding: 3%;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    border-radius: 0.5rem;
-    background: #fff;
-}
-.profile-img{
-    text-align: center;
-}
-.profile-img img{
-    width: 70%;
-    height: 100%;
-}
-.profile-img .file {
-    position: relative;
-    overflow: hidden;
-    margin-top: -20%;
-    width: 70%;
-    border: none;
-    border-radius: 0;
-    font-size: 15px;
-    background: #212529b8;
-}
-.profile-img .file input {
-    position: absolute;
-    opacity: 0;
-    right: 0;
-    top: 0;
-}
-.profile-head h5{
-    color: #333;
-}
-.profile-head h6{
-    color: #0062cc;
-}
-.profile-edit-btn{
-    border: none;
-    border-radius: 1.5rem;
-    width: 70%;
-    padding: 2%;
-    font-weight: 600;
-    color: #6c757d;
-    cursor: pointer;
-}
-.proile-rating{
-    font-size: 12px;
-    color: #818182;
-    margin-top: 5%;
-}
-.proile-rating span{
-    color: #495057;
-    font-size: 15px;
-    font-weight: 600;
-}
-.profile-head .nav-tabs{
-    margin-bottom:5%;
-}
-.profile-head .nav-tabs .nav-link{
-    font-weight:600;
-    border: none;
-}
-.profile-head .nav-tabs .nav-link.active{
-    border: none;
-    border-bottom:2px solid #0062cc;
-}
-.profile-work{
-    padding: 14%;
-    margin-top: -15%;
-}
-.profile-work p{
-    font-size: 12px;
-    color: #818182;
-    font-weight: 600;
-    margin-top: 10%;
-}
-.profile-work a{
-    text-decoration: none;
-    color: #495057;
-    font-weight: 600;
-    font-size: 14px;
-}
-.profile-work ul{
-    list-style: none;
-}
-.profile-tab label{
-    font-weight: 600;
-}
-.profile-tab p{
-    font-weight: 600;
-    color: #0062cc;
-}
-    </style>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <style>
+    body {
+      background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    }
+
+    .emp-profile {
+      padding: 3%;
+      margin-top: 3%;
+      margin-bottom: 3%;
+      border-radius: 0.5rem;
+      background: #fff;
+    }
+
+    .profile-img {
+      text-align: center;
+    }
+
+    .profile-img img {
+      width: 70%;
+      height: 100%;
+    }
+
+    .profile-img .file {
+      position: relative;
+      overflow: hidden;
+      margin-top: -20%;
+      width: 70%;
+      border: none;
+      border-radius: 0;
+      font-size: 15px;
+      background: #212529b8;
+    }
+
+    .profile-img .file input {
+      position: absolute;
+      opacity: 0;
+      right: 0;
+      top: 0;
+    }
+
+    .profile-head h5 {
+      color: #333;
+    }
+
+    .profile-head h6 {
+      color: #0062cc;
+    }
+
+    .profile-edit-btn {
+      border: none;
+      border-radius: 1.5rem;
+      width: 70%;
+      padding: 2%;
+      font-weight: 600;
+      color: #6c757d;
+      cursor: pointer;
+    }
+
+    .proile-rating {
+      font-size: 12px;
+      color: #818182;
+      margin-top: 5%;
+    }
+
+    .proile-rating span {
+      color: #495057;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .profile-head .nav-tabs {
+      margin-bottom: 5%;
+    }
+
+    .profile-head .nav-tabs .nav-link {
+      font-weight: 600;
+      border: none;
+    }
+
+    .profile-head .nav-tabs .nav-link.active {
+      border: none;
+      border-bottom: 2px solid #0062cc;
+    }
+
+    .profile-work {
+      padding: 14%;
+      margin-top: -15%;
+    }
+
+    .profile-work p {
+      font-size: 12px;
+      color: #818182;
+      font-weight: 600;
+      margin-top: 10%;
+    }
+
+    .profile-work a {
+      text-decoration: none;
+      color: #495057;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .profile-work ul {
+      list-style: none;
+    }
+
+    .profile-tab label {
+      font-weight: 600;
+    }
+
+    .profile-tab p {
+      font-weight: 600;
+      color: #0062cc;
+    }
+  </style>
   <title>View Payments</title>
 
   <!-- Custom fonts for this template-->
@@ -202,7 +222,7 @@ while ($row= mysqli_fetch_assoc($result))  {
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="profile.php">
-        <i class="fas fa-user"></i>
+          <i class="fas fa-user"></i>
           <span>Profile</span>
         </a>
       </li>
@@ -213,30 +233,29 @@ while ($row= mysqli_fetch_assoc($result))  {
       </li>
       <li class="nav-item">
         <a class="nav-link" href="ViewUserPayments.php">
-        <i class="fas fa-money-bill-wave"></i>
+          <i class="fas fa-money-bill-wave"></i>
           <span>View Payments</span></a>
       </li>
     </ul>
 
     <div id="content-wrapper">
-    <div class="container emp-profile">
-            <form method="post">
-            <div class="row">
-                <div class="col-md-2">
-                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Email"/>
-                    </div> 
+      <div class="container emp-profile">
+        <div class="row">
+          <div class="col-md-2">
+            <input type="submit" class="profile-edit-btn" name="btnAddMore" data-toggle="modal" data-target="#editModal" value="Edit Email" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-img">
+              <img src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" alt="" />
             </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="profile-img">
-                            <img src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" alt=""/>
-                        </div>
-                    </div>
-                    <!-- <div class="col-md-6">
+          </div>
+          <!-- <div class="col-md-6">
                         
                     </div> -->
-                    
-<!--             
+
+          <!--             
                     <div class="col-md-4">
                         <div class="profile-work">
                             <p>WORK LINK</p>
@@ -251,53 +270,53 @@ while ($row= mysqli_fetch_assoc($result))  {
                             <a href="">PHP, .Net</a><br/>
                         </div>
                     </div> -->
-                    <div class="col-md-8">
-                    <div class="profile-head">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My profile</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Account Details</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="tab-content profile-tab" id="myTabContent">
-                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                       
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Name</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo  $data["fname"]." ".$data["lname"];?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>City</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo  $data["city"];?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Street</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo  $data["street"];?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo  $data["phone"];?></p>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="row">
+          <div class="col-md-8">
+            <div class="profile-head">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My profile</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Account Details</a>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-content profile-tab" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Name</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><?php echo  $data["fname"] . " " . $data["lname"]; ?></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>City</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><?php echo  $data["city"]; ?></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Street</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><?php echo  $data["street"]; ?></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>phone</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><?php echo  $data["phone"]; ?></p>
+                  </div>
+                </div>
+                <!-- <div class="row">
                                             <div class="col-md-6">
                                                 <label>Email</label>
 
@@ -307,40 +326,40 @@ while ($row= mysqli_fetch_assoc($result))  {
                                                 <p>Kshiti123</p>
                                             </div>
                                         </div> -->
-                            </div>
-                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Supplier name</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo  $data2["fname"]." ".$data2["lname"];?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Supplier Phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo  $data2["phone"]?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Cost of 1 kw/h</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $get1kw?></p>
-                                            </div>
-                                        </div>
-                            
-                            </div>
-                        </div>
-                    </div>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Supplier name</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><?php echo  $data2["fname"] . " " . $data2["lname"]; ?></p>
+                  </div>
                 </div>
-            </form>           
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Supplier Phone</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><?php echo  $data2["phone"] ?></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Cost of 1 kw/h</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p><?php echo $get1kw ?></p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
-     
+
+      </div>
+
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
@@ -382,10 +401,37 @@ while ($row= mysqli_fetch_assoc($result))  {
     </div>
   </div>
 
+  <!-- update email modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <label> Email</label>
+              <input id="email" type="email" name="email" class="form-control" placeholder="Enter your email *" required="required" data-error="Valid email is required.">
+              <!-- <div class="help-block with-errors"></div> -->
+
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" onclick="update()">Update</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Bootstrap core JavaScript-->
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
   <script src="../js/auth.js"></script>
-	<script src="../js/graph.js"></script>
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

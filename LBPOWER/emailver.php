@@ -3,7 +3,7 @@
 include('DBConnect.php');
 
 $message = '';
-
+echo "the database name ";
 if(isset($_GET['activation_code']))
 {
  
