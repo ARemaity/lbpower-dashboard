@@ -60,35 +60,30 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <?php
-        if ($_SESSION['role'] == 1) {
-          echo '<a class="nav-link" href="../supplier/SupplierDash.php">
-					<i class="fas fa-fw fa-tachometer-alt"></i>
-					<span>Dashboard</span>
-				  </a>';
-        } else if ($_SESSION['role'] == 2) {
-          echo '<a class="nav-link" href="../supplier/AdminDash.php">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
-						<span>Dashboard</span>
-				  </a>';
-        }
-        ?>
+        <a class="nav-link" href="SupplierDash.php">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="../Supplier/ViewUsers.php">
+        <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
-      </li>
       <li class="nav-item">
-        <a class="nav-link" href="../Supplier/newuser.html">
+        <a class="nav-link" href="newuser.html">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../SubmitComplaint.php">
+        <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Profile</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../logout.php">
@@ -104,7 +99,7 @@ include("../DBConnect.php");
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
+            <a href="SupplierDash.php">Dashboard</a>
           </li>
           <li class="breadcrumb-item active">ViewUsers</li>
         </ol>
@@ -149,18 +144,16 @@ include("../DBConnect.php");
                 <tbody>
                   <?php
                   if ($_SESSION['role'] == 1) {
-                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
-								FROM person, client, supplier, pass
+                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email
+								FROM person, client
 								WHERE person.PID=client.PID
 								AND client.fksupplier= " . $_SESSION['PID'] . "
-								AND Supplier_Company=comapany_name
 								AND person.role=0";
                     $result = mysqli_query($connect, $sql);
                   } else if ($_SESSION['role'] == 2) {
-                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email, Supplier_Company
-								FROM person, client, supplier
+                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email
+								FROM person, client
 								WHERE person.PID=client.PID
-								AND Supplier_Company=comapany_name
 								AND person.role=0";
                     $result = mysqli_query($connect, $sql);
                   }

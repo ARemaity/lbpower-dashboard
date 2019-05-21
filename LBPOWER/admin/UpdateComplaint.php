@@ -13,7 +13,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Payments</title>
+  <title>View Complaints</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@ include("../DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="SupplierDash.php">LBPower</a>
+    <a class="navbar-brand mr-1" href="AdminDash.php">LBPower</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -60,25 +60,25 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/SupplierDash.php">
+        <a class="nav-link" href="../admin/AdminDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="../Supplier/ViewUsers.php">
+      <li class="nav-item">
+        <a class="nav-link" href="../admin/ViewSuppliers.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>View Users</span></a>
+          <span>View Suppliers</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="../admin/AddSupplier.php">
           <i class="fa fa-user-plus"></i>
-          <span>Add User</span></a>
+          <span>Add Supplier</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="SubmitComplaint.php">
+      <li class="nav-item active">
+        <a class="nav-link" href="../admin/ViewComplaints.php">
           <i class="fa fa-thumbs-down"></i>
-          <span>Submit Complaint</span></a>
+          <span>View Complaints</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../logout.php">
@@ -96,119 +96,45 @@ include("../DBConnect.php");
           <li class="breadcrumb-item">
             <a href="AdminDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewPayments</li>
+          <li class="breadcrumb-item active">ViewComplaints</li>
         </ol>
 
 <?php
-	
-if(isset($_GET['submit'])){	//	page submitted
-	
-	$sql = "update person set 
-	fname = '".$_GET['fname']."' , 
-	lname = '".$_GET['lname']."' ,
-	city = '".$_GET['city']."' , 
-	street = '".$_GET['street']."' , 
-	phone = '".$_GET['phone']."' ,
-	email = '".$_GET['email']."' 
-	where PID = ".$_GET['PID'];
-	$result = mysqli_query($connect,$sql);
-	
-	$sql2="update pass
-		   set email='".$_GET['email']."'
-		   where(select id from client where client.id=pass.SID and client.PID='".$_GET['PID']."')";
-	$result2 = mysqli_query($connect,$sql2);
-	//	If the sql returns an error
-	if(!$result || !$result2)
-			die("Something went wrong");
-	else
-			echo ' <h2 style="color:green;">User Updated Successfully</h2>';
-			header("refresh:1;url=../supplier/ViewUsers.php");
+if(isset($_POST['submit'])){
+$sql="update complaint
+	  set cstatus = '".$_POST['status']."'
+	  where id='".$_GET['id']."'";
+$result = mysqli_query($connect,$sql);
+echo ' <h2 style="color:green;">Updated</h2>';
+header("refresh:1;url=ViewComplaints.php");
+mysqli_close($connect);
 }
-else{
-	$id = $_GET['PID'];
-
-	//	Write and execute an SQL query
-	$sql = "select * from person where PID=".$id;
-	$result = mysqli_query($connect,$sql);
-
-	//	If the sql returns an error
-	if(!$result)
-			die("something went wrong");
-
-	
-	$row = mysqli_fetch_assoc($result);
-?>
+ ?>
 
   <div class="container">
     <div class="card card-register mx-auto mt-5">
-      <div class="card-header">Edit User</div>
+      <div class="card-header">Update Complaint</div>
       <div class="card-body">
-        <form style="background-color gray" method="GET">
+        <form method="POST">
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="hidden" id="PID" name='PID' class="form-control" required="required" autofocus="autofocus" value = <?php echo $row['PID']; ?> >
-                </div>
-                <div class="form-label-group">
-                  <input type="text" id="firstName" name='fname' class="form-control" placeholder="First Name" required="required" autofocus="autofocus" value = <?php echo $row['fname']; ?>>
-                  <label for="firstName">First name</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="lastName" name="lname"  class="form-control" placeholder="Last Name" required="required" value = <?php echo $row['lname']; ?> >
-                  <label for="lastName">Last name</label>
+					<select name="status" id="status" style="width:600px" required="required">
+					<option>Choose Complaint Status</option>
+					<option value="In Progress">In Progress</option>
+					<option value="Complete/Fixed">Complete/Fixed</option>
+					<option value="Other">Other</option>
+					</select>
                 </div>
               </div>
             </div>
           </div>
-		  
-		   <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="City"  name="city"  class="form-control" placeholder="City" required="required" autofocus="autofocus" value = <?php echo $row['city']; ?> >
-                  <label for="City">City</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="Street" name="street"  class="form-control" placeholder="Street" required="required" value = <?php echo $row['street']; ?> >
-                  <label for="Street">Street</label>
-                </div>
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="Phone"  name="phone"  class="form-control" placeholder="Phone" required="required" autofocus="autofocus" value = <?php echo $row['phone']; ?> >
-                  <label for="City">Phone</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="hidden" id="email"  name="email"  class="form-control" placeholder="email" required="required" autofocus="autofocus" value = <?php echo $row['email']; ?> >
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-primary btn-block" type="submit" name="submit">Edit</button>
-        <div class="text-center">
-          <a class="d-block small mt-3" href="ViewUsers.php">Cancel</a>
-        </div>
+          <button class="btn btn-primary btn-block" type="submit" name="submit">Submit</button>
         </form>
       </div>
     </div>
   </div>
-  <?php 
-}
-//	close the connection
-	mysqli_close($connect);
-?>
 
       </div>
       <!-- /.container-fluid -->

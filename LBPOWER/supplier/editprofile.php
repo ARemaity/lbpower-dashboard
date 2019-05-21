@@ -48,7 +48,7 @@ include("../DBConnect.php");
           <a class="dropdown-item" href="#">Settings</a>
           <a class="dropdown-item" href="#">Activity Log</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="../logout.php" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -60,18 +60,18 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/SupplierDash.php">
+        <a class="nav-link" href="SupplierDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="../Supplier/ViewUsers.php">
+      <li class="nav-item">
+        <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="newuser.html">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
@@ -79,6 +79,11 @@ include("../DBConnect.php");
         <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Profile</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../logout.php">
@@ -94,9 +99,9 @@ include("../DBConnect.php");
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
+            <a href="SupplierDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewPayments</li>
+          <li class="breadcrumb-item active">Edit Profile</li>
         </ol>
 
 <?php
@@ -110,22 +115,22 @@ if(isset($_GET['submit'])){	//	page submitted
 	street = '".$_GET['street']."' , 
 	phone = '".$_GET['phone']."' ,
 	email = '".$_GET['email']."' 
-	where PID = ".$_GET['PID'];
+	where PID = ".$_SESSION['PID'];
 	$result = mysqli_query($connect,$sql);
 	
 	$sql2="update pass
 		   set email='".$_GET['email']."'
-		   where(select id from client where client.id=pass.SID and client.PID='".$_GET['PID']."')";
+		   where(select id from client where client.id=pass.SID and client.PID='".$_SESSION['PID']."')";
 	$result2 = mysqli_query($connect,$sql2);
 	//	If the sql returns an error
 	if(!$result || !$result2)
 			die("Something went wrong");
 	else
-			echo ' <h2 style="color:green;">User Updated Successfully</h2>';
+			echo ' <h2 style="color:green;">Profile Updated Successfully</h2>';
 			header("refresh:1;url=../supplier/ViewUsers.php");
 }
 else{
-	$id = $_GET['PID'];
+	$id = $_SESSION['PID'];
 
 	//	Write and execute an SQL query
 	$sql = "select * from person where PID=".$id;
@@ -246,7 +251,7 @@ else{
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="../logout.php">Logout</a>
         </div>
       </div>
     </div>

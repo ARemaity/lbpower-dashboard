@@ -118,7 +118,6 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
   background-color: #f44336;
   color: white;
 }
-
 </style>
 </head>
 

@@ -13,7 +13,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Suppliers</title>
+  <title>View Users</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -65,12 +65,12 @@ include("../DBConnect.php");
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="ViewSuppliers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Suppliers</span></a>
@@ -101,75 +101,102 @@ include("../DBConnect.php");
           <li class="breadcrumb-item">
             <a href="AdminDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewSuppliers</li>
+          <li class="breadcrumb-item active">ViewUsers</li>
         </ol>
 
         <!-- DataTables Example -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Suppliers List</div>
+            My Clients</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-			<th>City</th>
-		    <th>Street</th>
-		    <th>Phone</th>
-		    <th>Email</th>
-		    <th>Company Name</th>
-		    <th>Cost Per KW</th>
-		    <th>User Capacity</th>
-			<th></th>
-        </tr>
-		</thead>
-		 <tfoot>
-		<tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-			<th>City</th>
-		    <th>Street</th>
-		    <th>Phone</th>
-		    <th>Email</th>
-		    <th>Company Name</th>
-		    <th>Cost Per KW</th>
-		    <th>User Capacity</th>
-			<th></th>
-        </tr>
-         </tfoot>
-    <tbody>
-	
-    <?php
-	//	Write and execute an SQL query
-	$sql = "SELECT *
-	        FROM person, supplier
-			where person.PID=supplier.PID and role=1";
-	$result = mysqli_query($connect,$sql);
-	?>
-	
-    <?php 
-		for($i=0;$i<mysqli_num_rows($result);$i++){
-		$row = mysqli_fetch_assoc($result); 
-		?>
-		
-        <tr>
-            <td><?php echo $row['fname']; ?></td>
-            <td><?php echo $row['lname']; ?></td>
-			<td><?php echo $row['city']; ?></td>
-			<td><?php echo $row['street']; ?></td>
-			<td><?php echo $row['phone']; ?></td>
-			<td><?php echo $row['email']; ?></td>
-			<td><?php echo $row['comapany_name']; ?></td>
-			<td><?php echo $row['cost_1kw']; ?></td>
-			<td><?php echo $row['user_capacity']; ?></td>
-			<?php $query="../admin/EditSupplier.php?PID=".$row['PID'];
-			echo "<td width='50'> <a href=".$query.">Edit</a></td>"; 
-			} mysqli_close($connect); ?>
-        </tr>
-    </tbody>
+                <thead>
+                  <tr>
+                    <th>PID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>City</th>
+                    <th>Street</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Payments</th>
+                    <th>Device</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>PID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>City</th>
+                    <th>Street</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Payments</th>
+                    <th>Device</th>
+                  </tr>
+                </tfoot>
+
+                <tbody>
+                  <?php
+                    if ($_SESSION['role'] == 2) {
+                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email
+								FROM person, client
+								WHERE person.PID=client.PID
+								AND person.role=0";
+                    $result = mysqli_query($connect, $sql);
+                  }
+                  //for($i=0;$i<mysqli_num_rows($result);$i++){
+                  //$row = mysqli_fetch_assoc($result);
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    $rows[] = $row;
+                  }
+				  if(mysqli_num_rows ( $result )>0){
+                  foreach ($rows as $key => $row) {
+                    //Check if user does NOT have a device
+                    $devicecheck =  'SELECT PID
+						 FROM client
+						 WHERE NOT EXISTS(select fk_client
+										  from device
+										  where fk_client=' . $row['PID'] . ')';
+
+                    $result2 = mysqli_query($connect, $devicecheck);
+                    $row2 = mysqli_fetch_assoc($result2);
+
+                    ?>
+
+                    <tr>
+                      <td><?php echo $row['PID']; ?></td>
+                      <td><?php echo $row['fname']; ?></td>
+                      <td><?php echo $row['lname']; ?></td>
+                      <td><?php echo $row['city']; ?></td>
+                      <td><?php echo $row['street']; ?></td>
+                      <td><?php echo $row['phone']; ?></td>
+                      <td><?php echo $row['email']; ?></td>
+                      <?php
+                      $query = "editUser.php?PID=" . $row['PID'];
+                      echo "<td width='90'> <a href=" . $query . ">Edit User</a></td>";
+                      $query3 = "ViewUserPayments.php?PID=" . $row['PID'];
+                      echo "<td width='90'> <a href=" . $query3 . ">Payments</a></td>";
+                      if ($row['PID'] = $row2['PID']) {
+                        $query2 = "AddDevice.php?ID=" . $id = $rows[$key]['PID'];
+                        //$_SESSION['cPID']=$rows[$key]['PID'];
+                        //TODO: comment here for better undertstanding
+                        //$_SESSION['ID'] = $id;
+                        echo "<td width='100'> <a href=" . $query2 . ">Add Device</a></td>";
+                      } else {
+                        echo '<td>Exists</td>';
+                      }
+
+                      ?>
+                    </tr>
+                  <?php } }
+                ?>
+                </tbody>
               </table>
             </div>
           </div>
@@ -194,7 +221,7 @@ include("../DBConnect.php");
   <!-- /#wrapper -->
 
   <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" LBPOWER="#page-top">
+  <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
 
@@ -211,7 +238,7 @@ include("../DBConnect.php");
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" LBPOWER="login.html">Logout</a>
+          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
     </div>

@@ -25,86 +25,58 @@ session_start();
 <body class="bg-dark">
 
 <?php
-if(isset($_SESSION['PID']))
-{
-	if($_SESSION['role']==1){
-    $message = "<h2 class='text-danger'>Already Logged in</h2>";
-	echo $message;
-	header("refresh:1;url=supplier/supplierdash.php");}
-	else if($_SESSION['role']==2){
-    $message = "<h2 class='text-danger'>Already Logged in</h2>";
-	echo $message;
-	header("refresh:1;url=admin/admindash.php");}
-}
-
-$message = '';
 include("DBConnect.php");
-
 if(isset($_POST['submit'])){
-	 $sql ="select role, person.email, status, password
-			from person, pass
-			where person.email='".$_POST['email']."'
-			and person.email=pass.email";
-	$statement = mysqli_query($connect,$sql);
-	$row=mysqli_fetch_assoc($statement);
-	$_SESSION['role']= $row['role'];
-	$count = mysqli_num_rows($statement);
-	if($count > 0)
-	{
-			if($row['status'] == 1)
-			{
-				if(password_verify($_POST["pass"], $row["password"]))
-				//if($row["user_password"] == $_POST["user_password"])
-				{
-						if($_SESSION['role']==1){
-						$sql2 ="SELECT person.email, role, fname, supplier.PID, comapany_name
-						FROM person, supplier, pass
-						WHERE person.email= '".$_POST['email']."'
-						AND person.email=pass.email
-						AND Supplier.PID=Person.PID
-						AND supplier.SID=pass.SID";
-						$result = mysqli_query($connect,$sql2);
-						$row2=mysqli_fetch_assoc($result);
-						$_SESSION['PID'] = $row2['PID'];
-						$_SESSION['name'] = $row2['fname'];
-						$_SESSION['email'] = $row2['email'];
-						$_SESSION['cname']=$row2['comapany_name'];
-						header("refresh:1;url=supplier/supplierdash.php");
-						}
-								
-						else if($_SESSION['role']==2){
-						$sql2 ="SELECT person.email, role, fname, admin.PID
-						FROM person, admin, pass
-						WHERE person.email='".$_POST['email']."'
-						AND person.email=pass.email
-						AND admin.PID=Person.PID
-						AND admin.SID=pass.SID";
-						$result = mysqli_query($connect,$sql2);
-						$row2=mysqli_fetch_assoc($result);
-						$_SESSION['PID'] = $row2['PID'];
-						$_SESSION['name'] = $row2['fname'];
-						$_SESSION['email'] = $row2['email'];
-						header("refresh:1;url=admin/admindash.php");
-						}
-				}
-				else
-				{
-					$message = "<h2 class='text-danger'>Wrong Password</h2>";
-					echo $message;
-				}
-			}
-			else
-			{
-				$message = "<h2 class='text-danger'>Please First Verify, your email address</h2>";
-				echo $message;
-			}
-	}
-	else
-	{
-		$message = "<h2 class='text-danger'>Wrong Email Address</h2>";
-		echo $message;
-	}	 
 	
+	$sql ="SELECT role, email
+	       FROM person, pass
+	       WHERE email = '".$_POST['email']."' AND password ='".$_POST['pass']."' ";
+
+	$result = mysqli_query($connect,$sql);
+
+	$res=mysqli_num_rows($result);
+	if($res==0){
+	echo ' <h2 style="color:red;">email or password are incorrect</h2>';}
+             
+	else{
+           
+			echo ' <h2 style="color:green;">Logging in please Wait!</h2>';
+			$row = mysqli_fetch_assoc($result);
+			if($row['role']==1){
+				 $sql ="SELECT email, role, fname, supplier.PID, comapany_name
+						FROM person, supplier, pass
+						WHERE email= '".$_POST['email']."'
+						AND Supplier.PID=Person.PID";
+						
+				$result = mysqli_query($connect,$sql);
+                $row=mysqli_fetch_assoc($result);
+				
+				$_SESSION['role'] = $row['role'];
+				$_SESSION['Name'] = $row['fname'];
+				$_SESSION['email'] = $row['email'];
+				$_SESSION['PID'] = $row['PID'];
+				$_SESSION['cname']=$row['comapany_name'];
+				header("refresh:1;url=../LBPower/supplier/SupplierDash.php");
+				}
+				
+			else if($row['role']==2){
+				 $sql ="SELECT email, role, fname, admin.PID
+						FROM person, admin, pass
+						WHERE email='".$_POST['email']."'
+						AND admin.PID=Person.PID";
+						
+				$result = mysqli_query($connect,$sql);
+				$row=mysqli_fetch_assoc($result);
+				
+				$_SESSION['role']= $row['role'];
+				$_SESSION['Name'] = $row['fname'];
+				$_SESSION['email'] = $row['email'];
+				$_SESSION['PID'] = $row['PID'];
+				header("refresh:1;url=../LBPower/admin/AdminDash.php");
+				}
+			}
+		 
+
 	mysqli_close($connect);
 }
 ?>

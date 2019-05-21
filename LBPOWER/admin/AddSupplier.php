@@ -60,30 +60,35 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="../admin/AdminDash.php">
+        <a class="nav-link" href="AdminDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../admin/ViewSuppliers.php">
+        <a class="nav-link" href="ViewUsers.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>View Users</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ViewSuppliers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Suppliers</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="../admin/AddSupplier.php">
+        <a class="nav-link" href="AddSupplier.php">
           <i class="fa fa-user-plus"></i>
           <span>Add Supplier</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../admin/ViewComplaints.php">
+        <a class="nav-link" href="ViewComplaints.php">
           <i class="fa fa-thumbs-down"></i>
           <span>View Complaints</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../logout.php">
-          <i class="fa fa-sign-out"></i>
-          <span>Log Out</span></a>
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>View Profile</span></a>
       </li>
     </ul>
 
@@ -91,21 +96,14 @@ include("../DBConnect.php");
 
       <div class="container-fluid">
 
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Add Supplier</li>
-        </ol>
 
 <?php
 	
 if(isset($_GET['submit'])){	//	page submitted
 	
 	if($_GET['password'] == $_GET['passwordr']){
-	$sql3 = "INSERT INTO pass(SID, password)
-			 VALUES(default, '".$_GET["password"]."')";
+	$sql3 = "INSERT INTO pass(SID, password, status, email)
+			 VALUES(default, '".$_GET["password"]."',1,'".$_GET["email"]."')";
 	$result = mysqli_query($connect,$sql3);
 			 
 	$sql="INSERT INTO person(PID, role, fname, lname, city, street, phone, email)

@@ -109,7 +109,7 @@ include("../DBConnect.php");
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
 		<tr>
-			<th>Ammount</th>
+			<th>Amount Due</th>
 			<th>Issued Date</th>
 			<th>Payment State</th>
 			<th>Date Paid</th>
@@ -117,7 +117,7 @@ include("../DBConnect.php");
 	</thead>
 		 <tfoot>
 		<tr>
-			<th>Ammount</th>
+			<th>Amount Due</th>
 			<th>Issued Date</th>
 			<th>Payment State</th>
 			<th>Date Paid</th>
@@ -136,7 +136,7 @@ $result = mysqli_query($connect,$sql);
 while($row = mysqli_fetch_assoc($result)){
 ?>
 	<tr>
-	  <td><?php echo $row['balance']; ?></td>
+	  <td><?php echo $row['Total']; ?>L.L</td>
       <td><?php echo $row['issued_date']; ?></td>
 	  <?php
 	  if($row['payment_st'] == 0){

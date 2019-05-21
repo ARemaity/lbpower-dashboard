@@ -2,6 +2,25 @@
 <?php
 session_start();
 include("../DBConnect.php");
+//Number of Suppliers in the database
+$numsuppliers="Select * from person where role = 1";
+$resnumsuppliers=mysqli_query($connect,$numsuppliers);
+    if( mysqli_num_rows($resnumsuppliers)==0){
+     $row=0;
+    }else{
+     $row=mysqli_num_rows($resnumsuppliers);
+    }
+
+//Number of Clients in the database
+$numusers="Select * from person where role = 0";
+$resnumusers=mysqli_query($connect,$numusers);
+    if( mysqli_num_rows($resnumusers)==0){
+     $row2=0;
+    }else{
+     $row2=mysqli_num_rows($resnumusers);
+    }
+	
+//
 ?>
 <html lang="en">
 
@@ -13,7 +32,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Suppliers</title>
+  <title>Admin Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,14 +42,20 @@ include("../DBConnect.php");
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin.css" rel="stylesheet">
-
+  <style>
+#alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+</style>
 </head>
 
 <body id="page-top">
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="AdminDash.php">LBPower</a>
+    <a class="navbar-brand mr-1" href="AdminDash.php">Welcome admin <?php echo $_SESSION['name']; ?></a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -63,25 +88,35 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="../admin/AdminDash.php">
+        <a class="nav-link" href="AdminDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../admin/ViewSuppliers.php">
+        <a class="nav-link" href="ViewUsers.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>View Users</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ViewSuppliers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Suppliers</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../admin/AddSupplier.php">
+        <a class="nav-link" href="AddSupplier.php">
           <i class="fa fa-user-plus"></i>
           <span>Add Supplier</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../admin/ViewComplaints.php">
+        <a class="nav-link" href="ViewComplaints.php">
           <i class="fa fa-thumbs-down"></i>
           <span>View Complaints</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>View Profile</span></a>
       </li>
     </ul>
 
@@ -96,18 +131,55 @@ include("../DBConnect.php");
           </li>
         </ol>
 		
-	  <!-- Area Chart Example-->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-chart-area"></i>
-            Area Chart Example</div>
-          <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+<!-- Icon Cards-->
+<div class="row">
+  <div class="col-xl-3 col-sm-6 mb-3">
+    <div class="card text-white bg-primary o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+        <i class="fas fa-plug"></i>
         </div>
-
+        <div class="mr-5"><font color="black">Total Number of Suppliers: <?php echo $row;?></font></div>
       </div>
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </a> -->
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 mb-3">
+    <div class="card text-white bg-warning o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+        <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <div class="mr-5" ><font color="black">Total Number of Clients: <?php echo $row2;?></font></div>
+      </div>
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </a> -->
+    </div>
+  </div>
+</div>
+
+<!-- Area Chart Example-->
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-chart-area"></i>
+    Area Chart Example</div>
+  <div class="card-body">
+  <div id="myPlot" style="width: 100%; max-height:75vh"></div>
+  </div>
+  <div class="card-footer small text-muted">Live update</div>
+</div>
+
+</div>
+ </div>
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
