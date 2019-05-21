@@ -3,7 +3,20 @@
 session_start();
 include("DBConnect.php");
 $id = $_SESSION['id'];
+if(!isset($_SERVER['HTTP_REFERER']))
+{        
+  header('Location:http://localhost/final/LBPOWER/');
 
+}else if(isset($_SESSION['id'])){
+  
+
+}else{
+
+////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+header('Location:http://localhost/final/LBPOWER/');
+
+
+}
 ?>
 <html lang="en">
 
@@ -65,6 +78,12 @@ $id = $_SESSION['id'];
         <a class="nav-link" href="ClientDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+        <i class="fas fa-user"></i>
+          <span>Profile</span>
         </a>
       </li>
       <li class="nav-item">

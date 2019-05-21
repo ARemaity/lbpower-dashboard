@@ -34,3 +34,18 @@ var config = {
       window.location.replace(str);
     
   }
+
+
+  function update(){
+    
+//     var email=document.getElementById("email").value;  
+//     var user = firebase.auth().currentUser;
+
+// user.updateEmail(email).then(function() {
+//  window.alert("Success");
+// }).catch(function(error) {
+//   var errorMessage = error.message;
+//   window.alert("Error : " + errorMessage);
+// });
+    
+  }

@@ -3,7 +3,20 @@
 session_start();
 include("DBConnect.php");
 $message='';
+if(!isset($_SERVER['HTTP_REFERER']))
+{        
+  header('Location:http://localhost/final/LBPOWER/');
 
+}else if(isset($_SESSION['id'])){
+  
+
+}else{
+
+////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+header('Location:http://localhost/final/LBPOWER/');
+
+
+}
 if(isset($_POST['submit'])){
 $type=$_POST["ctype"];
 $text=$_POST["subject"];
@@ -82,6 +95,12 @@ if($insert){
       <span>Dashboard</span>
     </a>
   </li>
+  <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+        <i class="fas fa-user"></i>
+          <span>Profile</span>
+        </a>
+      </li>
   <li class="nav-item active">
     <a class="nav-link" href="SubmitComplaint.php">
       <i class="fa fa-thumbs-down"></i>
