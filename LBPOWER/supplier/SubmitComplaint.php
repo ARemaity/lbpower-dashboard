@@ -13,7 +13,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Payments</title>
+  <title>Submit Complaint</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -30,7 +30,11 @@ include("../DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="SupplierDash.php">LBPower</a>
+		<?php
+			if($_SESSION['role']==1){
+			echo '<a class="navbar-brand mr-1" href="SupplierDash.php">LBPower</a>';
+			}
+		?>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -60,25 +64,30 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/SupplierDash.php">
+        <a class="nav-link" href="SupplierDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="../Supplier/ViewUsers.php">
+      <li class="nav-item">
+        <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="newuser.html">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Profile</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../logout.php">
@@ -87,130 +96,64 @@ include("../DBConnect.php");
       </li>
     </ul>
 
-    <div id="content-wrapper">
-
+    <div id="content-wrapper" class="bg-dark">
       <div class="container-fluid">
-
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
+            <a href="SupplierDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewPayments</li>
+          <li class="breadcrumb-item active">Submit Complaint</li>
         </ol>
 
 <?php
-	
-if(isset($_GET['submit'])){	//	page submitted
-	
-	$sql = "update person set 
-	fname = '".$_GET['fname']."' , 
-	lname = '".$_GET['lname']."' ,
-	city = '".$_GET['city']."' , 
-	street = '".$_GET['street']."' , 
-	phone = '".$_GET['phone']."' ,
-	email = '".$_GET['email']."' 
-	where PID = ".$_GET['PID'];
-	$result = mysqli_query($connect,$sql);
-	
-	$sql2="update pass
-		   set email='".$_GET['email']."'
-		   where(select id from client where client.id=pass.SID and client.PID='".$_GET['PID']."')";
-	$result2 = mysqli_query($connect,$sql2);
-	//	If the sql returns an error
-	if(!$result || !$result2)
-			die("Something went wrong");
-	else
-			echo ' <h2 style="color:green;">User Updated Successfully</h2>';
-			header("refresh:1;url=../supplier/ViewUsers.php");
+if(isset($_POST['submit'])){
+$role=$_SESSION['role'];
+$type=$_POST["ctype"];
+$text=$_POST["subject"];
+$sql="INSERT INTO complaint(complaint_type,detials,sender_type,fk_sender) VALUES ('$type','$text','$role','".$_SESSION['PID']."')";
+$result = mysqli_query($connect,$sql);
+echo ' <h2 style="color:green;">Complaint is sent and will be reviewed by admins shortly</h2>';
+header("refresh:1;url=SupplierDash.php");
+mysqli_close($connect);
 }
-else{
-	$id = $_GET['PID'];
-
-	//	Write and execute an SQL query
-	$sql = "select * from person where PID=".$id;
-	$result = mysqli_query($connect,$sql);
-
-	//	If the sql returns an error
-	if(!$result)
-			die("something went wrong");
-
-	
-	$row = mysqli_fetch_assoc($result);
-?>
+ ?>
 
   <div class="container">
     <div class="card card-register mx-auto mt-5">
-      <div class="card-header">Edit User</div>
+      <div class="card-header">Submit Complaint</div>
       <div class="card-body">
-        <form style="background-color gray" method="GET">
+        <form method="POST">
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="hidden" id="PID" name='PID' class="form-control" required="required" autofocus="autofocus" value = <?php echo $row['PID']; ?> >
-                </div>
-                <div class="form-label-group">
-                  <input type="text" id="firstName" name='fname' class="form-control" placeholder="First Name" required="required" autofocus="autofocus" value = <?php echo $row['fname']; ?>>
-                  <label for="firstName">First name</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="lastName" name="lname"  class="form-control" placeholder="Last Name" required="required" value = <?php echo $row['lname']; ?> >
-                  <label for="lastName">Last name</label>
+					<select name="ctype" id="ctype" style="width:600px" required="required">
+					<option>Please choose you're complaint type.. If "Other" please specify</option>
+					<option value="Software">Software</option>
+					<option value="hardware">Hardware</option>
+					<option value="Other">Other</option>
+					</select>
                 </div>
               </div>
             </div>
           </div>
 		  
 		   <div class="form-group">
-            <div class="form-row">
+		   	<div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="City"  name="city"  class="form-control" placeholder="City" required="required" autofocus="autofocus" value = <?php echo $row['city']; ?> >
-                  <label for="City">City</label>
+				  <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px; width:600px" required="required"></textarea>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="Street" name="street"  class="form-control" placeholder="Street" required="required" value = <?php echo $row['street']; ?> >
-                  <label for="Street">Street</label>
-                </div>
-              </div>
-            </div>
-          </div>
-		  
-		  <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="Phone"  name="phone"  class="form-control" placeholder="Phone" required="required" autofocus="autofocus" value = <?php echo $row['phone']; ?> >
-                  <label for="City">Phone</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="hidden" id="email"  name="email"  class="form-control" placeholder="email" required="required" autofocus="autofocus" value = <?php echo $row['email']; ?> >
-                </div>
-              </div>
-            </div>
-          </div>
-          <button class="btn btn-primary btn-block" type="submit" name="submit">Edit</button>
-        <div class="text-center">
-          <a class="d-block small mt-3" href="ViewUsers.php">Cancel</a>
-        </div>
+			 </div>
+		   </div>
+          <button class="btn btn-primary btn-block" type="submit" name="submit">Submit</button>
         </form>
       </div>
     </div>
   </div>
-  <?php 
-}
-//	close the connection
-	mysqli_close($connect);
-?>
-
-      </div>
+  </div>
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->

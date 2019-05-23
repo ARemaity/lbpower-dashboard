@@ -2,6 +2,34 @@
 <?php
 session_start();
 include("../DBConnect.php");
+//Number of Users For Specific Supplier
+$numclient="Select * from client WHERE fkSupplier='".$_SESSION['PID']."'";
+$resnumclient=mysqli_query($connect,$numclient);
+    if( mysqli_num_rows($resnumclient)==0){
+     $row=0;
+    }else{
+     $row=mysqli_num_rows($resnumclient);
+    }
+	
+$revenue="SELECT sum(total) FROM payment, client WHERE payment_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.PID AND client.fkSupplier=".$_SESSION['PID']."";
+$resrevenue=mysqli_query($connect,$revenue);
+	if(mysqli_num_rows($resrevenue)==0){
+		$total=0;
+	}else{
+		$row2=mysqli_fetch_assoc($resrevenue);
+		$total = (double)$row2['sum(total)'];
+		$five=$total*(5/100);
+		$total=$total-$five;
+	}
+	
+$consumption="SELECT sum(consumption) FROM payment, client WHERE issued_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.PID AND client.fkSupplier=".$_SESSION['PID']."";
+$resconsumption=mysqli_query($connect,$consumption);
+	if(mysqli_num_rows($resconsumption)==0){
+		$totalc=0;
+	}else{
+		$row3=mysqli_fetch_assoc($resconsumption);
+		$totalc = (double)$row3['sum(consumption)'];
+	}
 ?>
 <html lang="en">
 
@@ -30,7 +58,7 @@ include("../DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="SupplierDash.php">Welcome <?php echo ''.$_SESSION['Name'].''; ?></a>
+    <a class="navbar-brand mr-1" href="SupplierDash.php">Welcome <?php echo ''.$_SESSION['name'].''; ?></a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -57,7 +85,7 @@ include("../DBConnect.php");
           <a class="dropdown-item" href="#">Settings</a>
           <a class="dropdown-item" href="#">Activity Log</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="logout.php" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="../logout.php" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -70,25 +98,30 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="../supplier/SupplierDash.php">
+        <a class="nav-link" href="SupplierDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/ViewUsers.php">
+        <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/newuser.html">
+        <a class="nav-link" href="newuser.html">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../SubmitComplaint.php">
+        <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Profile</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../logout.php">
@@ -108,16 +141,58 @@ include("../DBConnect.php");
           </li>
         </ol>
 		
-	  <!-- Area Chart Example-->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-chart-area"></i>
-            Area Chart Example</div>
-          <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+<!-- Icon Cards-->
+<div class="row">
+  <div class="col-xl-3 col-sm-6 mb-3">
+    <div class="card text-white bg-primary o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+        <i class="fas fa-plug"></i>
         </div>
+        <div class="mr-5"><font color="black">My user count: <?php echo $row;?></font></div>
+      </div>
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </a> -->
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 mb-3">
+    <div class="card text-white bg-warning o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+        <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <div class="mr-5"><font color="black">This months revenue: <?php echo $total;?> L.L </font></div>
+      </div>
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </a> -->
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 mb-3">
+    <div class="card text-white bg-success o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+        <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+        <div class="mr-5">KW Consumption this month: <?php echo $totalc;?>KW</div>
+      </div>
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </a> -->
+    </div>
+  </div>
+</div>
+
 
       </div>
       <!-- /.container-fluid -->

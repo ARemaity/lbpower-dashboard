@@ -60,30 +60,35 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="../admin/AdminDash.php">
+        <a class="nav-link" href="AdminDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../admin/ViewSuppliers.php">
+        <a class="nav-link" href="ViewUsers.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>View Users</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ViewSuppliers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Suppliers</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../admin/AddSupplier.php">
+        <a class="nav-link" href="AddSupplier.php">
           <i class="fa fa-user-plus"></i>
           <span>Add Supplier</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="../admin/ViewComplaints.php">
+        <a class="nav-link" href="ViewComplaints.php">
           <i class="fa fa-thumbs-down"></i>
           <span>View Complaints</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../logout.php">
-          <i class="fa fa-sign-out"></i>
-          <span>Log Out</span></a>
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>View Profile</span></a>
       </li>
     </ul>
 
@@ -112,6 +117,8 @@ include("../DBConnect.php");
             <th>Type</th>
             <th>Details</th>
 			<th>Sender Type</th>
+			<th>Status</th>
+			<th>Update Complaint</th>
         </tr>
 		</thead>
 		 <tfoot>
@@ -119,6 +126,8 @@ include("../DBConnect.php");
             <th>Type</th>
             <th>Details</th>
 			<th>Sender Type</th>
+			<th>Status</th>
+			<th>Update Complaint</th>
         </tr>
          </tfoot>
 <tbody>
@@ -139,6 +148,10 @@ include("../DBConnect.php");
             <td><?php echo $row['complaint_type']; ?></td>
             <td><?php echo $row['detials']; ?></td>
             <td><?php echo $row['sender_type']; ?></td>
+			<td><?php echo $row['cstatus']; ?></td>
+			<?php $query="../admin/UpdateComplaint.php?id=".$row['id'];
+			echo "<td width='50'> <a href=".$query.">Update</a></td>"; 
+			?>
         </tr>
 		<?php } mysqli_close($connect); ?>
     </tbody>

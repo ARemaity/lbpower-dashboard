@@ -140,7 +140,6 @@ header('Location:http://localhost/final/LBPOWER/');
   background-color: #f44336;
   color: white;
 }
-
 </style>
 </head>
 

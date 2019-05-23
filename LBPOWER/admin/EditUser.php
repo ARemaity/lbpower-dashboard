@@ -13,7 +13,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Payments</title>
+  <title>View Complaints</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@ include("../DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="SupplierDash.php">LBPower</a>
+    <a class="navbar-brand mr-1" href="AdminDash.php">LBPower</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -60,30 +60,35 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/SupplierDash.php">
+        <a class="nav-link" href="AdminDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="../Supplier/ViewUsers.php">
+        <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="ViewSuppliers.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>View Suppliers</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="AddSupplier.php">
           <i class="fa fa-user-plus"></i>
-          <span>Add User</span></a>
+          <span>Add Supplier</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="SubmitComplaint.php">
+        <a class="nav-link" href="ViewComplaints.php">
           <i class="fa fa-thumbs-down"></i>
-          <span>Submit Complaint</span></a>
+          <span>View Complaints</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../logout.php">
-          <i class="fa fa-sign-out"></i>
-          <span>Log Out</span></a>
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>View Profile</span></a>
       </li>
     </ul>
 
@@ -96,9 +101,10 @@ include("../DBConnect.php");
           <li class="breadcrumb-item">
             <a href="AdminDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewPayments</li>
+          <li class="breadcrumb-item active">Edit User</li>
         </ol>
 
+	
 <?php
 	
 if(isset($_GET['submit'])){	//	page submitted
