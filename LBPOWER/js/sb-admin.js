@@ -1,10 +1,5 @@
 
  
-  
-function logout(){
-  firebase.auth().signOut();
-}
-
 
 (function($) {
   "use strict"; // Start of use strict

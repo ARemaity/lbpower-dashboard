@@ -36,14 +36,18 @@ while ($row= mysqli_fetch_assoc($result))  {
         $data["payment_date"] = "0";
         
     }else{
-        $data["payment_date"] = $row["payment_date"];}
+        $data["payment_date"] = $row["payment_date"];
+    
+    
+    
+    }
         
   
-    array_push($dbdata["data"],$data);
+    
   }
 
 
-die(json_encode($dbdata,JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+
 
 
 }

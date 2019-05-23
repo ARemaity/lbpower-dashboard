@@ -49,3 +49,56 @@ var config = {
 // });
     
   }
+  function pay(id)
+  {
+  
+
+    // $.ajax({
+
+    //   type: "GET",
+    //   url: 'getid.php',
+    //   data: "id=" + id, // appears as $_GET['id'] @ your backend side
+    //   success: function(data) {
+    //         // data is ur summary
+    //        $('#df').html(data);
+    //   }
+ 
+    // });
+   /// var paymodal=document.getElementById("pay").value; 
+
+  //  document.getElementById("d").value=id;
+  //  document.getElementById("d").style.display=none;
+           
+  var xhr = new XMLHttpRequest();
+
+  xhr.DONE = function () {
+
+    window.alert(this.responseText);
+  var s = this.responseText;
+  document.getElementById("df").innerHTML=s;
+    
+  };
+  xhr.open("POST", 'getid.php', true);
+
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send("id="+id);
+  
+  
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function () {
+//       if (this.readyState == 4 && this.status == 200) {
+  
+//         var s = this.responseText;
+      
+// document.getElementById("df").innerHTML=s;     
+// //document.getElementById("pays").click();  
+//       }
+//     };
+//     xhttp.open("POST", "getid.php", true);
+//     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//     xhttp.send("id="+id);
+    //method click modal
+
+
+  }

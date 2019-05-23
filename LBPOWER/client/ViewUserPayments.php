@@ -2,8 +2,11 @@
 <?php
 session_start();
 include("DBConnect.php");
+
+$output='';
+
 $id = $_SESSION['id'];
-if(!isset($_SERVER['HTTP_REFERER']))
+/*if(!isset($_SERVER['HTTP_REFERER']))
 {        
   header('Location:http://localhost/final/LBPOWER/');
 
@@ -16,7 +19,7 @@ if(!isset($_SERVER['HTTP_REFERER']))
 header('Location:http://localhost/final/LBPOWER/');
 
 
-}
+}*/
 ?>
 <html lang="en">
 
@@ -38,11 +41,19 @@ header('Location:http://localhost/final/LBPOWER/');
 
   <!-- Custom styles for this template-->
   <link href="../css/sb-admin.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 </head>
 
 <body id="page-top">
 
+<div id="df">
+
+
+
+
+
+</div>
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <a class="navbar-brand mr-1" href="ClientDash.php">LBPOWER</a>
@@ -82,7 +93,7 @@ header('Location:http://localhost/final/LBPOWER/');
       </li>
       <li class="nav-item">
         <a class="nav-link" href="profile.php">
-        <i class="fas fa-user"></i>
+          <i class="fas fa-user"></i>
           <span>Profile</span>
         </a>
       </li>
@@ -93,7 +104,7 @@ header('Location:http://localhost/final/LBPOWER/');
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="ViewUserPayments.php">
-        <i class="fas fa-money-bill-wave"></i>
+          <i class="fas fa-money-bill-wave"></i>
           <span>View Payments</span></a>
       </li>
     </ul>
@@ -118,129 +129,137 @@ header('Location:http://localhost/final/LBPOWER/');
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-    <thead>
-		<tr>
-			<th>Ammount</th>
-      <th>Issued Date</th>
-      <th>due date </th>
-			<th>Payment State</th>
-			<th>Date Paid</th>
-        </tr>
-	</thead>
-		 <tfoot>
-		<tr>
-			<th>Amount</th>
-      <th>Issued Date</th>
-      <th>Due Date</th>
-			<th>Payment State</th>
-			<th>Date Paid</th>
-        </tr>
-         </tfoot>
-		 
-		 <tbody>
-<?php
-// $id = $_SESSION['id'];
+                <thead>
+                  <tr>
+                    <th>Ammount</th>
+                    <th>Issued Date</th>
+                    <th>due date </th>
+                    <th>Payment State</th>
+                    <th>Date Paid</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Amount</th>
+                    <th>Issued Date</th>
+                    <th>Due Date</th>
+                    <th>Payment State</th>
+                    <th>Date Paid</th>
+                  </tr>
+                </tfoot>
+
+                <tbody>
+                  <?php
+                  // $id = $_SESSION['id'];
 
 
-// echo 'the id is '.$id;
-$sql="SELECT *
+                  // echo 'the id is '.$id;
+                  $sql = "SELECT *
       FROM payment
-      WHERE fk_client='".$id."' ";
-	  
-$result = mysqli_query($connect,$sql);
+      WHERE fk_client='" . $id . "' ";
 
-while($row = mysqli_fetch_assoc($result)){
-?>
-	<tr>
-	  <td><?php echo $row['Total']; ?></td>
-      <td><?php echo $row['issued_date']; ?></td>
-      <td><?php $dueString=$row['issued_date']; 
-    
-      echo date('Y-m-d', strtotime($dueString. ' + 3 days'));
-      ?></td>
-	  <?php
-	  if($row['payment_st'] == 0){
-	  echo '<td>Unpaid</td>';
-	  echo '<td>No Date</td>';
-	  }
-	  else{
-		  echo '<td>Paid</td>';
-		  echo '<td>'.$row["payment_date"].'</td>';
-	  }
-		}
-	  ?>
-	</tr>
-<?php			
-	//	close the connection
-	mysqli_close($connect);
-?>
-				</tbody>
-              </table>
+                  $result = mysqli_query($connect, $sql);
+
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <tr>
+                      <td><?php echo $row['Total']; ?></td>
+                      <td><?php echo $row['issued_date']; ?></td>
+                      <td><?php $dueString = $row['issued_date'];
+
+                          echo date('Y-m-d', strtotime($dueString . ' + 3 days'));
+                          ?></td>
+                      <?php
+                      if ($row['payment_st'] == 0) {
+                        echo '<td>Unpaid</td>';
+                        echo '<td>No Date</td>';
+                      } else {
+                        echo '<td>Paid</td> ';
+                        echo '<td>' . $row["payment_date"] . '</td>';
+                      }
+
+
+                      echo " 
+";
+
+
+
+
+                      $output = <<<EOD
+
+
+<td><button id="pays" style='background:none;'  data-toggle="modal" data-target="#paymodal" onclick="pay(this.value)"   value='15'>pay</button></td></tr>
+
+
+EOD;
+// //                       $first = <<<EOD
+// // <td><button style='background:none;'  data-toggle="modal" data-target="#
+// // EOD;
+//                       $second = <<<EOD
+// " onclick='pay(this.value)' value='
+// EOD;
+//                       $third = <<<EOD
+// '>pay</button></td>
+// EOD;
+
+                      echo $output;
+
+
+                      // echo $first . $row['id'] . $second.$row['id'].$third;
+
+
+                      echo '</tr>
+                 
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+      
+            </div>';
+                    }
+                    ?>
+
+                    <!-- /.container-fluid -->
+
+                    <!-- Sticky Footer -->
+                    <footer class="sticky-footer">
+                      <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                          <span>Copyright © LBPOWER 2019</span>
+                        </div>
+                      </div>
+                    </footer>
+
             </div>
+            <!-- /.content-wrapper -->
+
           </div>
-        </div>
 
-      </div>
-      <!-- /.container-fluid -->
+        
+          <!-- /#wrapper -->
+         
 
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © LBPOWER 2019</span>
-          </div>
-        </div>
-      </footer>
 
-    </div>
-    <!-- /.content-wrapper -->
+<button onclick="update(this.value)"
+          <!-- Bootstrap core JavaScript-->
+          <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+          <script src="../js/auth.js"></script>
+          <script src="../vendor/jquery/jquery.min.js"></script>
+          <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  </div>
-  <!-- /#wrapper -->
+          <!-- Core plugin JavaScript-->
+          <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+          <!-- Page level plugin JavaScript-->
+          <script src="../vendor/datatables/jquery.dataTables.js"></script>
+          <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+          <!-- Custom scripts for all pages-->
+          <script src="../js/sb-admin.min.js"></script>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-  <script src="../js/auth.js"></script>
-	<script src="../js/graph.js"></script>
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Page level plugin JavaScript-->
-  <script src="../vendor/datatables/jquery.dataTables.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin.min.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="../js/demo/datatables-demo.js"></script>
+          <!-- Demo scripts for this page-->
+          <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 
