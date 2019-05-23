@@ -3,7 +3,7 @@
 session_start();
 include("DBConnect.php");
 
-$output='';
+$output = '';
 
 $id = $_SESSION['id'];
 /*if(!isset($_SERVER['HTTP_REFERER']))
@@ -47,13 +47,8 @@ header('Location:http://localhost/final/LBPOWER/');
 
 <body id="page-top">
 
-<div id="df">
-
-
-
-
-
-</div>
+  <div id="df">
+  </div>
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <a class="navbar-brand mr-1" href="ClientDash.php">LBPOWER</a>
@@ -177,89 +172,59 @@ header('Location:http://localhost/final/LBPOWER/');
                         echo '<td>Paid</td> ';
                         echo '<td>' . $row["payment_date"] . '</td>';
                       }
-
-
-                      echo " 
-";
-
-
-
-
-                      $output = <<<EOD
-
-
-<td><button id="pays" style='background:none;'  data-toggle="modal" data-target="#paymodal" onclick="pay(this.value)"   value='15'>pay</button></td></tr>
-
-
-EOD;
-// //                       $first = <<<EOD
-// // <td><button style='background:none;'  data-toggle="modal" data-target="#
-// // EOD;
-//                       $second = <<<EOD
-// " onclick='pay(this.value)' value='
-// EOD;
-//                       $third = <<<EOD
-// '>pay</button></td>
-// EOD;
-
-                      echo $output;
-
-
-                      // echo $first . $row['id'] . $second.$row['id'].$third;
-
-
-                      echo '</tr>
-                 
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-      
-            </div>';
+                      echo "<td><button  type='button' class='btn btn-dark' id='pays'   data-toggle='modal' data-target='#paymodal' onclick='pay(this.value)'   value='" . $row['id'] . "'>View</button></td></tr>";
                     }
                     ?>
 
-                    <!-- /.container-fluid -->
 
-                    <!-- Sticky Footer -->
-                    <footer class="sticky-footer">
-                      <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                          <span>Copyright © LBPOWER 2019</span>
-                        </div>
-                      </div>
-                    </footer>
 
+
+                  </tr>
+
+                </tbody>
+              </table>
             </div>
-            <!-- /.content-wrapper -->
-
           </div>
+        </div>
 
-        
-          <!-- /#wrapper -->
-         
+      </div>
+
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright © LBPOWER 2019</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
 
 
-<button onclick="update(this.value)"
-          <!-- Bootstrap core JavaScript-->
-          <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-          <script src="../js/auth.js"></script>
-          <script src="../vendor/jquery/jquery.min.js"></script>
-          <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- /#wrapper -->
 
-          <!-- Core plugin JavaScript-->
-          <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-          <!-- Page level plugin JavaScript-->
-          <script src="../vendor/datatables/jquery.dataTables.js"></script>
-          <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-          <!-- Custom scripts for all pages-->
-          <script src="../js/sb-admin.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="../vendor/datatables/jquery.dataTables.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.js"></script>
 
-          <!-- Demo scripts for this page-->
-          <script src="../js/demo/datatables-demo.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 

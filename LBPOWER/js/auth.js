@@ -52,6 +52,7 @@ var config = {
   function pay(id)
   {
   
+ //   window.alert("how are you "+id);
 
     // $.ajax({
 
@@ -71,19 +72,32 @@ var config = {
            
   var xhr = new XMLHttpRequest();
 
-  xhr.DONE = function () {
+  xhr.onload = function () {
 
-    window.alert(this.responseText);
-  var s = this.responseText;
+   // window.alert(this.responseText);
+
+   if (xhr.readyState == 4) {
+    // request finished
+    var s = this.responseText;
   document.getElementById("df").innerHTML=s;
+  }
+ 
     
   };
+
+  xhr.DONE=function(){
+
+
+    $('#paymodal').modal('show');
+
+
+  }
+
   xhr.open("POST", 'getid.php', true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhr.send("id="+id);
-  
   
 //     var xhttp = new XMLHttpRequest();
 //     xhttp.onreadystatechange = function () {
@@ -102,3 +116,20 @@ var config = {
 
 
   }
+
+
+  function print(divId) {
+    var content = document.getElementById(divId).innerHTML;
+    var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+    mywindow.document.write('<html><head><title>Print</title>');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(content);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus()
+    mywindow.print();
+    mywindow.close();
+    return true;
+}
