@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <?php
 session_start();
+///TODO: this is FOR THE SECUIRTY
+if(!isset($_SERVER['HTTP_REFERER']))
+{        
+  header('Location:http://localhost/final/LBPOWER/login.php');
+
+}else if(isset($_SESSION['admin'])){
+  
+  $id=''.$_SESSION['admin'].'';
+}else{
+
+////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+header('Location:http://localhost/final/LBPOWER/login.php');
+}
 include("../DBConnect.php");
 $id = $_SESSION['PID'];
 
@@ -212,6 +225,15 @@ while ($row= mysqli_fetch_assoc($result))  {
     </ul>
 
     <div id="content-wrapper">
+	
+	        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="AdminDash.php">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+	
     <div class="container emp-profile">
             <form method="post">
             <div class="row">
@@ -398,7 +420,7 @@ while ($row= mysqli_fetch_assoc($result))  {
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="../logout.php">Logout</a>
         </div>
       </div>
     </div>

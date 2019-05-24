@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <?php
 session_start();
+///TODO: this is FOR THE SECUIRTY
+if(!isset($_SERVER['HTTP_REFERER']))
+{        
+  header('Location:http://localhost/final/LBPOWER/login.php');
+
+}else if(isset($_SESSION['admin'])){
+  
+  $id=''.$_SESSION['admin'].'';
+}else{
+
+////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+header('Location:http://localhost/final/LBPOWER/login.php');
+}
 include("../DBConnect.php");
 ?>
 <html lang="en">

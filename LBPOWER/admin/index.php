@@ -357,7 +357,7 @@
 				</div>
 				<div class="col-md-6 order-first order-md-last mb-4 mb-md-0">
 					<div class="img-wrap">
-						<img src="img/app.png" alt="">
+						<img src="../img/app.png" alt="">
 					</div>
 				</div>
 			</div>	

@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <?php
 session_start();
+///TODO: this is FOR THE SECUIRTY
+if(!isset($_SERVER['HTTP_REFERER']))
+{        
+  header('Location:http://localhost/final/LBPOWER/login.php');
+
+}else if(isset($_SESSION['cname'])){
+  
+  $id=''.$_SESSION['cname'].'';
+}else{
+
+////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+header('Location:http://localhost/final/LBPOWER/login.php');
+}
 include("../DBConnect.php");
 ?>
 <html lang="en">
@@ -245,7 +258,7 @@ include("../DBConnect.php");
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="../logout.php">Logout</a>
         </div>
       </div>
     </div>

@@ -81,6 +81,7 @@ if(isset($_POST['submit'])){
 						AND admin.SID=pass.SID";
 						$result = mysqli_query($connect,$sql2);
 						$row2=mysqli_fetch_assoc($result);
+						$_SESSION['admin']=$row2['PID'];
 						$_SESSION['PID'] = $row2['PID'];
 						$_SESSION['name'] = $row2['fname'];
 						$_SESSION['email'] = $row2['email'];

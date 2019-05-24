@@ -1,6 +1,3 @@
-
-
-
 <?php 
 
 $servername = "localhost";

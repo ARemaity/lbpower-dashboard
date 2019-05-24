@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <?php
 session_start();
+///TODO: this is FOR THE SECUIRTY
+if(!isset($_SERVER['HTTP_REFERER']))
+{        
+  header('Location:http://localhost/final/LBPOWER/login.php');
+
+}else if(isset($_SESSION['cname'])){
+  
+  $id=''.$_SESSION['cname'].'';
+}else{
+
+////in case the user return to the main dashboard get id is null so must check if there a session(id) value
+header('Location:http://localhost/final/LBPOWER/login.php');
+}
 include("../DBConnect.php");
 ?>
 <html lang="en">
@@ -60,18 +73,18 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="../supplier/SupplierDash.php">
+        <a class="nav-link" href="SupplierDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="../Supplier/ViewUsers.php">
+        <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="newuser.html">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
@@ -79,6 +92,11 @@ include("../DBConnect.php");
         <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
           <span>Submit Complaint</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.php">
+          <i class="fas fa-user-circle fa-fw"></i>
+          <span>Profile</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="../logout.php">
@@ -246,7 +264,7 @@ else{
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="../logout.php">Logout</a>
         </div>
       </div>
     </div>
