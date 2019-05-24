@@ -56,6 +56,8 @@ $resconsumption=mysqli_query($connect,$consumption);
   <meta name="author" content="">
 
   <title>Supplier Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -206,7 +208,46 @@ $resconsumption=mysqli_query($connect,$consumption);
     </div>
   </div>
 </div>
+<div class="card mb-3">
+  <div class="card-header">
+    <i class="fas fa-chart-area"></i>
+    Area Chart Example</div>
+  <div class="card-body">
+  <canvas id="chart" style="width: 100%; height: 65vh; background: #222; border: 1px solid #555652; margin-top: 10px;"></canvas>
+  <script>
+				var ctx = document.getElementById("chart").getContext('2d');
+    			var myChart = new Chart(ctx, {
+        		type: 'line',
+		        data: {
+		            labels: [1,2,3,4,5,6,7,8,9],
+		            datasets: 
+		            [{
+		                label: 'Data 1',
+		                data: [<?php echo $data1; ?>],
+		                backgroundColor: 'transparent',
+		                borderColor:'rgba(255,99,132)',
+		                borderWidth: 3
+		            },
 
+		            {
+		            	label: 'Data 2',
+		                data: [<?php echo $data2; ?>],
+		                backgroundColor: 'transparent',
+		                borderColor:'rgba(0,255,255)',
+		                borderWidth: 3	
+		            }]
+		        },
+		     
+		        options: {
+		            scales: {scales:{yAxes: [{beginAtZero: false}], xAxes: [{autoskip: true, maxTicketsLimit: 20}]}},
+		            tooltips:{mode: 'index'},
+		            legend:{display: true, position: 'top', labels: {fontColor: 'rgb(255,255,255)', fontSize: 16}}
+		        }
+		    });
+			</script>
+</div>
+  <div class="card-footer small text-muted">Live update</div>
+</div>
 
       </div>
       <!-- /.container-fluid -->
