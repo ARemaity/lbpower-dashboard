@@ -2,12 +2,17 @@ var uid;
 
 //TODO:get uid for the new added user
 
+<<<<<<< HEAD
 function insert(){
 
 
 
   console.alert("he enter insert");
     Window.alert("OKAAAAAAA");
+=======
+document.getElementById("register").addEventListener("click", function () {
+ // window.alert("you click the  bittton ");
+>>>>>>> d371413d5161f73ca6881675ae4528ef0f742fed
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   var repassword = document.getElementById("repassword").value;
@@ -17,16 +22,18 @@ function insert(){
   var fname = document.getElementById("fname").value;
   var lname = document.getElementById("lname").value;
 
-  if (city === "" || fname === "" || lname === "" || street === "" || phone === "" || email === "" || password === "" || repassword === "") {
-    location.reload();
-    window.alert("please all fields");
+  // if (city === "" || fname === "" || lname === "" || street === "" || phone === "" || email === "" || password === "" || repassword === "") {
+  //   location.reload();
+  //   window.alert("please all fields");
 
-  } else if (password != repassword) {
+  // } else
+   if (password != repassword) {
     window.alert("please renter same password");
     document.getElementById("password").innerHTML = "";
     document.getElementById("repassword").innerHTML = "";
 
   } else {
+    console.log("hi");
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function success(userData){
@@ -38,11 +45,11 @@ function insert(){
     
             window.alert(this.responseText);
           };
-          xhr.open("POST", 'http://localhost/lb1.0/lb1.0/newuser.php', true);
+          xhr.open("POST", '../supplier/newuser.php', true);
     
           //Send the proper header information along with the request
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          xhr.send("uid="+uid+"&fname=" + fname + "&lname=" + lname + "&phone=" + phone + "&city=" + city + "&street=" + street + "&email=" + email);
+          xhr.send("uid="+uid+"&fname=" + fname + "&lname=" + lname + "&phone=" + phone + "&city=" + city + "&street=" + street + "&email=" + email+"&password="+password);
           
     // window.alert(city+" "+street+" "+phone+" "+fname+" "+lname);
     }).catch(function (error) {
