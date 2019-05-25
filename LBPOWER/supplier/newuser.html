@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<?php
-session_start();
-include("../DBConnect.php");
-?>
 <html lang="en">
 
 <head>
@@ -109,8 +105,7 @@ include("../DBConnect.php");
 <div class="container">
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">Add User</div>
-      <div class="card-body">
-        <form style="background-color gray">
+      <!-- <div class="card-body">
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
@@ -148,7 +143,7 @@ include("../DBConnect.php");
 		    <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="Phone"  name="txtEmpPhone" class="form-control" placeholder="Phone" required="required" autofocus="autofocus">
+                  <input type="text" id="Phone"  name="txtEmpPhone" class="form-control" placeholder="Phone" required="required" >
                   <label for="phone">Phone</label>
                 </div>
               </div>
@@ -176,9 +171,9 @@ include("../DBConnect.php");
                 </div>
               </div>
             </div>
-          </div>
-          <button class="btn btn-primary btn-block" type="submit" id="register" name="submit">Add</button>
-        </form>
+          </div> -->
+          <!-- <button class="btn btn-primary btn-block" type="submit" id="register" name="register">Add</button> -->
+          <button  type='button' class='btn btn-dark'  onclick='insert()' id="register"   value="Add">add</button>
       </div>
     </div>
   </div>
@@ -224,8 +219,8 @@ include("../DBConnect.php");
   </div>
   
   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-  <script src="..js/auth.js"></script>
-  <script src="..js/newuser.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/newuser.js"></script>
   <!-- Bootstrap core JavaScript-->
   <script src="../vendor/jquery/jquery.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

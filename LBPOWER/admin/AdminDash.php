@@ -2,11 +2,7 @@
 <?php
 session_start();
 ///TODO: this is FOR THE SECUIRTY
-if(!isset($_SERVER['HTTP_REFERER']))
-{        
-  header('Location:http://localhost/final/LBPOWER/login.php');
-
-}else if(isset($_SESSION['admin'])){
+if(isset($_SESSION['admin'])){
   
   $id=''.$_SESSION['admin'].'';
 }else{
@@ -32,8 +28,18 @@ $resnumusers=mysqli_query($connect,$numusers);
     }else{
      $row2=mysqli_num_rows($resnumusers);
     }
-	
-//
+
+//Admin Revenue
+$adrev="SELECT sum(total) FROM payment, client WHERE payment_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.PID";
+$resadrev=mysqli_query($connect,$adrev);
+	if(mysqli_num_rows($resadrev)==0){
+		$totalr=0;
+	}else{
+		$row3=mysqli_fetch_assoc($resadrev);
+		$totalr = (double)$row3['sum(total)'];
+		$eleven=$totalr*(11/100);
+		$totalr=$eleven;
+	}
 ?>
 <html lang="en">
 
@@ -169,6 +175,22 @@ $resnumusers=mysqli_query($connect,$numusers);
         <i class="fas fa-money-bill-wave"></i>
         </div>
         <div class="mr-5" ><font color="black">Total Number of Clients: <?php echo $row2;?></font></div>
+      </div>
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </a> -->
+    </div>
+  </div>
+    <div class="col-xl-3 col-sm-6 mb-3">
+    <div class="card text-white bg-success o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+        <i class="fas fa-angle-right"></i>
+        </div>
+        <div class="mr-5"><font color="black">My revenue is: <?php echo $totalr;?>L.L this month</font></div>
       </div>
       <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>

@@ -2,11 +2,7 @@
 <?php
 session_start();
 ///TODO: this is FOR THE SECUIRTY
-if(!isset($_SERVER['HTTP_REFERER']))
-{        
-  header('Location:http://localhost/final/LBPOWER/login.php');
-
-}else if(isset($_SESSION['cname'])){
+if(isset($_SESSION['cname'])){
   
   $id=''.$_SESSION['cname'].'';
 }else{
@@ -32,8 +28,8 @@ $resrevenue=mysqli_query($connect,$revenue);
 	}else{
 		$row2=mysqli_fetch_assoc($resrevenue);
 		$total = (double)$row2['sum(total)'];
-		$five=$total*(5/100);
-		$total=$total-$five;
+		$eleven=$total*(11/100);
+		$total=$total-$eleven;
 	}
 	
 $consumption="SELECT sum(consumption) FROM payment, client WHERE issued_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.PID AND client.fkSupplier=".$_SESSION['PID']."";
@@ -43,6 +39,15 @@ $resconsumption=mysqli_query($connect,$consumption);
 	}else{
 		$row3=mysqli_fetch_assoc($resconsumption);
 		$totalc = (double)$row3['sum(consumption)'];
+	}
+	
+$payments = "SELECT payment_st from payment, client, supplier WHERE fk_client=client.PID AND client.fkSupplier=supplier.PID AND payment_st=0 AND supplier.PID=".$_SESSION['PID']."";
+$respayments=mysqli_query($connect,$payments);
+	if(mysqli_num_rows($respayments)==0){
+		$totalp=0;
+	}else{
+		$row4=mysqli_fetch_assoc($respayments);
+		$totalp = mysqli_num_rows($respayments);
 	}
 ?>
 <html lang="en">
@@ -195,7 +200,7 @@ $resconsumption=mysqli_query($connect,$consumption);
         <div class="card-body-icon">
         <i class="fas fa-file-invoice-dollar"></i>
         </div>
-        <div class="mr-5">KW Consumption this month: <?php echo $totalc;?>KW</div>
+        <div class="mr-5"><font color="black">KW Consumption this month: <?php echo $totalc;?>KW</font></div>
       </div>
       <!-- <a class="card-footer text-white clearfix small z-1" href="#">
         <span class="float-left">View Details</span>
@@ -205,6 +210,23 @@ $resconsumption=mysqli_query($connect,$consumption);
       </a> -->
     </div>
   </div>
+    <div class="col-xl-3 col-sm-6 mb-3">
+    <div class="card text-white bg-success o-hidden h-100">
+      <div class="card-body">
+        <div class="card-body-icon">
+        <i class="fas fa-angle-right"></i>
+        </div>
+        <div class="mr-5"><font color="black">Unpaid payments total: <?php echo $totalp;?></font></div>
+      </div>
+      <!-- <a class="card-footer text-white clearfix small z-1" href="#">
+        <span class="float-left">View Details</span>
+        <span class="float-right">
+          <i class="fas fa-angle-right"></i>
+        </span>
+      </a> -->
+    </div>
+  </div>
+
 </div>
 
 

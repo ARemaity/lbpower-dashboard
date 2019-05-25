@@ -2,7 +2,12 @@ var uid;
 
 //TODO:get uid for the new added user
 
-document.getElementById("register").addEventListener("click", function () {
+function insert(){
+
+
+
+  console.alert("he enter insert");
+    Window.alert("OKAAAAAAA");
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   var repassword = document.getElementById("repassword").value;
@@ -54,7 +59,7 @@ console.log("she enter the error field");
    
 }
   
-});
+}
 
 
 

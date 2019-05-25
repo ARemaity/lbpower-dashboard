@@ -121,8 +121,11 @@ include("../DBConnect.php");
 if(isset($_GET['submit'])){	//	page submitted
 	
 	if($_GET['password'] == $_GET['passwordr']){
+		
+    $user_password =$_GET['password'];
+    $user_encrypted_password = password_hash($user_password, PASSWORD_DEFAULT);
 	$sql3 = "INSERT INTO pass(SID, password, status, email)
-			 VALUES(default, '".$_GET["password"]."',1,'".$_GET["email"]."')";
+			 VALUES(default, '".$user_encrypted_password."' ,1,'".$_GET["email"]."')";
 	$result = mysqli_query($connect,$sql3);
 			 
 	$sql="INSERT INTO person(PID, role, fname, lname, city, street, phone, email)

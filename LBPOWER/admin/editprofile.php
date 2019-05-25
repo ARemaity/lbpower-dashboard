@@ -6,9 +6,9 @@ if(!isset($_SERVER['HTTP_REFERER']))
 {        
   header('Location:http://localhost/final/LBPOWER/login.php');
 
-}else if(isset($_SESSION['cname'])){
+}else if(isset($_SESSION['admin'])){
   
-  $id=''.$_SESSION['cname'].'';
+  $id=''.$_SESSION['admin'].'';
 }else{
 
 ////in case the user return to the main dashboard get id is null so must check if there a session(id) value
@@ -26,7 +26,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Payments</title>
+  <title>Edit Profile</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -73,7 +73,7 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="SupplierDash.php">
+        <a class="nav-link" href="AdminDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -84,24 +84,24 @@ include("../DBConnect.php");
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="newuser.html">
-          <i class="fa fa-user-plus"></i>
-          <span>Add User</span></a>
+        <a class="nav-link" href="ViewSuppliers.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>View Suppliers</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="SubmitComplaint.php">
+        <a class="nav-link" href="AddSupplier.php">
+          <i class="fa fa-user-plus"></i>
+          <span>Add Supplier</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ViewComplaints.php">
           <i class="fa fa-thumbs-down"></i>
-          <span>Submit Complaint</span></a>
+          <span>View Complaints</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-user-circle fa-fw"></i>
-          <span>Profile</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../logout.php">
-          <i class="fa fa-sign-out"></i>
-          <span>Log Out</span></a>
+          <span>View Profile</span></a>
       </li>
     </ul>
 
@@ -133,7 +133,7 @@ if(isset($_GET['submit'])){	//	page submitted
 	
 	$sql2="update pass
 		   set email='".$_GET['email']."'
-		   where(select SID from supplier where supplier.SID=pass.SID and supplier.PID='".$_SESSION['PID']."')";
+		   where(select SID from admin where admin.SID=pass.SID and admin.PID='".$_SESSION['PID']."')";
 	$result2 = mysqli_query($connect,$sql2);
 	//	If the sql returns an error
 	if(!$result || !$result2)
