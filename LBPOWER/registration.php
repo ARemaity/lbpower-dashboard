@@ -33,7 +33,7 @@ if(isset($_POST["register"]))
 $getsidQ = mysqli_query($connect, "SELECT SID FROM pass where  email ='".$_POST['email']."' ORDER BY SID DESC LIMIT 1 ");
 $values = mysqli_fetch_object($getsidQ);
  $getsid = (int)$values->SID;
-$insert = mysqli_query($connect, " INSERT INTO person (role,fname,lname,city,street,phone,email)  VALUES ('" . 0 . "','" . $_POST['fname'] . "','" . $_POST['lname'] ."','" . $_POST['city'] ."','". $_POST['street'] ."','". $_POST['phone'] ."','". $_77POST['email']."')");  
+$insert = mysqli_query($connect, " INSERT INTO person (role,fname,lname,city,street,phone,email)  VALUES ('" . 1 . "','" . $_POST['fname'] . "','" . $_POST['lname'] ."','" . $_POST['city'] ."','". $_POST['street'] ."','". $_POST['phone'] ."','". $_POST['email']."')");  
     $checkLastid = mysqli_query($connect, "SELECT PID FROM person where fname='".$_POST['fname']."' ORDER BY PID DESC LIMIT 1 ");
     if( $checkLastid){
 

@@ -57,6 +57,11 @@ if(isset($_POST['submit'])){
 				//if($row["user_password"] == $_POST["user_password"])
 				{
 						if($_SESSION['role']==1){
+
+							$getid =mysqli_query($connect,"select supplier.id as ids from supplier,person where supplier.PID=person.PID AND person.email= '".$_POST['email']."'");
+							$getobject=mysqli_fetch_object($getid);
+							$id=(int)$getobject->ids;
+							$_SESSION['id']=$id;
 						$sql2 ="SELECT person.email, role, fname, supplier.PID, comapany_name
 						FROM person, supplier, pass
 						WHERE person.email= '".$_POST['email']."'

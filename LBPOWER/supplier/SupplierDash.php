@@ -290,7 +290,7 @@ $q12  = (int)$cum12->sums;
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="newuser.html">
+        <a class="nav-link" href="adduser.php">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>

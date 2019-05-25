@@ -1,5 +1,7 @@
 <?php 
 
+///TODO: this is FOR THE SECUIRTY
+
 $servername = "localhost";
 $username = "root";
 $password ="";
@@ -34,8 +36,11 @@ $PID=$_POST["uid"];
 
  //...  
 //as example pid is 0 it should be taken from the session;
-$fk_supplier=1;
- //
+//$fk_supplier=$_SESSION['id'];//TODO:THIS IS CORRET ONE 
+
+$fk_supplier=2;//TODO: for example we take it as 2 ;
+
+ //TODO: I MALE UPDATE FOR THE SESSION AT LOGIN.PHP TO STORE THE ID FOR THE SUPPLIER ,,,YOUR METHOD GOES BY COMPANY NAME UPDATE THE INSERTING QUERY TO INSERT THE COMPANY NAME WE WILL DISCUSSS IT MONDAY
 
  $street=  $_POST["street"];
  $email=  $_POST["email"]; 

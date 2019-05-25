@@ -3,6 +3,7 @@ var uid;
 //TODO:get uid for the new added user
 
 document.getElementById("register").addEventListener("click", function () {
+ // window.alert("you click the  bittton ");
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   var repassword = document.getElementById("repassword").value;
@@ -12,16 +13,18 @@ document.getElementById("register").addEventListener("click", function () {
   var fname = document.getElementById("fname").value;
   var lname = document.getElementById("lname").value;
 
-  if (city === "" || fname === "" || lname === "" || street === "" || phone === "" || email === "" || password === "" || repassword === "") {
-    location.reload();
-    window.alert("please all fields");
+  // if (city === "" || fname === "" || lname === "" || street === "" || phone === "" || email === "" || password === "" || repassword === "") {
+  //   location.reload();
+  //   window.alert("please all fields");
 
-  } else if (password != repassword) {
+  // } else
+   if (password != repassword) {
     window.alert("please renter same password");
     document.getElementById("password").innerHTML = "";
     document.getElementById("repassword").innerHTML = "";
 
   } else {
+    console.log("hi");
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(function success(userData){
@@ -33,7 +36,7 @@ document.getElementById("register").addEventListener("click", function () {
     
             window.alert(this.responseText);
           };
-          xhr.open("POST", 'http://localhost/lb1.0/lb1.0/newuser.php', true);
+          xhr.open("POST", '../supplier/newuser.php', true);
     
           //Send the proper header information along with the request
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
