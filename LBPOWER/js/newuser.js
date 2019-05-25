@@ -40,7 +40,7 @@ document.getElementById("register").addEventListener("click", function () {
     
           //Send the proper header information along with the request
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          xhr.send("uid="+uid+"&fname=" + fname + "&lname=" + lname + "&phone=" + phone + "&city=" + city + "&street=" + street + "&email=" + email);
+          xhr.send("uid="+uid+"&fname=" + fname + "&lname=" + lname + "&phone=" + phone + "&city=" + city + "&street=" + street + "&email=" + email+"&password="+password);
           
     // window.alert(city+" "+street+" "+phone+" "+fname+" "+lname);
     }).catch(function (error) {
