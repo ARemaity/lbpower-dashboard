@@ -1,5 +1,6 @@
 admin@gmail.com		 128839  admin
 just4uroumieh@gmail.com  944620  supplier
+johnnycash@gmail.com     aA12345 supplier
 johndoe@gmail.com	 899937  client
 lucyheart@gmail.com	 140693  client
 johnsmith@gmail.com	 175591  client

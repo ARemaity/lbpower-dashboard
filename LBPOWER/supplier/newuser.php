@@ -41,7 +41,7 @@ $PID=$_POST["uid"];
 
  //...  
 //as example pid is 0 it should be taken from the session;
-$fk_supplier=$_SESSION['id'];//TODO:THIS IS CORRET ONE 
+$fk_supplier=$_SESSION['PID'];//TODO:THIS IS CORRET ONE 
 
 //$fk_supplier=2;//TODO: for example we take it as 2 ;
 
@@ -59,7 +59,7 @@ $fk_supplier=$_SESSION['id'];//TODO:THIS IS CORRET ONE
     $checkLastid = mysqli_query($conn, "SELECT PID FROM person ORDER BY PID DESC LIMIT 1 ");
     $value = mysqli_fetch_object($checkLastid);
      $last = (int)$value->PID;
- $insertClient = mysqli_query($conn, " INSERT INTO client (id,PID,fkSupplier)  VALUES ('" . $PID . "','" . $last . "','" . $fk_supplier ."')");
+ $insertClient = mysqli_query($conn, " INSERT INTO client (id,PID,fkSupplier,Supplier_Company)  VALUES ('" . $PID . "','" . $last . "','" . $fk_supplier ."', '" . $_SESSION['cname'] ."')");
 if($insert&&$insertClient){
 
     $mail_body = "

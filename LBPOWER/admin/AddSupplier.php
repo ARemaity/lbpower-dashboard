@@ -136,7 +136,7 @@ if(isset($_GET['submit'])){	//	page submitted
     $value = mysqli_fetch_object($checkLastid);
 	$last = (int)$value->PID;
 	
-	$getsid = mysqli_query($connect,"SELECT SID FROM pass WHERE password = '".$_GET["password"]."'");
+	$getsid = mysqli_query($connect,"SELECT SID FROM pass WHERE email = '".$_GET["email"]."'");
 	$sid = mysqli_fetch_object($getsid);
 	$sidval = $sid->SID;
 	

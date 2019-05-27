@@ -115,14 +115,14 @@
                     <div class="form-label-group">
                       <input type="text" id="fname" name='fname' class="form-control" placeholder="First Name"
                         required="required">
-                      <label for="firstName">First name</label>
+                      <label for="fname">First name</label>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-label-group">
                       <input type="text" id="lname" name="lname" class="form-control" placeholder="Last Name"
                         required="required">
-                      <label for="lastName">Last name</label>
+                      <label for="lname">Last name</label>
                     </div>
                   </  >
                 </div>
@@ -134,14 +134,14 @@
                     <div class="form-label-group">
                       <input type="text" id="city" name="city" class="form-control" placeholder="City"
                         required="required">
-                      <label for="City">City</label>
+                      <label for="city">City</label>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-label-group">
                       <input type="text" id="street" name="street" class="form-control" placeholder="Street"
                         required="required">
-                      <label for="Street">Street</label>
+                      <label for="street">Street</label>
                     </div>
                   </div>
                 </div>
@@ -159,7 +159,7 @@
                     <div class="form-label-group">
                       <input type="email" id="email" name="email" class="form-control" placeholder="Email address"
                         required="required" data-error="Valid email is required.">
-                      <label for="inputEmail">Email address</label>
+                      <label for="email">Email address</label>
                     </div>
                   </div>
                 </div>
