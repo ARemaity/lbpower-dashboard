@@ -125,7 +125,7 @@ $cPID="";
 if (isset($_GET["ID"])){
 $cPID=$_GET["ID"];
 }
-echo $cPID;
+
 if(isset($_GET['submit'])){	//	page submitted
 
 	$sql =" INSERT INTO device(id_device, device_sn, deive_type, amper_capacity, fk_client, fkSupplier)
@@ -146,17 +146,17 @@ if(isset($_GET['submit'])){	//	page submitted
       <div class="card-header">Add Device</div>
       <div class="card-body">
         <form method="GET">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="hidden" id="cPID" name='cPID' class="form-control" value = <?php echo $cPID; ?> placeholder="PID" required="required" autofocus="autofocus">
+                </div>
+              </div>
           <div class="form-group">
             <div class="form-row">  
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="text" id="SerialNumber" name='sn' class="form-control" placeholder="Serial Number" required="required" autofocus="autofocus">
                   <label for="SerialNumber">Serial Number</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="hidden" id="cPID" name='cPID' class="form-control" value = <?php echo $cPID; ?> placeholder="PID" required="required" autofocus="autofocus">
                 </div>
               </div>
               <div class="col-md-6">
