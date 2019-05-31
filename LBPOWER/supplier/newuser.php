@@ -41,7 +41,7 @@ $PID=$_POST["uid"];
 
  //...  
 //as example pid is 0 it should be taken from the session;
-$fk_supplier=$_SESSION['PID'];//TODO:THIS IS CORRET ONE 
+$fk_supplier=$_SESSION['id'];//TODO:THIS IS CORRET ONE 
 
 //$fk_supplier=2;//TODO: for example we take it as 2 ;
 

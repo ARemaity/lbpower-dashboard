@@ -30,7 +30,7 @@ $results = mysqli_query($connect, $costQ);
 $cost = mysqli_fetch_object($results);
 $get1kw  = (int)$cost->cost_1kw;
 $phone = "SELECT `fname`,`lname`,`phone` FROM `supplier`,`client`,`person` where client.fkSupplier = supplier.id and supplier.PID=person.PID and client.id ='" . $id . "'"  or die(mysqli_error($conn));
-$result = mysqli_query($connect, $query);
+$result = mysqli_query($connect, $phone);
 $data2 = array();
 while ($row = mysqli_fetch_assoc($result)) {
   $data2 = array();

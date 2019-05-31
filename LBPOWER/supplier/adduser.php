@@ -171,7 +171,7 @@
                     <div class="form-label-group">
                       <input type="password" id="password" name="password" class="form-control" placeholder="Password"
                         required="required">
-                      <label for="inputPassword">Password</label>
+                      <label for="password">Password</label>
                     </div>
                   </div>
                   <div class="col-md-6">

@@ -25,7 +25,7 @@ session_start();
 <body class="bg-dark">
 
 <?php
-if(isset($_SESSION['PID']))
+if(isset($_SESSION['cname']) || isset($_SESSION['admin']))
 {
 	if($_SESSION['role']==1){
     $message = "<h2 class='text-danger'>Already Logged in</h2>";

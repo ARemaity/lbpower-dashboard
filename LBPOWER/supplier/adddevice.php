@@ -129,7 +129,7 @@ $cPID=$_GET["ID"];
 if(isset($_GET['submit'])){	//	page submitted
 
 	$sql =" INSERT INTO device(id_device, device_sn, deive_type, amper_capacity, fk_client, fkSupplier)
-		    VALUES (default, '".$_GET["sn"]."' ,'".$_GET["type"]."', '".$_GET["capacity"]."', '".$_GET["cPID"]."', '".$_SESSION['PID']."') ";
+		    VALUES (default, '".$_GET["sn"]."' ,'".$_GET["type"]."', '".$_GET["capacity"]."', '".$_GET["cPID"]."', '".$_SESSION['id']."') ";
 	$result = mysqli_query($connect,$sql);
 
 		//If the sql returns an error

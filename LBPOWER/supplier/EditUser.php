@@ -131,12 +131,8 @@ if(isset($_GET['submit'])){	//	page submitted
 	where PID = ".$_GET['PID'];
 	$result = mysqli_query($connect,$sql);
 	
-	$sql2="update pass
-		   set email='".$_GET['email']."'
-		   where(select id from client where client.id=pass.SID and client.PID='".$_GET['PID']."')";
-	$result2 = mysqli_query($connect,$sql2);
 	//	If the sql returns an error
-	if(!$result || !$result2)
+	if(!$result)
 			die("Something went wrong");
 	else
 			echo ' <h2 style="color:green;">User Updated Successfully</h2>';
