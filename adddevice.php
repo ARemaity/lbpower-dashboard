@@ -26,7 +26,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Users</title>
+  <title>View Payments</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -43,7 +43,7 @@ include("../DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="AdminDash.php">LBPower</a>
+    <a class="navbar-brand mr-1" href="SupplierDash.php">LBPower</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -114,106 +114,80 @@ include("../DBConnect.php");
           <li class="breadcrumb-item">
             <a href="AdminDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewUsers</li>
+          <li class="breadcrumb-item active">Add Device</li>
         </ol>
 
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            My Clients</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>PID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>City</th>
-                    <th>Street</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Edit</th>
-                    <th>Payments</th>
-                  
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>PID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>City</th>
-                    <th>Street</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Edit</th>
-                    <th>Payments</th>
-                   
-                  </tr>
-                </tfoot>
+<?php
+//$key=$_SESSION['cPID'];
+//echo $key;
+$cPID="";
+if (isset($_GET["ID"])){
+$cPID=$_GET["ID"];
+}
+//echo $cPID;
+if(isset($_GET['submit'])){	//	page submitted
 
-                <tbody>
-                  <?php
-                    if ($_SESSION['role'] == 2) {
-                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email
-								FROM person, client
-								WHERE person.PID=client.PID
-								AND person.role=0";
-                    $result = mysqli_query($connect, $sql);
-                  }
-                  //for($i=0;$i<mysqli_num_rows($result);$i++){
-                  //$row = mysqli_fetch_assoc($result);
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    $rows[] = $row;
-                  }
-				  if(mysqli_num_rows ( $result )>0){
-                  foreach ($rows as $key => $row) {
-                    //Check if user does NOT have a device
-                    $devicecheck =  'SELECT PID
-						 FROM client
-						 WHERE NOT EXISTS(select fk_client
-										  from device
-										  where fk_client=' . $row['PID'] . ')';
+	$sql =" INSERT INTO device(id_device, device_sn, deive_type, amper_capacity, fk_client, fkSupplier)
+		    VALUES (default, '".$_GET["sn"]."' ,'".$_GET["type"]."', '".$_GET["capacity"]."', '".$_GET["cPID"]."', '".$_SESSION['id']."') ";
+	$result = mysqli_query($connect,$sql);
 
-                    $result2 = mysqli_query($connect, $devicecheck);
-                    $row2 = mysqli_fetch_assoc($result2);
+		//If the sql returns an error
+	if(!$result)
+			die("Something went wrong");
+	else
+			echo ' <h2 style="color:green;">Device Added Successfully</h2>';
+			header("refresh:1;url=ViewUsers.php");
+}
+?>
 
-                    ?>
-
-                    <tr>
-                      <td><?php echo $row['PID']; ?></td>
-                      <td><?php echo $row['fname']; ?></td>
-                      <td><?php echo $row['lname']; ?></td>
-                      <td><?php echo $row['city']; ?></td>
-                      <td><?php echo $row['street']; ?></td>
-                      <td><?php echo $row['phone']; ?></td>
-                      <td><?php echo $row['email']; ?></td>
-                      <?php
-                      $query = "editUser.php?PID=" . $row['PID'];
-                      echo "<td width='90'> <a href=" . $query . ">Edit User</a></td>";
-                      $query3 = "ViewUserPayments.php?PID=" . $row['PID'];
-                      echo "<td width='90'> <a href=" . $query3 . ">Payments</a></td>";
-                      // // if ($row['PID'] = $row2['PID']) {
-                      // //   $query2 = "AddDevice.php?ID=" . $id = $rows[$key]['PID'];
-                      // //   //$_SESSION['cPID']=$rows[$key]['PID'];
-                      // //   //TODO: comment here for better undertstanding
-                      // //   //$_SESSION['ID'] = $id;
-                      // //   echo "<td width='100'> <a href=" . $query2 . ">Add Device</a></td>";
-                      // // } else {
-                      // //   echo '<td>Exists</td>';
-                      // // }
-
-                      ?>
-                    </tr>
-                  <?php } }
-                ?>
-                </tbody>
-              </table>
+  <div class="container">
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header">Add Device</div>
+      <div class="card-body">
+        <form method="GET">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="hidden" id="cPID" name='cPID' class="form-control" value = <?php echo $cPID; ?> placeholder="PID" required="required" autofocus="autofocus">
+                </div>
+              </div>
+          <div class="form-group">
+            <div class="form-row">  
+              <div class="col-md-12">
+                <div class="form-label-group">
+                  <input type="text" id="SerialNumber" name='sn' class="form-control" placeholder="Serial Number" required="required" autofocus="autofocus">
+                  <label for="SerialNumber">Serial Number</label>
+                </div>
+              </div>
+              
             </div>
           </div>
-        </div>
+		  
+		   <div class="form-group">
+            <div class="form-row">
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="number" id="AmperCapacity"  name="capacity" class="form-control" placeholder="capacity" required="required" autofocus="autofocus">
+                  <label for="AmperCapacity">Amper Capacity</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="type" name="type" class="form-control" placeholder="type" required="required">
+                  <label for="type">Type</label>
+                </div>
+              </div>
+            </div>
+          </div>	  
+		  
+          <button class="btn btn-primary btn-block" type="submit" name="submit">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+ <?php 
+mysqli_close($connect);
+?>
 
       </div>
       <!-- /.container-fluid -->

@@ -180,7 +180,7 @@ while ($row= mysqli_fetch_assoc($result))  {
           <a class="dropdown-item" href="#">Settings</a>
           <a class="dropdown-item" href="#">Activity Log</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="../logout.php" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -225,20 +225,18 @@ while ($row= mysqli_fetch_assoc($result))  {
     </ul>
 
     <div id="content-wrapper">
-	
-	        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Profile</li>
-        </ol>
-	
     <div class="container emp-profile">
             <form method="post">
             <div class="row">
                 <div class="col-md-2">
-                        <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Email"/>
+							<a class="nav-link" href="editprofile.php">
+							<span>Edit Profile</span></a>
+                    </div> 
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+							<a class="nav-link" href="changepass.php">
+							<span>Change Password</span></a>
                     </div> 
             </div>
                 <div class="row">

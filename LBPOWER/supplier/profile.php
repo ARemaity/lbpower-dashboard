@@ -204,7 +204,7 @@ while ($row= mysqli_fetch_assoc($result))  {
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="newuser.html">
+        <a class="nav-link" href="adduser.php">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
@@ -232,6 +232,12 @@ while ($row= mysqli_fetch_assoc($result))  {
                 <div class="col-md-2">
 							<a class="nav-link" href="editprofile.php">
 							<span>Edit Profile</span></a>
+                    </div> 
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+							<a class="nav-link" href="changepass.php">
+							<span>Change Password</span></a>
                     </div> 
             </div>
                 <div class="row">

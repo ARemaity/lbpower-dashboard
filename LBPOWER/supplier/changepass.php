@@ -6,9 +6,9 @@ if(!isset($_SERVER['HTTP_REFERER']))
 {        
   header('Location:http://localhost/final/LBPOWER/login.php');
 
-}else if(isset($_SESSION['admin'])){
+}else if(isset($_SESSION['cname'])){
   
-  $id=''.$_SESSION['admin'].'';
+  $id=''.$_SESSION['cname'].'';
 }else{
 
 ////in case the user return to the main dashboard get id is null so must check if there a session(id) value
@@ -26,7 +26,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Payments</title>
+  <title>Edit Profile</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -61,7 +61,7 @@ include("../DBConnect.php");
           <a class="dropdown-item" href="#">Settings</a>
           <a class="dropdown-item" href="#">Activity Log</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="../logout.php" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -73,35 +73,35 @@ include("../DBConnect.php");
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="AdminDash.php">
+        <a class="nav-link" href="SupplierDash.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ViewSuppliers.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>View Suppliers</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="AddSupplier.php">
+        <a class="nav-link" href="adduser.php">
           <i class="fa fa-user-plus"></i>
-          <span>Add Supplier</span></a>
+          <span>Add User</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ViewComplaints.php">
+        <a class="nav-link" href="SubmitComplaint.php">
           <i class="fa fa-thumbs-down"></i>
-          <span>View Complaints</span></a>
+          <span>Submit Complaint</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-user-circle fa-fw"></i>
-          <span>View Profile</span></a>
+          <span>Profile</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../logout.php">
+          <i class="fa fa-sign-out"></i>
+          <span>Log Out</span></a>
       </li>
     </ul>
 
@@ -112,80 +112,94 @@ include("../DBConnect.php");
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
+            <a href="SupplierDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Add Device</li>
+          <li class="breadcrumb-item active">Edit Profile</li>
         </ol>
 
 <?php
-//$key=$_SESSION['cPID'];
-//echo $key;
-$cPID="";
-if (isset($_GET["ID"])){
-$cPID=$_GET["ID"];
-}
-echo $cPID;
+	
 if(isset($_GET['submit'])){	//	page submitted
 
-	$sql =" INSERT INTO device(id_device, device_sn, deive_type, amper_capacity, fk_client, fkSupplier)
-		    VALUES (default, '".$_GET["sn"]."' ,'".$_GET["type"]."', '".$_GET["capacity"]."', '".$_GET["cPID"]."', '".$_SESSION['PID']."') ";
-	$result = mysqli_query($connect,$sql);
+$sql="select password from pass where email = '".$_SESSION['email']."' ";
+$result = mysqli_query($connect,$sql);
+$row= mysqli_fetch_assoc($result);
 
-		//If the sql returns an error
-	if(!$result)
+if(password_verify($_GET["OldPass"], $row["password"])){
+	if($_GET["password"] == $_GET["repassword"]){
+		
+    $user_password =$_GET['password'];
+    $user_encrypted_password = password_hash($user_password, PASSWORD_DEFAULT);
+	
+	$sql2="update pass
+		   set password = '".$user_encrypted_password."'
+		   where email = '".$_SESSION['email']."' ";
+	$result2 = mysqli_query($connect,$sql2);
+	//	If the sql returns an error
+	if(!$result || !$result2)
 			die("Something went wrong");
 	else
-			echo ' <h2 style="color:green;">Device Added Successfully</h2>';
-			header("refresh:1;url=ViewUsers.php");
+			echo ' <h2 style="color:green;">Password Updated Successfully, please log in with your new password</h2>';
+			header("refresh:1;url=../logout.php");
+}
+	else{
+			echo ' <h2 style="color:red;">Passwords MUST match, please try again</h2>';
+			header("refresh:1;url=changepass.php");
+	}
+}
+	else{
+			echo ' <h2 style="color:red;">Incorrect Password, please try again</h2>';
+			header("refresh:1;url=changepass.php");
+	}
 }
 ?>
 
   <div class="container">
     <div class="card card-register mx-auto mt-5">
-      <div class="card-header">Add Device</div>
+      <div class="card-header">Change Password</div>
       <div class="card-body">
-        <form method="GET">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="hidden" id="cPID" name='cPID' class="form-control" value = <?php echo $cPID; ?> placeholder="PID" required="required" autofocus="autofocus">
-                </div>
-              </div>
+        <form style="background-color gray" method="GET">
+		
           <div class="form-group">
             <div class="form-row">  
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-label-group">
-                  <input type="text" id="SerialNumber" name='sn' class="form-control" placeholder="Serial Number" required="required" autofocus="autofocus">
-                  <label for="SerialNumber">Serial Number</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="type" name="type" class="form-control" placeholder="type" required="required">
-                  <label for="type">Type</label>
+                  <input type="password" id="OldPass" name='OldPass' class="form-control" placeholder="OldPass" required="required" autofocus="autofocus">
+                  <label for="OldPass">Old Password</label>
                 </div>
               </div>
             </div>
           </div>
-		  
-		   <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="number" id="AmperCapacity"  name="capacity" class="form-control" placeholder="capacity" required="required" autofocus="autofocus">
-                  <label for="AmperCapacity">Amper Capacity</label>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-label-group">
+                      <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                        required="required">
+                      <label for="password">New Password</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-label-group">
+                      <input type="password" id="repassword" name="repassword" class="form-control"
+                        placeholder="Confirm password" required="required">
+                      <label for="repassword">Confirm password</label>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>	  
-		  
-          <button class="btn btn-primary btn-block" type="submit" name="submit">Add</button>
+
+          <button class="btn btn-primary btn-block" type="submit" name="submit">Edit</button>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="profile.php">Cancel</a>
+        </div>
         </form>
       </div>
     </div>
   </div>
-  
- <?php 
-mysqli_close($connect);
+  <?php 
+//	close the connection
+	mysqli_close($connect);
 ?>
 
       </div>

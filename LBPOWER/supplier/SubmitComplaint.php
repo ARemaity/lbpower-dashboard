@@ -88,7 +88,7 @@ include("../DBConnect.php");
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="newuser.html">
+        <a class="nav-link" href="adduser.php">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
@@ -124,7 +124,7 @@ if(isset($_POST['submit'])){
 $role=$_SESSION['role'];
 $type=$_POST["ctype"];
 $text=$_POST["subject"];
-$sql="INSERT INTO complaint(complaint_type,detials,sender_type,fk_sender) VALUES ('$type','$text','$role','".$_SESSION['PID']."')";
+$sql="INSERT INTO complaint(complaint_type,detials,sender_type,fk_sender) VALUES ('$type','$text','$role','".$_SESSION['id']."')";
 $result = mysqli_query($connect,$sql);
 echo ' <h2 style="color:green;">Complaint is sent and will be reviewed by admins shortly</h2>';
 header("refresh:1;url=SupplierDash.php");

@@ -85,7 +85,7 @@ include("../DBConnect.php");
           <span>View Users</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="newuser.html">
+        <a class="nav-link" href="adduser.php">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
@@ -125,7 +125,7 @@ $cPID="";
 if (isset($_GET["ID"])){
 $cPID=$_GET["ID"];
 }
-
+//echo $cPID;
 if(isset($_GET['submit'])){	//	page submitted
 
 	$sql =" INSERT INTO device(id_device, device_sn, deive_type, amper_capacity, fk_client, fkSupplier)
@@ -153,16 +153,10 @@ if(isset($_GET['submit'])){	//	page submitted
               </div>
           <div class="form-group">
             <div class="form-row">  
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-label-group">
                   <input type="text" id="SerialNumber" name='sn' class="form-control" placeholder="Serial Number" required="required" autofocus="autofocus">
                   <label for="SerialNumber">Serial Number</label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-label-group">
-                  <input type="text" id="type" name="type" class="form-control" placeholder="type" required="required">
-                  <label for="type">Type</label>
                 </div>
               </div>
             </div>
@@ -174,6 +168,12 @@ if(isset($_GET['submit'])){	//	page submitted
                 <div class="form-label-group">
                   <input type="number" id="AmperCapacity"  name="capacity" class="form-control" placeholder="capacity" required="required" autofocus="autofocus">
                   <label for="AmperCapacity">Amper Capacity</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-label-group">
+                  <input type="text" id="type" name="type" class="form-control" placeholder="type" required="required">
+                  <label for="type">Type</label>
                 </div>
               </div>
             </div>

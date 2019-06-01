@@ -132,14 +132,6 @@ if(isset($_POST['submit'])){
               <label for="password">Password</label>
             </div>
           </div>
-          <div class="form-group">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="remember-me">
-                Remember Password
-              </label>
-            </div>
-          </div>
           <button class="btn btn-primary btn-block" type="submit" name="submit">Login</button>
         </form>
         <div class="text-center">

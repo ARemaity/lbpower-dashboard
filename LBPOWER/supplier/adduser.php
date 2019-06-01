@@ -69,7 +69,7 @@
           <span>View Users</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="newuser.html">
+        <a class="nav-link" href="adduser.php">
           <i class="fa fa-user-plus"></i>
           <span>Add User</span></a>
       </li>
@@ -124,7 +124,7 @@
                         required="required">
                       <label for="lname">Last name</label>
                     </div>
-                  </  >
+                  </div>
                 </div>
               </div>
 

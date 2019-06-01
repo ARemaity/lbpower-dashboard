@@ -13,7 +13,7 @@ if (isset($_SESSION['cname'])) {
 
 include("../DBConnect.php");
 //Number of Users For Specific Supplier
-$numclient = "Select * from client WHERE fkSupplier='" . $_SESSION['PID'] . "'";
+$numclient = "Select * from client WHERE fkSupplier='" . $_SESSION['id'] . "'";
 $resnumclient = mysqli_query($connect, $numclient);
 if (mysqli_num_rows($resnumclient) == 0) {
   $row = 0;
@@ -21,7 +21,7 @@ if (mysqli_num_rows($resnumclient) == 0) {
   $row = mysqli_num_rows($resnumclient);
 }
 
-$revenue = "SELECT sum(total) FROM payment, client WHERE payment_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . "";
+$revenue = "SELECT sum(total) FROM payment, client WHERE payment_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . "";
 $resrevenue = mysqli_query($connect, $revenue);
 if (mysqli_num_rows($resrevenue) == 0) {
   $total = 0;
@@ -32,7 +32,7 @@ if (mysqli_num_rows($resrevenue) == 0) {
   $total = $total - $eleven;
 }
 
-$consumption = "SELECT sum(consumption) FROM payment, client WHERE issued_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . "";
+$consumption = "SELECT sum(consumption) FROM payment, client WHERE issued_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . "";
 $resconsumption = mysqli_query($connect, $consumption);
 if (mysqli_num_rows($resconsumption) == 0) {
   $totalc = 0;
@@ -41,7 +41,7 @@ if (mysqli_num_rows($resconsumption) == 0) {
   $totalc = (double)$row3['sum(consumption)'];
 }
 
-$payments = "SELECT payment_st from payment, client, supplier WHERE fk_client=client.PID AND client.fkSupplier=supplier.PID AND payment_st=0 AND supplier.PID=" . $_SESSION['PID'] . "";
+$payments = "SELECT payment_st from payment, client, supplier WHERE fk_client=client.PID AND client.fkSupplier=supplier.PID AND payment_st=0 AND supplier.PID=" . $_SESSION['id'] . "";
 $respayments = mysqli_query($connect, $payments);
 if (mysqli_num_rows($respayments) == 0) {
   $totalp = 0;
@@ -53,7 +53,7 @@ if (mysqli_num_rows($respayments) == 0) {
 
 
 
-$revenue = "SELECT sum(total) FROM payment, client WHERE payment_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.PID AND client.fkSupplier=" . $_SESSION['PID'] . "";
+$revenue = "SELECT sum(total) FROM payment, client WHERE payment_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.PID AND client.fkSupplier=" . $_SESSION['id'] . "";
 $resrevenue = mysqli_query($connect, $revenue);
 
 
@@ -295,7 +295,7 @@ $q12  = (int)$cum12->sums;
                   <i class="fas fa-plug"></i>
                 </div>
                 <div class="mr-5">
-                  <font color="black">My user count: <?php echo $row; ?></font>
+                  My user count: <?php echo $row; ?>
                 </div>
               </div>
               <!-- <a class="card-footer text-white clearfix small z-1" href="#">
@@ -313,7 +313,7 @@ $q12  = (int)$cum12->sums;
                   <i class="fas fa-money-bill-wave"></i>
                 </div>
                 <div class="mr-5">
-                  <font color="black">This months revenue: <?php echo $total; ?> L.L </font>
+                  This months revenue: <?php echo $total; ?> L.L 
                 </div>
               </div>
               <!-- <a class="card-footer text-white clearfix small z-1" href="#">
@@ -393,7 +393,7 @@ $q12  = (int)$cum12->sums;
               });
             </script>
               </div> 
-			  <div class = "card-footer small text-muted" > Live update < /div> </div>
+			  <div class = "card-footer small text-muted" > Live update </div>
 
                 </div>
 

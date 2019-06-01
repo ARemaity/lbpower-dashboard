@@ -26,7 +26,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Users</title>
+  <title>Edit Profile</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -43,7 +43,7 @@ include("../DBConnect.php");
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="AdminDash.php">LBPower</a>
+    <a class="navbar-brand mr-1" href="SupplierDash.php">LBPower</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -61,7 +61,7 @@ include("../DBConnect.php");
           <a class="dropdown-item" href="#">Settings</a>
           <a class="dropdown-item" href="#">Activity Log</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="../logout.php" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -78,7 +78,7 @@ include("../DBConnect.php");
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="ViewUsers.php">
           <i class="fas fa-fw fa-table"></i>
           <span>View Users</span></a>
@@ -98,7 +98,7 @@ include("../DBConnect.php");
           <i class="fa fa-thumbs-down"></i>
           <span>View Complaints</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="profile.php">
           <i class="fas fa-user-circle fa-fw"></i>
           <span>View Profile</span></a>
@@ -112,108 +112,95 @@ include("../DBConnect.php");
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="AdminDash.php">Dashboard</a>
+            <a href="SupplierDash.php">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">ViewUsers</li>
+          <li class="breadcrumb-item active">Edit Profile</li>
         </ol>
 
-        <!-- DataTables Example -->
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            My Clients</div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>PID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>City</th>
-                    <th>Street</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Edit</th>
-                    <th>Payments</th>
-                  
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>PID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>City</th>
-                    <th>Street</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Edit</th>
-                    <th>Payments</th>
-                   
-                  </tr>
-                </tfoot>
+<?php
+	
+if(isset($_GET['submit'])){	//	page submitted
 
-                <tbody>
-                  <?php
-                    if ($_SESSION['role'] == 2) {
-                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email
-								FROM person, client
-								WHERE person.PID=client.PID
-								AND person.role=0";
-                    $result = mysqli_query($connect, $sql);
-                  }
-                  //for($i=0;$i<mysqli_num_rows($result);$i++){
-                  //$row = mysqli_fetch_assoc($result);
-                  while ($row = mysqli_fetch_assoc($result)) {
-                    $rows[] = $row;
-                  }
-				  if(mysqli_num_rows ( $result )>0){
-                  foreach ($rows as $key => $row) {
-                    //Check if user does NOT have a device
-                    $devicecheck =  'SELECT PID
-						 FROM client
-						 WHERE NOT EXISTS(select fk_client
-										  from device
-										  where fk_client=' . $row['PID'] . ')';
+$sql="select password from pass where email = '".$_SESSION['email']."' ";
+$result = mysqli_query($connect,$sql);
+$row= mysqli_fetch_assoc($result);
 
-                    $result2 = mysqli_query($connect, $devicecheck);
-                    $row2 = mysqli_fetch_assoc($result2);
+if(password_verify($_GET["OldPass"], $row["password"])){
+	if($_GET["password"] == $_GET["repassword"]){
+		
+    $user_password =$_GET['password'];
+    $user_encrypted_password = password_hash($user_password, PASSWORD_DEFAULT);
+	
+	$sql2="update pass
+		   set password = '".$user_encrypted_password."'
+		   where email = '".$_SESSION['email']."' ";
+	$result2 = mysqli_query($connect,$sql2);
+	//	If the sql returns an error
+	if(!$result || !$result2)
+			die("Something went wrong");
+	else
+			echo ' <h2 style="color:green;">Password Updated Successfully, please log in with your new password</h2>';
+			header("refresh:1;url=../logout.php");
+}
+	else{
+			echo ' <h2 style="color:red;">Passwords MUST match, please try again</h2>';
+			header("refresh:1;url=changepass.php");
+	}
+}
+	else{
+			echo ' <h2 style="color:red;">Incorrect Password, please try again</h2>';
+			header("refresh:1;url=changepass.php");
+	}
+}
+?>
 
-                    ?>
-
-                    <tr>
-                      <td><?php echo $row['PID']; ?></td>
-                      <td><?php echo $row['fname']; ?></td>
-                      <td><?php echo $row['lname']; ?></td>
-                      <td><?php echo $row['city']; ?></td>
-                      <td><?php echo $row['street']; ?></td>
-                      <td><?php echo $row['phone']; ?></td>
-                      <td><?php echo $row['email']; ?></td>
-                      <?php
-                      $query = "editUser.php?PID=" . $row['PID'];
-                      echo "<td width='90'> <a href=" . $query . ">Edit User</a></td>";
-                      $query3 = "ViewUserPayments.php?PID=" . $row['PID'];
-                      echo "<td width='90'> <a href=" . $query3 . ">Payments</a></td>";
-                      // // if ($row['PID'] = $row2['PID']) {
-                      // //   $query2 = "AddDevice.php?ID=" . $id = $rows[$key]['PID'];
-                      // //   //$_SESSION['cPID']=$rows[$key]['PID'];
-                      // //   //TODO: comment here for better undertstanding
-                      // //   //$_SESSION['ID'] = $id;
-                      // //   echo "<td width='100'> <a href=" . $query2 . ">Add Device</a></td>";
-                      // // } else {
-                      // //   echo '<td>Exists</td>';
-                      // // }
-
-                      ?>
-                    </tr>
-                  <?php } }
-                ?>
-                </tbody>
-              </table>
+  <div class="container">
+    <div class="card card-register mx-auto mt-5">
+      <div class="card-header">Change Password</div>
+      <div class="card-body">
+        <form style="background-color gray" method="GET">
+		
+          <div class="form-group">
+            <div class="form-row">  
+              <div class="col-md-12">
+                <div class="form-label-group">
+                  <input type="password" id="OldPass" name='OldPass' class="form-control" placeholder="OldPass" required="required" autofocus="autofocus">
+                  <label for="OldPass">Old Password</label>
+                </div>
+              </div>
             </div>
           </div>
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-label-group">
+                      <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                        required="required">
+                      <label for="password">New Password</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-label-group">
+                      <input type="password" id="repassword" name="repassword" class="form-control"
+                        placeholder="Confirm password" required="required">
+                      <label for="repassword">Confirm password</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          <button class="btn btn-primary btn-block" type="submit" name="submit">Edit</button>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="profile.php">Cancel</a>
         </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <?php 
+//	close the connection
+	mysqli_close($connect);
+?>
 
       </div>
       <!-- /.container-fluid -->
