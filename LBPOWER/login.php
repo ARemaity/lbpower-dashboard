@@ -28,11 +28,11 @@ session_start();
 if(isset($_SESSION['cname']) || isset($_SESSION['admin']))
 {
 	if($_SESSION['role']==1){
-    $message = "<h2 class='text-danger'>Already Logged in</h2>";
+    $message = "<script type='text/javascript'>alert('Already Logged In');</script>";
 	echo $message;
 	header("refresh:1;url=supplier/supplierdash.php");}
 	else if($_SESSION['role']==2){
-    $message = "<h2 class='text-danger'>Already Logged in</h2>";
+    $message = "<script type='text/javascript'>alert('Already Logged In');</script>";
 	echo $message;
 	header("refresh:1;url=admin/admindash.php");}
 }
@@ -95,19 +95,19 @@ if(isset($_POST['submit'])){
 				}
 				else
 				{
-					$message = "<h2 class='text-danger'>Wrong Password</h2>";
+					$message = "<script type='text/javascript'>alert('Incorrect Password, Please try again');</script>";
 					echo $message;
 				}
 			}
 			else
 			{
-				$message = "<h2 class='text-danger'>Please First Verify, your email address</h2>";
+				$message = "<script type='text/javascript'>alert('Please Verify You're email before logging in');</script>";
 				echo $message;
 			}
 	}
 	else
 	{
-		$message = "<h2 class='text-danger'>Wrong Email Address</h2>";
+		$message = "<script type='text/javascript'>alert('Email address doesnt exist, please try again');</script>";
 		echo $message;
 	}	 
 	
