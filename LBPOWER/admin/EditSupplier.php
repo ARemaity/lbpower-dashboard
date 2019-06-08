@@ -26,7 +26,7 @@ include("../DBConnect.php");
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>View Complaints</title>
+  <title>Edit Supplier</title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -148,8 +148,8 @@ if(isset($_GET['submit'])){	//	page submitted
 	if(!$result || !$result2 || !$result3)
 			die("Something went wrong");
 	else
-			echo ' <h2 style="color:green;">Supplier Updated Successfully</h2>';
-			header("refresh:1;url=../admin/ViewSuppliers.php");
+			echo "<script type='text/javascript'>alert('Supplier Updated Successfully');</script>";
+			header("refresh:1;url=ViewSuppliers.php");
 }
 else{
 	$id = $_GET['PID'];

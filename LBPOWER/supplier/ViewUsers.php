@@ -185,12 +185,12 @@ include("../DBConnect.php");
                       <td><?php echo $row['phone']; ?></td>
                       <td><?php echo $row['email']; ?></td>
                       <?php
-                      $query = "../supplier/editUser.php?PID=" . $row['PID'];
+                      $query = "editUser.php?PID=" . $row['PID'];
                       echo "<td width='90'> <a href=" . $query . ">Edit User</a></td>";
-                      $query3 = "../supplier/ViewUserPayments.php?ID=" . $row['id'];
+                      $query3 = "ViewUserPayments.php?ID=" . $row['id'];
                       echo "<td width='90'> <a href=" . $query3 . ">Payments</a></td>";
                       if ($row['id'] = $row2['id']) {
-                        $query2 = "../supplier/AddDevice.php?ID=" . $id = $rows[$key]['id'];
+                        $query2 = "AddDevice.php?ID=" . $id = $rows[$key]['id'];
                         //$_SESSION['cPID']=$rows[$key]['PID'];
                         //TODO: comment here for better undertstanding
                         $_SESSION['ID'] = $id;

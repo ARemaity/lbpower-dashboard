@@ -119,6 +119,15 @@ include("../DBConnect.php");
 <?php
 	
 if(isset($_GET['submit'])){	//	page submitted
+
+    $getdata = mysqli_query($connect , "SELECT * FROM pass Where email='" . $_GET['email'] . "'");
+
+    if (mysqli_num_rows($getdata) > 0) 
+ {
+  $message = "<script type='text/javascript'>alert('This email is in use by another account');</script>";
+  echo $message;
+ }
+ else{
 	
 	if($_GET['password'] == $_GET['passwordr']){
 		
@@ -145,19 +154,20 @@ if(isset($_GET['submit'])){	//	page submitted
 	$result2 = mysqli_query($connect,$sql2);
 	}
 	else{
-		echo '<h2 style="color:red;">Passwords Must Match</h2>';
+		echo "<script type='text/javascript'>alert('Passwords MUST match');</script>";
 			  mysqli_close($connect);
-			  header("refresh:1;url=../web/admin/register.php");
+			  header("refresh:1;url=addsupplier.php");
 	}
 		//If the sql returns an error
 	if(!$result || !$result2){
 			die("Something went wrong");
 	}
 	else{
-			echo ' <h2 style="color:green;">Supplier Added Successfully</h2>';
+			echo "<script type='text/javascript'>alert('Supplier successfully added.');</script>";
 			mysqli_close($connect);
 			header("refresh:1;url=ViewSuppliers.php");
 	}
+}
 }
 ?>
 

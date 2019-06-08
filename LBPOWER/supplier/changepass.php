@@ -119,16 +119,16 @@ include("../DBConnect.php");
 
 <?php
 	
-if(isset($_GET['submit'])){	//	page submitted
+if(isset($_POST['submit'])){	//	page submitted
 
 $sql="select password from pass where email = '".$_SESSION['email']."' ";
 $result = mysqli_query($connect,$sql);
 $row= mysqli_fetch_assoc($result);
 
-if(password_verify($_GET["OldPass"], $row["password"])){
-	if($_GET["password"] == $_GET["repassword"]){
+if(password_verify($_POST["OldPass"], $row["password"])){
+	if($_POST["password"] == $_POST["repassword"]){
 		
-    $user_password =$_GET['password'];
+    $user_password =$_POST['password'];
     $user_encrypted_password = password_hash($user_password, PASSWORD_DEFAULT);
 	
 	$sql2="update pass
@@ -139,16 +139,16 @@ if(password_verify($_GET["OldPass"], $row["password"])){
 	if(!$result || !$result2)
 			die("Something went wrong");
 	else
-			echo ' <h2 style="color:green;">Password Updated Successfully, please log in with your new password</h2>';
+			echo "<script type='text/javascript'>alert('Password updated, please login');</script>";
 			header("refresh:1;url=../logout.php");
 }
 	else{
-			echo ' <h2 style="color:red;">Passwords MUST match, please try again</h2>';
+			echo "<script type='text/javascript'>alert('Passwords MUST match, please try again');</script>";
 			header("refresh:1;url=changepass.php");
 	}
 }
 	else{
-			echo ' <h2 style="color:red;">Incorrect Password, please try again</h2>';
+			echo "<script type='text/javascript'>alert('Password incorrect, please try again');</script>";
 			header("refresh:1;url=changepass.php");
 	}
 }
@@ -158,7 +158,7 @@ if(password_verify($_GET["OldPass"], $row["password"])){
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">Change Password</div>
       <div class="card-body">
-        <form style="background-color gray" method="GET">
+        <form style="background-color gray" method="POST">
 		
           <div class="form-group">
             <div class="form-row">  

@@ -136,7 +136,7 @@ if(isset($_GET['submit'])){	//	page submitted
 	if(!$result)
 			die("Something went wrong");
 	else
-			echo ' <h2 style="color:green;">Device Added Successfully</h2>';
+			echo "<script type='text/javascript'>alert('Device added successfully');</script>";
 			header("refresh:1;url=ViewUsers.php");
 }
 ?>

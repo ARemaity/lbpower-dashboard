@@ -135,8 +135,8 @@ if(isset($_GET['submit'])){	//	page submitted
 	if(!$result)
 			die("Something went wrong");
 	else
-			echo ' <h2 style="color:green;">User Updated Successfully</h2>';
-			header("refresh:1;url=../supplier/ViewUsers.php");
+			echo "<script type='text/javascript'>alert('User updated successfully');</script>";
+			header("refresh:1;url=ViewUsers.php");
 }
 else{
 	$id = $_GET['PID'];

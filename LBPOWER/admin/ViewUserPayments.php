@@ -147,7 +147,7 @@ include("../DBConnect.php");
 
 $sql="SELECT *
       FROM payment
-      WHERE fk_client='".$_GET["PID"]."' ";
+      WHERE fk_client='".$_GET["ID"]."' ";
 	  
 $result = mysqli_query($connect,$sql);
 
