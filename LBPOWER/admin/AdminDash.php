@@ -30,7 +30,7 @@ $resnumusers=mysqli_query($connect,$numusers);
     }
 
 //Admin Revenue
-$adrev="SELECT sum(total) FROM payment, client WHERE payment_date > DATE_SUB(NOW(), INTERVAL 1 MONTH) AND fk_client=client.PID";
+$adrev="SELECT sum(total) from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=MONTH(CURDATE()) AND fk_client=client.id";
 $resadrev=mysqli_query($connect,$adrev);
 	if(mysqli_num_rows($resadrev)==0){
 		$totalr=0;
@@ -40,6 +40,102 @@ $resadrev=mysqli_query($connect,$adrev);
 		$eleven=$totalr*(11/100);
 		$totalr=$eleven;
 	}
+	
+	
+$sql1 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=1");
+$cum1 = mysqli_fetch_object($sql1);
+$q1  = (int)$cum1->sums*(11/100);
+
+
+
+
+$sql2 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=2");
+$cum2 = mysqli_fetch_object($sql2);
+$q2  = (int)$cum2->sums*(11/100);
+
+
+
+
+$sql3 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=3");
+$cum3 = mysqli_fetch_object($sql3);
+$q3  = (int)$cum3->sums*(11/100);
+
+
+
+
+$sql4 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=4");
+
+$cum4 = mysqli_fetch_object($sql4);
+$q4  = (int)$cum4->sums*(11/100);
+
+
+
+
+
+$sql5 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=5");
+
+$cum5 = mysqli_fetch_object($sql5);
+$q5  = (int)$cum5->sums*(11/100);
+
+
+
+
+
+$sql6 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=6");
+
+$cum6 = mysqli_fetch_object($sql6);
+$q6  = (int)$cum6->sums*(11/100);
+
+
+
+
+
+$sql7 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=7");
+
+$cum7 = mysqli_fetch_object($sql7);
+$q7  = (int)$cum7->sums*(11/100);
+
+
+
+
+
+$sql8 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=8");
+
+$cum8 = mysqli_fetch_object($sql8);
+$q8  = (int)$cum8->sums*(11/100);
+
+
+
+
+
+$sql9 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=9");
+
+$cum9 = mysqli_fetch_object($sql9);
+$q9  = (int)$cum9->sums*(11/100);
+
+
+
+
+
+
+$sql10 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=10");
+
+$cum10 = mysqli_fetch_object($sql10);
+$q10  = (int)$cum10->sums*(11/100);
+
+
+
+$sql11 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=11");
+
+$cum11 = mysqli_fetch_object($sql11);
+$q11  = (int)$cum11->sums*(11/100);
+
+
+
+$sql12 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND payment.payment_st=1 AND month(payment.payment_date)=12");
+
+$cum12 = mysqli_fetch_object($sql12);
+$q12  = (int)$cum12->sums*(11/100);
 ?>
 <html lang="en">
 
@@ -52,7 +148,8 @@ $resadrev=mysqli_query($connect,$adrev);
   <meta name="author" content="">
 
   <title>Admin Dashboard</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -203,19 +300,39 @@ $resadrev=mysqli_query($connect,$adrev);
 </div>
 
 <!-- Area Chart Example-->
-<div class="card mb-3">
-  <div class="card-header">
-    <i class="fas fa-chart-area"></i>
-    Area Chart Example</div>
-  <div class="card-body">
-  <div id="myPlot" style="width: 100%; max-height:75vh"></div>
-  </div>
-  <div class="card-footer small text-muted">Live update</div>
-</div>
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Area Chart Example</div>
+          <div class="card-body">
+            <canvas id="line-chart" width="100%" height="30"></canvas>
+            <script>
+              var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+              new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                  datasets: [{
+                    data: [<?php echo $q1; ?>, <?php echo $q2; ?>, <?php echo $q3; ?>, <?php echo $q4; ?>, <?php echo $q5; ?>, <?php echo $q6; ?>, <?php echo $q7; ?>, <?php echo $q8; ?>, <?php echo $q9; ?>, <?php echo $q9; ?>, <?php echo $q10; ?>, <?php echo $q11; ?>, <?php echo $q12; ?>],
+                    label: "Monthly Revenue in L.L",
+                    borderColor: "#3e95cd",
+                    fill: false
+                  }]
+                },
+                options: {
+                  title: {
+                    display: true,
+                    text: 'total revenue from client per month'
+                  }
+                }
+              });
+            </script>
+              </div> 
+			  <div class = "card-footer small text-muted" > Live update </div>
 
-</div>
- </div>
-      <!-- /.container-fluid -->
+                </div>
+
+                <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
       <footer class="sticky-footer">

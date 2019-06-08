@@ -126,7 +126,7 @@ $type=$_POST["ctype"];
 $text=$_POST["subject"];
 $sql="INSERT INTO complaint(complaint_type,detials,sender_type,fk_sender) VALUES ('$type','$text','$role','".$_SESSION['id']."')";
 $result = mysqli_query($connect,$sql);
-echo ' <h2 style="color:green;">Complaint is sent and will be reviewed by admins shortly</h2>';
+echo "<script type='text/javascript'>alert('Complaint sent and will be reviewed shortly');</script>";
 header("refresh:1;url=SupplierDash.php");
 mysqli_close($connect);
 }

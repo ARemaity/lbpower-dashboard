@@ -157,7 +157,7 @@ include("../DBConnect.php");
                 <tbody>
                   <?php
                     if ($_SESSION['role'] == 2) {
-                    $sql = "SELECT client.PID, fname, lname, city, street, phone, email
+                    $sql = "SELECT client.id, client.PID, fname, lname, city, street, phone, email
 								FROM person, client
 								WHERE person.PID=client.PID
 								AND person.role=0";
@@ -171,11 +171,11 @@ include("../DBConnect.php");
 				  if(mysqli_num_rows ( $result )>0){
                   foreach ($rows as $key => $row) {
                     //Check if user does NOT have a device
-                    $devicecheck =  'SELECT PID
+                    $devicecheck =  'SELECT client.id,PID
 						 FROM client
 						 WHERE NOT EXISTS(select fk_client
 										  from device
-										  where fk_client=' . $row['PID'] . ')';
+										  where fk_client="'.$row['id'].'")';
 
                     $result2 = mysqli_query($connect, $devicecheck);
                     $row2 = mysqli_fetch_assoc($result2);
@@ -193,7 +193,7 @@ include("../DBConnect.php");
                       <?php
                       $query = "editUser.php?PID=" . $row['PID'];
                       echo "<td width='90'> <a href=" . $query . ">Edit User</a></td>";
-                      $query3 = "ViewUserPayments.php?PID=" . $row['PID'];
+                      $query3 = "ViewUserPayments.php?ID=" . $row['id'];
                       echo "<td width='90'> <a href=" . $query3 . ">Payments</a></td>";
                       // // if ($row['PID'] = $row2['PID']) {
                       // //   $query2 = "AddDevice.php?ID=" . $id = $rows[$key]['PID'];

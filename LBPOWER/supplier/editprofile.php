@@ -139,8 +139,9 @@ if(isset($_GET['submit'])){	//	page submitted
 	if(!$result || !$result2)
 			die("Something went wrong");
 	else
-			echo ' <h2 style="color:green;">Profile Updated Successfully</h2>';
-			header("refresh:1;url=../supplier/ViewUsers.php");
+			$_SESSION['name']=$_GET['fname'];
+			echo "<script type='text/javascript'>alert('Profile updated successfully');</script>";
+			header("refresh:1;url=profile.php");
 }
 else{
 	$id = $_SESSION['PID'];
