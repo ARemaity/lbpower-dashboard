@@ -67,28 +67,28 @@ $resrevenue = mysqli_query($connect, $revenue);
 
 
 
-$sql1 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=1");
+$sql1 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=1");
 $cum1 = mysqli_fetch_object($sql1);
 $q1  = (int)$cum1->sums;
 
 
 
 
-$sql2 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=2");
+$sql2 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=2");
 $cum2 = mysqli_fetch_object($sql2);
 $q2  = (int)$cum2->sums;
 
 
 
 
-$sql3 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=3");
+$sql3 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=3");
 $cum3 = mysqli_fetch_object($sql3);
 $q3  = (int)$cum3->sums;
 
 
 
 
-$sql4 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=4");
+$sql4 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=4");
 
 $cum4 = mysqli_fetch_object($sql4);
 $q4  = (int)$cum4->sums;
@@ -97,7 +97,7 @@ $q4  = (int)$cum4->sums;
 
 
 
-$sql5 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=5");
+$sql5 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=5");
 
 $cum5 = mysqli_fetch_object($sql5);
 $q5  = (int)$cum5->sums;
@@ -106,7 +106,7 @@ $q5  = (int)$cum5->sums;
 
 
 
-$sql6 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=6");
+$sql6 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=6");
 
 $cum6 = mysqli_fetch_object($sql6);
 $q6  = (int)$cum6->sums;
@@ -115,7 +115,7 @@ $q6  = (int)$cum6->sums;
 
 
 
-$sql7 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=7");
+$sql7 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=7");
 
 $cum7 = mysqli_fetch_object($sql7);
 $q7  = (int)$cum7->sums;
@@ -124,7 +124,7 @@ $q7  = (int)$cum7->sums;
 
 
 
-$sql8 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=8");
+$sql8 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=8");
 
 $cum8 = mysqli_fetch_object($sql8);
 $q8  = (int)$cum8->sums;
@@ -133,7 +133,7 @@ $q8  = (int)$cum8->sums;
 
 
 
-$sql9 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=9");
+$sql9 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=9");
 
 $cum9 = mysqli_fetch_object($sql9);
 $q9  = (int)$cum9->sums;
@@ -143,21 +143,21 @@ $q9  = (int)$cum9->sums;
 
 
 
-$sql10 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=10");
+$sql10 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=10");
 
 $cum10 = mysqli_fetch_object($sql10);
 $q10  = (int)$cum10->sums;
 
 
 
-$sql11 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=11");
+$sql11 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=11");
 
 $cum11 = mysqli_fetch_object($sql11);
 $q11  = (int)$cum11->sums;
 
 
 
-$sql12 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['PID'] . " AND payment.payment_st=1 AND month(payment.payment_date)=12");
+$sql12 = mysqli_query($connect, "SELECT sum(Total) as sums  from payment,client where payment.fk_client=client.id AND client.fkSupplier=" . $_SESSION['id'] . " AND payment.payment_st=1 AND month(payment.payment_date)=12");
 
 $cum12 = mysqli_fetch_object($sql12);
 $q12  = (int)$cum12->sums;
