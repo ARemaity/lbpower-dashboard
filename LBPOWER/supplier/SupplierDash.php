@@ -331,7 +331,7 @@ $q12  = (int)$cum12->sums;
                   <i class="fas fa-file-invoice-dollar"></i>
                 </div>
                 <div class="mr-5">
-                  <font color="black">KW Consumption this month: <?php echo $totalc; ?>KW</font>
+                  KW Consumption this month: <?php echo $totalc; ?>KW
                 </div>
               </div>
               <!-- <a class="card-footer text-white clearfix small z-1" href="#">
@@ -349,7 +349,7 @@ $q12  = (int)$cum12->sums;
                   <i class="fas fa-angle-right"></i>
                 </div>
                 <div class="mr-5">
-                  <font color="black">Unpaid payments total: <?php echo $totalp; ?></font>
+                  Unpaid payments total: <?php echo $totalp; ?>
                 </div>
               </div>
               <!-- <a class="card-footer text-white clearfix small z-1" href="#">
