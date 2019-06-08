@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+include_once('../src/PHPMailer.php');
+include_once('../src/SMTP.php');
+include_once('../src/Exception.php');
 session_start();
 ///TODO: this is FOR THE SECUIRTY
 if(!isset($_SERVER['HTTP_REFERER']))
@@ -154,7 +157,53 @@ if(isset($_GET['submit'])){	//	page submitted
 			die("Something went wrong");
 	}
 	else{
-			echo ' <h2 style="color:green;">Supplier Added Successfully</h2>';
+      echo ' <h2 style="color:green;">Supplier Added Successfully</h2>';
+      /////////////////
+      $mail_body = "
+      <p> Hi ".$_GET['fname']."</p>
+      <p>The Admin has added you . Your password is ".$_GET['password']."<p>Best Regards,<br />LBPOWER</p>
+   
+   
+      <div id='signature-to-copy'><table cellpadding='0' cellspacing='0' border='0' style='background: none; border-width: 0px; border: 0px; margin: 0; padding: 0;'>
+      <tbody><tr><td colspan='2' style='padding-bottom: 5px; color: #F7751F; font-size: 18px; font-family: Arial, Helvetica, sans-serif;'>LBPOWER Info</td></tr>
+      <tr><td colspan='2' style='color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;'><strong>lbpower .ltd</strong></td></tr>
+      <tr><td width='20' valign='top' style='vertical-align: top; width: 20px; color: #F7751F; font-size: 14px; font-family: Arial, Helvetica, sans-serif;'>p:</td><td valign='top' style='vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;'>+961434234&nbsp;&nbsp;<span style='color: #F7751F;'>m:&nbsp;</span>7002345</td></tr>
+      <tr><td width='20' valign='top' style='vertical-align: top; width: 20px; color: #F7751F; font-size: 14px; font-family: Arial, Helvetica, sans-serif;'>a:</td><td valign='top' style='vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;'>Tyre,LIU</td></tr>
+      <tr><td width='20' valign='top' style='vertical-align: top; width: 20px; color: #F7751F; font-size: 14px; font-family: Arial, Helvetica, sans-serif;'>w:</td><td valign='top' style='vertical-align: top; color: #333333; font-size: 14px; font-family: Arial, Helvetica, sans-serif;'><a href='http://lbpower.com' style=' color: #1da1db; text-decoration: none; font-weight: normal; font-size: 14px;'>lbpower.com</a>&nbsp;&nbsp;<span style='color: #F7751F;'>e:&nbsp;</span><a href='mailto:lbpowerinfo@gmail.com' style='color: #1da1db; text-decoration: none; font-weight: normal; font-size: 14px;'>lbpowerinfo@gmail.com</a></td></tr>
+      </tbody></table>
+      </div>
+        
+   
+      
+      ";
+       $mail = new PHPMailer\PHPMailer\PHPMailer();
+       $mail->IsSMTP(); // enable SMTP
+      //$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+       //authentication SMTP enabled
+       $mail->SMTPAuth = true; 
+       $mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for Gmail
+       $mail->Host = "smtp.gmail.com";
+       //indico el puerto que usa Gmail 465 or 587
+       $mail->Port = 465; 
+       
+       $mail->Username = "lbpowerinfo@gmail.com";
+       $mail->Password = "kHthw4zd123";
+       $mail->SetFrom("lbpowerinfo@gmail.com","LBPOWER Verfiy");  //Sets the From email address for the message
+          //Sets the From name of the message
+       $mail->AddAddress($_GET["email"]);
+      //Adds a "To" address   
+       $mail->WordWrap = 50;       //Sets word wrapping on the body of the message to a given number of characters
+       $mail->IsHTML(true);       //Sets message type to HTML    
+       $mail->Subject = 'LBPOWER Registration';   //Sets the Subject of the message
+       $mail->Body = $mail_body; 
+       if(!$mail->Send()) {
+           echo "Mailer Error: " . $mail->ErrorInfo; $debug['API.email'] = 0;
+        } else {
+           echo "Message has been sent";  $debug['API.email'] = 1;
+        }
+
+
+//////////////
 			mysqli_close($connect);
 			header("refresh:1;url=ViewSuppliers.php");
 	}

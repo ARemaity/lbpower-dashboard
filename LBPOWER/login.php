@@ -136,7 +136,7 @@ if(isset($_POST['submit'])){
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="admin/register.php">Register an Account</a>
-          <a class="d-block small" href="#">Forgot Password?</a>
+          <a class="d-block small" href="admin/forget.php">Forgot Password?</a>
         </div>
       </div>
     </div>
