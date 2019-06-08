@@ -33,7 +33,7 @@
       $data["email"] = $row["email"];
     
     }
-    
+    $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" . $fk_client . "'"  or die(mysqli_error($conn));
   array_push($dbdata["data"],$data);
   die(json_encode($dbdata,JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
   }
