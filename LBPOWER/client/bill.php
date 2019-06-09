@@ -3,7 +3,7 @@
     <?php
 include("DBConnect.php");
 session_start();
-$getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $_SESSION['id'] . "'") or die(mysqli_error($conn));
+$getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" . $_SESSION['id'] . "'") or die(mysqli_error($connect));
   if (mysqli_num_rows($getdata) == 0) {
     $kw =  0;
   } else {
@@ -12,7 +12,7 @@ $getdata = mysqli_query($connect, "SELECT value FROM  cumulative Where fk_id='" 
     $kw =  $getCumumlative;
 }
 
-$costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" .  $_SESSION['id']. "'"  or die(mysqli_error($conn));
+$costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = supplier.id and client.id ='" .  $_SESSION['id']. "'"  or die(mysqli_error($connect));
    
     $result = mysqli_query($connect, $costQ);
     if (mysqli_num_rows($result) == 0) {
@@ -23,7 +23,7 @@ $costQ = "SELECT `cost_1kw` FROM `supplier`,`client` where client.fkSupplier = s
     } else {
       $cost = mysqli_fetch_object($result);
       $get1kw  = (int)$cost->cost_1kw;
-      $total = $get1kw * $getCumumlative;
+      $total = $get1kw * $kw;
       echo "payment till today ".$total;
       
     }
