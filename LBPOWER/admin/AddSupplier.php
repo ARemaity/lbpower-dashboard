@@ -264,7 +264,7 @@ if(isset($_GET['submit'])){	//	page submitted
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="Phone"  name="phone" class="form-control" placeholder="Phone" required="required" autofocus="autofocus">
+                  <input type="tel" id="Phone"  name="phone" class="form-control" placeholder="Phone" required="required" autofocus="autofocus">
                   <label for="Phone">Phone</label>
                 </div>
               </div>
