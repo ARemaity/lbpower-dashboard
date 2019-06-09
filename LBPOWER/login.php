@@ -74,6 +74,12 @@ if(isset($_POST['submit'])){
 						$_SESSION['name'] = $row2['fname'];
 						$_SESSION['email'] = $row2['email'];
 						$_SESSION['cname']=$row2['comapany_name'];
+						
+						$welcome="select fkSupplier from client where fkSupplier=".$_SESSION['id']."";
+						$reswelcome=mysqli_query($connect, $welcome);
+						if(mysqli_num_rows($reswelcome)<1){
+							echo "<script type='text/javascript'>alert('Welcome supplier ".$_SESSION['name'].", to LBPower System. It seems that you dont have users');</script>";
+						}
 						header("refresh:1;url=supplier/supplierdash.php");
 						}
 								
