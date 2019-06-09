@@ -166,7 +166,7 @@ if(isset($_GET['submit'])){	//	page submitted
 			die("Something went wrong");
 	}
 	else{
-      echo ' <h2 style="color:green;">Supplier Added Successfully</h2>';
+      echo "<script type='text/javascript'>alert('Supplier Added Successfully');</script>";
       /////////////////
       $mail_body = "
       <p> Hi ".$_GET['fname']."</p>
@@ -213,8 +213,9 @@ if(isset($_GET['submit'])){	//	page submitted
 
 
 //////////////
-			mysqli_close($connect);
 			header("refresh:1;url=ViewSuppliers.php");
+			mysqli_close($connect);
+
 	}
 }
 }
