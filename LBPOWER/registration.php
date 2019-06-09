@@ -270,8 +270,7 @@ $insert = mysqli_query($connect, " INSERT INTO person (role,fname,lname,city,str
                                                     <div class="help-block with-errors"></div>
                                                 </div>
                                         </div>
-                            
-                                  </div>
+                                </div>
                                   <div class="container">
                                         <div class="row">
                                         <div class="col-sm-6 form-group">
@@ -283,9 +282,7 @@ $insert = mysqli_query($connect, " INSERT INTO person (role,fname,lname,city,str
                                             </div>
                                             <div class="col-sm-6 form-group">
                                                 <label>Phone</label>
-                                            
-                                                    
-                                                     
+                                              
                                                 <input id="phone" type="tel"  name="phone" class="form-control" required="required" data-error="Valid phone is required."
                                                     placeholder="Enter your phone">
                                                 

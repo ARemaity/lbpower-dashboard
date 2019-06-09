@@ -22,7 +22,12 @@ var config = {
      /////no thing here to make the user able to make the login processs
     }
   });
+function reset(){
+window.alert("hihi");
+var email=document.getElementById("email").value;  
 
+firebase.auth().sendPasswordResetEmail(email);
+}
   function logout(){
     firebase.auth().signOut();
     location.replace("http://localhost/final/LBPOWER/");

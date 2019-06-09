@@ -33,7 +33,30 @@
     <link rel="stylesheet" href="css/colors/color.css" />
     <link rel="icon" type="image/png" href="favicon.png">
 
+    <style>
 
+        .modal-header {
+          background-color: #cf8ec4;
+          color: rgb(0, 0, 0);
+        }
+        .modal-body{
+        
+            background-color: #cf8ec4;
+          color: rgb(0, 0, 0);
+            
+        }
+        .modal-footer{
+        
+            background-color: #cf8ec4;
+          color: rgb(0, 0, 0);
+            
+        }
+        #email{
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+
+        }
+        </style>
 </head>
 
 <body>
@@ -124,22 +147,46 @@
                           <input type="email"  id="email_field" placeholder="Enter Email" class="form-control validate">
                       
                         </div>
-                </div> <div class="container"  id="logindiv">
+                        </div> <div class="container"  id="logindiv">
                         <div class="col-lg-4 col-centered" style="margin-left:35%;">   
                             <label data-error="wrong" data-success="right" for="defaultForm-pass">Password</label>
                           <input type="password"  placeholder="Enter password" id="password_field" class="form-control validate">
-                      
+                          <a class="d-block small" href="#"  data-toggle="modal" data-target="#myModal"    >Forgot Password?</a>
                         </div>
                 
                       </div>
                     <div class="col-md-12 text-center" style="margin-top:50px;">
                         <input type="submit" onclick="login()" class="btn btn-primary btn-send text-center" value="Sign in">
+                       
                     </div>
+                    
                 </div>
 
             </div>
 
-
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="myModalLabel">Enter Email</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12 form-group">
+                        
+                            <input id="email" type="email" name="email" class="form-control"
+                                placeholder="Enter your email *" required="required" data-error="Valid email is required.">
+                
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary hidden-print" onclick="reset();"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>reset</button>
+                          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        </div>
+                    
+                  </div>
+                </div>
+              </div>
       
 
   
